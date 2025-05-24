@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Rutas Turísticas de Mieres</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Rutas Turísticas de Mieres</h1>
+    <div id="rutas-lista">
+        <!-- Aquí se mostrarán las rutas -->
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Intentar cargar el archivo XML
+            $.ajax({
+                type: "GET",
+                url: "rutas.xml",  // Asegúrate de que esta ruta sea correcta
+                dataType: "xml",
+                success: function(xml) {
+                    var rutas = $(xml).find('ruta');  // Buscar todas las rutas en el XML
+                    
+                    if (rutas.length === 0) {
+                        $('#rutas-lista').append('<p>No se encontraron rutas.</p>');
+                    }
+
+                    // Iterar sobre cada ruta en el XML
+                    rutas.each(function() {
+                        var nombre = $(this).find('nombre').text();
+                        var tipo = $(this).find('tipo').text();
+                        var transporte = $(this).find('medioTransporte').text();
+                        var duracion = $(this).find('duracion').text();
+                        var descripcion = $(this).find('descripcion').text();
+
+                        var rutaHTML = `
+                            <div class="ruta">
+                                <h2>${nombre}</h2>
+                                <p><strong>Tipo:</strong> ${tipo}</p>
+                                <p><strong>Transporte:</strong> ${transporte}</p>
+                                <p><strong>Duración:</strong> ${duracion}</p>
+                                <p><strong>Descripción:</strong> ${descripcion}</p>
+                            </div>
+                        `;
+                        $('#rutas-lista').append(rutaHTML);  // Añadir la información de la ruta a la página
+                    });
+                },
+                error: function() {
+                    $('#rutas-lista').append('<p>Error al cargar el archivo XML.</p>');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

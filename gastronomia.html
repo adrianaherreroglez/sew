@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+	<meta charset="UTF-8" />
+    <meta name ="author" content ="tu nombre" />
+    <meta name ="description" content ="indicar la descripción del contenido concreto del documento" />
+    <meta name ="keywords" content ="lista de las palabras clave del contenido del documento separadas por comas" />
+    <meta name ="viewport" content ="width=device-width, initial-scale=1.0" />
+    
+    <title>Mieres</title>
+    <link rel="stylesheet" type="text/css" href="estilo/estilo.css" />
+    <link rel="stylesheet" type="text/css" href="estilo/layout.css" />
+</head>
+
+<body> 
+    <!-- Menú de navegación -->
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="gastronomia.html" class="active">Gastronomía</a>
+        <a href="rutas.html">Rutas</a>
+        <a href="meteorologia.html">Meteorología</a>
+        <a href="juego.html">Juego</a>
+        <a href="reservas.php">Reservas</a>
+        <a href="ayuda.html">Ayuda</a>
+    </nav>
+    <h1>Gastronomía de Mieres</h1>
+
+    <!-- Lista ordenada -->
+    <h2>Platos típicos</h2>
+    <ol>
+        <li>Fabada asturiana</li>
+        <li>Cachopo</li>
+        <li>Pote asturiano</li>
+    </ol>
+
+    <!-- Lista no ordenada con lista anidada -->
+    <h2>Ingredientes más utilizados</h2>
+    <ul>
+        <li>Legumbres</li>
+        <li>Embutidos
+            <ul>
+                <li>Chorizo</li>
+                <li>Morcilla</li>
+                <li>Jamón</li>
+            </ul>
+        </li>
+        <li>Quesos asturianos</li>
+    </ul>
+
+    <!-- Lista de definición -->
+    <h2>Términos gastronómicos</h2>
+    <dl>
+        <dt>Fabada</dt>
+        <dd>Plato tradicional asturiano hecho con fabes, chorizo, morcilla y panceta.</dd>
+
+        <dt>Cachopo</dt>
+        <dd>Filete empanado relleno de jamón y queso, típico de la gastronomía asturiana.</dd>
+
+        <dt>Sidra</dt>
+        <dd>Bebida alcohólica fermentada y elaborada con manzanas.</dd>
+    </dl>
+
+    <!-- Tabla accesible y adaptable -->
+    <h2>Platos y sus ingredientes principales</h2>
+    <table id="tabla-gastronomia">
+        <caption>Ingredientes principales de platos asturianos</caption>
+        <thead>
+            <tr>
+                <th>Plato</th>
+                <th>Ingredientes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Fabada</td>
+                <td>Fabes, chorizo, morcilla, panceta</td>
+            </tr>
+            <tr>
+                <td>Cachopo</td>
+                <td>Ternera, jamón, queso, pan rallado</td>
+            </tr>
+            <tr>
+                <td>Pote asturiano</td>
+                <td>Berza, fabes, patatas, embutidos</td>
+            </tr>
+            <tr>
+                <td>Sidra</td>
+                <td>Manzana fermentada</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Imagen adaptable y accesible -->
+    <h2>Imagen de un plato típico</h2>
+    <picture>
+        <source srcset="imagenes/fabada-large.jpg" media="(min-width: 800px)">
+        <source srcset="imagenes/fabada-medium.jpg" media="(min-width: 500px)">
+        <img src="imagenes/fabada-small.jpg" alt="Un plato de fabada asturiana" style="max-width: 100%; height: auto;">
+    </picture>
+
+    <!-- Vídeo adaptable y accesible -->
+    <h2>Preparación de la fabada</h2>
+    <video controls width="100%">
+        <source src="videos/fabada.mp4" type="video/mp4">
+        <source src="videos/fabada.webm" type="video/webm">
+        Tu navegador no soporta la reproducción de videos.
+    </video>
+
+    <!-- Audio adaptable y accesible  -->
+    <h2>Audio sobre gastronomía asturiana</h2>
+    <audio controls>
+        <source src="audios/asturias.ogg" type="audio/ogg">
+        <source src="audios/asturias.mp3" type="audio/mpeg">
+        Tu navegador no soporta la reproducción de audio.
+    </audio>
+
+
+</body>
+</html>

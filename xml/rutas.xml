@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rutas SYSTEM "rutas.dtd">
+<rutas>
+  <ruta id="1">
+    <nombre>Ruta de los Molinos</nombre>
+    <tipo>Arquitectura y Monumentos</tipo>
+    <medioTransporte>A pie</medioTransporte>
+    <fechaInicio>2025-03-01</fechaInicio>
+    <horaInicio>09:00</horaInicio>
+    <duracion>2 horas</duracion>
+    <agencia>Sin agencia</agencia>
+    <descripcion>Recorrido por antiguos molinos de agua en el valle.</descripcion>
+    <personasAdecuadas>Se puede ir con niños</personasAdecuadas>
+    <lugarInicio>Plaza del Ayuntamiento</lugarInicio>
+    <direccionInicio>Calle Mayor</direccionInicio>
+    <coordenadasInicio>
+      <longitud>-5.721</longitud>
+      <latitud>43.245</latitud>
+      <altitud>320</altitud>
+    </coordenadasInicio>
+    <referencias>
+      <referencia>https://es.wikipedia.org/wiki/Foncalada</referencia>
+      <referencia>http://prerromanicoasturiano.es/</referencia>
+    </referencias>
+    <recomendacion>8</recomendacion>
+    <hitos>
+      <hito>
+        <nombre>Molino de X</nombre>
+        <descripcion>Molino restaurado con vistas panorámicas.</descripcion>
+        <coordenadas>
+          <longitud>-5.724</longitud>
+          <latitud>43.246</latitud>
+          <altitud>330</altitud>
+        </coordenadas>
+        <distanciaDesdeAnterior unidades="km">1.5</distanciaDesdeAnterior>
+        <galeriaFotos>
+          <foto>MolinoVista.jpg</foto>
+          <foto>MolinoDetalle.jpg</foto>
+        </galeriaFotos>
+        <galeriaVideos>
+          <video>PaisajeMolino.mpeg</video>
+        </galeriaVideos>
+      </hito>
+      <!-- Más hitos aquí -->
+    </hitos>
+    <planimetriaKML>ruta1.kml</planimetriaKML>
+    <altimetriaSVG>ruta1.svg</altimetriaSVG>
+  </ruta>
+  <!-- Más rutas aquí -->
+</rutas>
