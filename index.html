@@ -3,20 +3,25 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="author" content="tu nombre" />
-    <meta name="description" content="indicar la descripción del contenido concreto del documento" />
-    <meta name="keywords" content="lista de las palabras clave del contenido del documento separadas por comas" />
+    <meta name="description" content="Página sobre Mieres, Asturias" />
+    <meta name="keywords" content="Mieres, Asturias, turismo, rutas, gastronomía" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <title>Mieres</title>
     <link rel="stylesheet" type="text/css" href="estilo/estilo.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- Se carga jQuery -->
-    <script src="js/script.js" defer></script>  <!-- Se carga el archivo de JavaScript -->
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Scripts personalizados -->
+    <script src="js/carrusel.js" defer></script>
+    <script src="js/noticias.js" defer></script>
 </head>
 
 <body> 
     <!-- Menú de navegación -->
     <nav>
-        <a href="index.html" class="active">Inicio</a>
+        <a href="index.html">Inicio</a>
         <a href="gastronomia.html">Gastronomía</a>
         <a href="rutas.html">Rutas</a>
         <a href="meteorologia.html">Meteorología</a>
@@ -27,14 +32,8 @@
 
     <!-- Carrusel de fotos -->
     <section>
-        <article>
-            <header><h2>Galería de Imágenes</h2></header>
-            <img src="multimedia/mieres1.jpg" alt="Imagen 1">
-            <img src="multimedia/mieres2.jpg" alt="Imagen 2">
-            <img src="multimedia/mieres3.jpg" alt="Imagen 3"> 
-            <img src="multimedia/mieres4.jpg" alt="Imagen 4"> 
-            <!-- <img src="multimedia/mapa.jpg" alt="Mapa de ubicación"> -->
-        </article>
+        <header><h2>Galería de Imágenes</h2></header>
+        <article></article>
         <footer>
             <button type="button">Anterior</button>
             <button type="button">Siguiente</button>
@@ -44,10 +43,7 @@
     <!-- Sección de noticias -->
     <section>
         <header><h2>Noticias sobre el concejo</h2></header>
-        <article>
-            <!-- Aquí se cargarán las noticias mediante JavaScript -->
-        </article>
+        <article></article>
     </section>
-
 </body>
 </html>
