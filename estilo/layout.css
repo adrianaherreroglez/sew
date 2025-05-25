@@ -1,24 +1,33 @@
-/* Especificidad: 001 */
-@media (min-width: 768px) {
-    main {
-        grid-template-columns: repeat(2, 1fr);
-    }
+/* Especificidad (0, 0, 1) */
+nav {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center; 
+  gap: 1rem;
+  padding: 1rem; 
+  background-color : #074480;
 }
 
-/* Especificidad: 001 */
-@media (min-width: 1024px) {
-    main {
-        grid-template-columns: repeat(3, 1fr);
-    }
+/* Especificidad (0, 0, 2) */
+nav a {
+  flex: 1 1 auto; 
+  text-align: center;
+  padding: 0.75rem 1rem; 
 }
 
+/* Especificidad (0, 0, 2) */
+@media screen and (max-width: 768px) {
+  nav a {
+    padding: 1rem;
+    /* Justificación:
+       Redefinición provocada por media query para adaptar diseño en móviles (W3C permite redefinición justificada) */
+  }
+}
 
-
-/* Especificidad: 001 */
-@media (max-width: 600px) {
-    table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
+/* Especificidad (0, 0, 1) */
+@media screen and (max-width: 480px) {
+  nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }

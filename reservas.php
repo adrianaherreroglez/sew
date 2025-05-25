@@ -80,12 +80,18 @@ $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Reservas</title>
 </head>
 <body>
-    <nav>
-        <!-- Aquí tu menú -->
-        <a href="index.html">Inicio</a>
-        <a href="reservas.php" class="active">Reservas</a>
-        <a href="logout.php">Cerrar sesión</a>
-    </nav>
+    <!-- Menú de navegación -->
+    <header>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="gastronomia.html" class="active">Gastronomía</a>
+            <a href="rutas.html">Rutas</a>
+            <a href="meteorologia.html">Meteorología</a>
+            <a href="juego.html">Juego</a>
+            <a href="reservas.php">Reservas</a>
+            <a href="ayuda.html">Ayuda</a>
+        </nav>
+    </header>
 
     <h1>Hacer una nueva reserva</h1>
 

@@ -1,44 +1,27 @@
-/* Especificidad: 001 */
-body {
-    font-family: Tahoma, sans-serif;
-    color: #333;
-    background-color: #fff;
+/* Especificidad (0, 0, 1) */
+a {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: bold;
 }
 
-/* selector h1 y h2 */
-
-
-/* Especificidad: 001 */
-nav {
-    background-color: #333;
-    padding: 10px;
-    text-align: center;
+/* Especificidad (0, 1, 0) */
+.active {
+  background-color: #ffcc00;
+  color: #000000;
 }
 
-/* Especificidad: 002 */
-nav a {
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
-    margin: 0 5px;
-    display: inline-block;
-    transition: background 0.3s ease-in-out;
-}
-
-/* Especificidad: 002 */
+/* Especificidad (0, 1, 2) */
 nav a:hover {
-    background-color: #555;
-    border-radius: 5px;
+  color: #ffffff;
+  /* Justificación:
+     - El color del texto se hereda de la regla 'a' */
 }
 
-/* Especificidad: 012 */
-nav a.active {
-    background-color: #ff6600;
-    border-radius: 5px;
-}
-
-/* Especificidad: 002 */
-h1, h2 {
-    font-family: Tahoma, sans-serif;
-    color: #333;
+/* Especificidad (0, 0, 1) */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  background-color: #f4f4f4;
+  color: #000000;
 }
