@@ -1,33 +1,54 @@
-/* Especificidad (0, 0, 1) */
+/* Adriana Herrero González UO287543 */
+
+/* Especificidad = (0, 0, 1) */
 nav {
+  background-color: #074480; /* Color de fondo azul oscuro para contraste con texto blanco */
+  width: 100%;
   display: flex;
-  flex-wrap: wrap; 
-  justify-content: center; 
-  gap: 1rem;
-  padding: 1rem; 
-  background-color : #074480;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 1rem 0;
 }
 
-/* Especificidad (0, 0, 2) */
+/* Especificidad = (0, 0, 2) */
 nav a {
-  flex: 1 1 auto; 
-  text-align: center;
-  padding: 0.75rem 1rem; 
+  color: white; /* Regla heredada de a de estilos.css, hay que cambiar el color de la navegación
+  ya que para el menú es diferente del del resto de la página*/
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease;
+  font-size: 1em;
 }
 
-/* Especificidad (0, 0, 2) */
+/* Especificidad = (0, 0, 3) */
+nav a:hover {
+  background-color: #0c5bab; 
+  color: white; /* Justificación: al pasar elratón por encima en el caso de la página actual
+                    la letra debe ponerse en blanco , no quedarse en negro ya que no habría contraste*/
+}
+
+
+
+/* ----- Responsive para tablets y móviles ----- */
+
+/* Especificidad = (0, 0, 1) */
+/* Redefinición justificada: cambio de flex-direction para mejorar usabilidad y adaptabilidad en pantallas pequeñas */
 @media screen and (max-width: 768px) {
-  nav a {
-    padding: 1rem;
-    /* Justificación:
-       Redefinición provocada por media query para adaptar diseño en móviles (W3C permite redefinición justificada) */
-  }
-}
-
-/* Especificidad (0, 0, 1) */
-@media screen and (max-width: 480px) {
   nav {
-    flex-direction: column;
+    flex-direction: column; /* Cambia la dirección del flex para apilar enlaces verticalmente */
     align-items: stretch;
+  }
+
+  /* Especificidad = (0, 0, 2) */
+  nav a {
+    text-align: center;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  /* Especificidad = (0, 0, 3) */
+  nav a:last-child {
+    border-bottom: none; /* Evita borde inferior en último enlace para mejor apariencia */
   }
 }

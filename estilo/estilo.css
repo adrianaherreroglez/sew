@@ -1,37 +1,219 @@
-/* Especificidad (0, 0, 1) */
-a {
-  text-decoration: none;
-  color: #ffffff;
+/* Adriana Herrero González UO287543 */
+
+/* ----- Estilo general ----- */
+
+/* Especificidad = (0, 0, 1) */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  background-color: #ffffff;
+  color: #000000; /* Color heredado por texto: asegura contraste */
+  font-size: 1em;
+}
+
+/* Especificidad = (0, 0, 1) */
+main, aside {
+  padding-left: 1rem;
+}
+
+/* Especificidad = (0, 0, 1) */
+h1 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 4rem;
   font-weight: bold;
 }
 
-/* Especificidad (0, 1, 0) */
+/* Especificidad = (0, 0, 1) */
+h2 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Especificidad = (0, 0, 1) */
+p, ul, ol {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #000000;
+}
+
+/* ----- Enlaces generales ----- */
+
+/* Especificidad = (0, 0, 1) */
+a {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* Especificidad = (0, 0, 3) */
+section:nth-of-type(2) article section footer a:visited {
+  color: #5a007a; /* Enlace visitado - contraste suficiente */
+}
+
+/* Especificidad = (0, 0, 3) */
+section:nth-of-type(2) article section footer a:link {
+  color: #074480;
+}
+
+/* Especificidad = (0, 0, 2) */
+a[href^="#"]:hover {
+  background-color: #ffcc00;
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+}
+
+/* Especificidad = (0, 0, 1) */
+a[href^="#"] {
+  text-decoration: underline dotted;
+}
+
+/* Especificidad = (0, 1, 0) */
+/* Clase .active justificada: estado dinámico reutilizable (por ejemplo, para navegación o elementos seleccionados) */
 .active {
   background-color: #ffcc00;
   color: #000000;
 }
 
-/* Especificidad (0, 1, 2) */
-nav a:hover {
+/* ----- Tablas ----- */
+
+/* Especificidad = (0, 1, 0) */
+/* ID #tabla-gastronomia justificado: tabla única del documento según enunciado */
+#tabla-gastronomia {
+  width: 80%;
+  margin: 2rem 0;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Especificidad = (0, 1, 1) */
+#tabla-gastronomia th,
+#tabla-gastronomia td {
+  padding: 1rem;
+  border: 1px solid #dddddd;
+  text-align: left;
+}
+
+/* Especificidad = (0, 1, 1) */
+#tabla-gastronomia th {
+  background-color: #074480;
   color: #ffffff;
-  /* Justificación:
-     - El color del texto se hereda de la regla 'a' */
+  font-weight: bold;
 }
 
-/* Especificidad (0, 0, 1) */
-body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  background-color: #f4f4f4;
-  color: #000000;
+/* Especificidad = (0, 1, 1) */
+#tabla-gastronomia tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
-img{
+/* Especificidad = (0, 1, 1) */
+#tabla-gastronomia tr:hover {
+  background-color: #e6f0ff;
+}
+
+/* ----- Multimedia y contenedores ----- */
+
+/* Especificidad = (0, 0, 1) */
+article, picture, video {
+  display: block;
+  margin: 1rem 0;
   width: 50%;
   height: auto;
+  text-align: left;
 }
 
-source{
-  width: 100%;
+/* Especificidad = (0, 0, 3) */
+section article img {
+  display: block;
+  margin: 1rem 0;
+  width: 50%;
+  max-width: 100%;
   height: auto;
+  border-radius: 0.5rem;
 }
+
+/* Especificidad = (0, 0, 2) */
+picture img {
+  width: 50%;
+  height: auto;
+  display: block;
+  max-width: 50%;
+  border-radius: 0.5rem;
+}
+
+/* Especificidad = (0, 0, 1) */
+video {
+  max-width: 90%;
+}
+
+/* Especificidad = (0, 0, 1) */
+audio {
+  display: block;
+  margin: 1rem 0;
+  max-width: 90%;
+  filter: grayscale(1%);
+}
+
+/* Especificidad = (0, 0, 1) */
+sup, sub {
+  font-size: 0.8em;
+  color: #074480;
+}
+
+/* ----- Listas ----- */
+
+/* Especificidad = (0, 0, 2) */
+ul li, ol li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+  position: relative;
+}
+
+/* Especificidad = (0, 0, 2) */
+li::marker {
+  color: #074480;
+  font-weight: bold;
+}
+
+/* ----- Listas de definición ----- */
+
+/* Especificidad = (0, 0, 1) */
+dt {
+  color: #074480;
+  background-color: #ffcc00;
+  font-weight: bold;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+/* ----- Enlaces en aside ----- */
+
+/* Especificidad = (0, 0, 1) */
+aside a {
+  color: #074480;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* Especificidad = (0, 0, 2) */
+aside a:hover,
+aside a:active {
+  color: white;
+  background-color: #074480;
+  padding: 0.2rem 0.3rem;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+/* Especificidad = (0, 1, 4) */
+main > section:nth-of-type(2) article > section {
+  background-color: #f0f0f0;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+

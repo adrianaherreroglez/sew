@@ -7,8 +7,7 @@ class Carrusel {
             'multimedia/mieres1.jpg',
             'multimedia/mieres2.jpg',
             'multimedia/mieres3.jpg',
-            'multimedia/mieres4.jpg',
-            'multimedia/mieres5.jpg'
+            'multimedia/mieres4.jpg'
         ];
         this.index = 0;
         this.mostrarImagen();
@@ -38,7 +37,6 @@ class Carrusel {
     }
 }
 
-// Document ready para Carrusel
 $(document).ready(function () {
     new Carrusel();
 });
