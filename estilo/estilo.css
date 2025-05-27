@@ -55,6 +55,26 @@ section:nth-of-type(2) article section footer a:link {
   color: #074480;
 }
 
+article > section > h3 {
+  font-weight: bold;
+}
+
+article > section header,
+article > section article,
+article > section footer {
+  font-weight: normal;
+}
+
+
+article > section {
+  font-weight: bold;
+}
+
+article > section > * {
+  font-weight: normal;
+}
+
+
 /* Especificidad = (0, 0, 2) */
 a[href^="#"]:hover {
   background-color: #ffcc00;
