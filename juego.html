@@ -2,15 +2,21 @@
 <html lang="es">
 <head>
 	<meta charset="UTF-8" />
+    <title>Mieres - Juego</title>
     <meta name="author" content="tu nombre" />
     <meta name="description" content="Juego tipo test sobre Mieres" />
     <meta name="keywords" content="Mieres, test, preguntas, juego" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <title>Mieres - Juego</title>
+    
     <link rel="stylesheet" type="text/css" href="estilo/estilo.css" />
     <link rel="stylesheet" type="text/css" href="estilo/layout.css" />
     <link rel="icon" href="multimedia/imagenes/favicon.ico" />
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Scripts -->
+    <script src="js/juego.js" defer></script>
 </head>
 
 <body> 
@@ -27,18 +33,19 @@
         </nav>
     </header>
 
-    <h1>JUEGO DE PREGUNTAS SOBRE MIERES</h1>
-
+    <main>
+    <h1>Juego de Preguntas sobre Mieres</h1>
+    <section>
     <form>
-        <!-- Aquí se insertan las preguntas vía JS -->
+        <!-- Preguntas vía JS -->
     </form>
-
+    </section>
     <button type="button">Enviar respuestas</button>
 
     <section>
         <!-- Aquí se mostrará el resultado -->
     </section>
+    </main>
 
-    <script src="js/juego.js"></script>
 </body>
 </html>

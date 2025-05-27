@@ -1,4 +1,63 @@
-document.addEventListener('DOMContentLoaded', () => {
+class JuegoTest {
+    constructor(preguntas) {
+        this.preguntas = preguntas;
+        this.aciertos = 0;
+
+        this.$form = $('main section').first().find('form');
+        this.$resultado = $('main section').last();
+        this.$boton = $('button');
+
+        this.mostrarPreguntas();
+        this.$boton.on('click', () => this.comprobarRespuestas());
+    }
+
+    mostrarPreguntas() {
+        this.preguntas.forEach((q, i) => {
+            const $fieldset = $('<fieldset>');
+            const $legend = $('<legend>').text(`${i + 1}. ${q.pregunta}`);
+            $fieldset.append($legend);
+
+            q.opciones.forEach((opcion, j) => {
+                const $label = $('<label>');
+                const $radio = $('<input>', {
+                    type: 'radio',
+                    name: `pregunta${i}`,
+                    value: j
+                });
+                $label.append($radio).append(` ${opcion}`);
+                $fieldset.append($label).append('<br>');
+            });
+
+            this.$form.append($fieldset);
+        });
+    }
+
+    comprobarRespuestas() {
+        this.aciertos = 0;
+
+        for (let i = 0; i < this.preguntas.length; i++) {
+            const respuesta = this.$form.find(`input[name="pregunta${i}"]:checked`).val();
+
+            if (respuesta === undefined) {
+                alert(`Debes responder la pregunta ${i + 1}`);
+                return;
+            }
+
+            if (parseInt(respuesta) === this.preguntas[i].correcta) {
+                this.aciertos++;
+            }
+        }
+
+        this.mostrarResultado();
+    }
+
+    mostrarResultado() {
+        this.$resultado.empty();
+        this.$resultado.append(`<p>Tu puntuación: ${this.aciertos} / ${this.preguntas.length}</p>`);
+    }
+}
+
+$(document).ready(() => {
     const preguntas = [
         {
             pregunta: "¿Cuál es la capital del concejo de Mieres?",
@@ -52,49 +111,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
 
-    const form = document.querySelector('form');
-    const button = document.querySelector('button');
-    const resultadoSection = document.querySelector('section');
-
-    preguntas.forEach((q, i) => {
-        const fieldset = document.createElement('fieldset');
-
-        const legend = document.createElement('legend');
-        legend.textContent = `${i + 1}. ${q.pregunta}`;
-        fieldset.appendChild(legend);
-
-        q.opciones.forEach((opcion, j) => {
-            const label = document.createElement('label');
-            const radio = document.createElement('input');
-            radio.type = 'radio';
-            radio.name = `pregunta${i}`;
-            radio.value = j;
-            label.appendChild(radio);
-            label.append(` ${opcion}`);
-            fieldset.appendChild(label);
-            fieldset.appendChild(document.createElement('br'));
-        });
-
-        form.appendChild(fieldset);
-    });
-
-    button.addEventListener('click', () => {
-        let aciertos = 0;
-        for(let i = 0; i < preguntas.length; i++) {
-            const seleccionada = form.querySelector(`input[name="pregunta${i}"]:checked`);
-            if(!seleccionada) {
-                alert(`Debes responder la pregunta ${i+1}`);
-                return;
-            }
-            if(parseInt(seleccionada.value) === preguntas[i].correcta) {
-                aciertos++;
-            }
-        }
-        // Limpiar resultados previos
-        resultadoSection.textContent = '';
-        // Mostrar resultado
-        const p = document.createElement('p');
-        p.textContent = `Tu puntuación: ${aciertos} / ${preguntas.length}`;
-        resultadoSection.appendChild(p);
-    });
+    new JuegoTest(preguntas);
 });

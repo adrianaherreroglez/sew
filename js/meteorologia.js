@@ -41,7 +41,7 @@ class MeteorologiaMieres {
             this.article.append(`
                 <section>
                     ${fecha}
-                    <p>${desc}
+                    <p>${desc}<br>
                     Máx: ${max}°C, Mín: ${min}°C<br>
                     Lluvia: ${lluvia}%<br>
                     Viento: ${viento} km/h (${direccion})<br>
