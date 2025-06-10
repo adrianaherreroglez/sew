@@ -3,6 +3,16 @@
 /* ----- Estilo general ----- */
 
 /* Especificidad = (0, 0, 2) */
+
+/* Especificidad = (0, 0, 1) */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #074480;
+  padding: 1rem;
+}
+
 header h1 {
   margin: 0;
   font-size: 2.5rem;
@@ -12,7 +22,6 @@ header h1 {
 header h1 a {
   color: white;
   text-decoration: none;
-  display: flex;
   align-items: center;
   font-weight: bold;
 }
@@ -22,8 +31,6 @@ header h1 a {
 nav a {
   color: white;
   text-decoration: none;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
   transition: background-color 0.3s ease;
   font-size: 1em;
 }
@@ -31,7 +38,7 @@ nav a {
 /* Especificidad = (0, 0, 3) */
 nav a:hover {
   background-color: #0c5bab; 
-  color: white; /* Al pasar elratón por encima en el caso de la página actual
+  color: white; /* Justificación: Al pasar elratón por encima en el caso de la página actual
                     la letra debe ponerse en blanco , no quedarse en negro ya que no habría contraste*/
 }
 
@@ -137,6 +144,13 @@ a[href^="#"] {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
+}
+
+caption {
+    font-size: large;
+    color: #ffffff;
+    font-weight: bold;
+    background-color: #074480;
 }
 
 /* Especificidad = (0, 1, 1) */

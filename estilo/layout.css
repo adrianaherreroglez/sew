@@ -1,26 +1,11 @@
 /* Adriana Herrero González UO287543 */
 
-/* Especificidad = (0, 0, 1) */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #074480;
-  padding: 1rem;
-}
-
-/* Especificidad = (0, 0, 2) */
-header nav {
-  display: flex;
-  gap: 1rem;
-}
 
 /* Especificidad = (0, 0, 1) */
 nav {
   display: flex;
   gap: 1rem;
-  background-color: transparent; 
-  padding: 0; 
+  padding: 0.5rem 1rem;
   flex-wrap: wrap;
   justify-content: flex-end;
 }
@@ -33,31 +18,22 @@ main, aside {
 
 /* Especificidad = (0, 0, 1) */
 article, picture, video {
-  display: block;
   margin: 1rem 0;
   width: 50%;
   height: auto;
   text-align: left;
 }
 
-/* Especificidad = (0, 0, 3) */
-section article img {
+/* Especificidad = (0, 0, 1) */
+img {
   display: block;
-  margin: 1rem 0;
   width: 50%;
   max-width: 100%;
   height: auto;
   border-radius: 0.5rem;
+  margin: 1rem 0;
 }
 
-/* Especificidad = (0, 0, 2) */
-picture img {
-  width: 50%;
-  height: auto;
-  display: block;
-  max-width: 50%;
-  border-radius: 0.5rem;
-}
 
 
 /* Especificidad = (0, 1, 4) */
