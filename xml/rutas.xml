@@ -1,230 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rutas SYSTEM "rutas.dtd">
-<rutas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="rutas.xsd">
-
-    <ruta nombre="Ruta de los Molinos">
-        <tipo>Arquitectura y monumentos</tipo>
+<rutas>
+    <ruta>
+        <nombre>Ruta Cordal de Urbiés(P.R AS-34)</nombre>
+        <tipo>Senderismo</tipo>
         <transporte>A pie</transporte>
-        <fechaInicio>2025-06-10</fechaInicio>
-        <horaInicio>09:00</horaInicio>
-        <duracion>2 horas</duracion>
-        <agencia>NaturaTur</agencia>
-        <descripcion>Ruta que recorre antiguos molinos restaurados a lo largo del río.</descripcion>
-        <personasAdecuadas>Se puede ir con niños</personasAdecuadas>
-        <lugarInicio>Plaza del Ayuntamiento</lugarInicio>
-        <direccionInicio>Calle Mayor</direccionInicio>
-        <coordenadasInicio latitud="43.245" longitud="-5.721" altitud="200"/>
-
-        <referencias>
-            <referencia>https://es.wikipedia.org/wiki/Foncalada</referencia>
-            <referencia>http://prerromanicoasturiano.es/</referencia>
-            <referencia>https://turismoasturias.es/</referencia>
-        </referencias>
-
-        <recomendacion>8</recomendacion>
-
-        <hitos>
-            <hito>
-                <nombre>Molino del Río</nombre>
-                <descripcion>Molino rehabilitado con paneles informativos.</descripcion>
-                <coordenadas latitud="43.246" longitud="-5.722" altitud="210"/>
-                <distancia unidad="km">0.5</distancia>
-                <fotos>
-                    <foto>molino1.jpg</foto>
-                </fotos>
-                <videos>
-                    <video>molino360.mp4</video>
-                </videos>
-            </hito>
-            <hito>
-                <nombre>Puente antiguo</nombre>
-                <descripcion>Puente de piedra del siglo XIX.</descripcion>
-                <coordenadas latitud="43.247" longitud="-5.723" altitud="215"/>
-                <distancia unidad="km">0.3</distancia>
-                <fotos>
-                    <foto>puente.jpg</foto>
-                </fotos>
-            </hito>
-            <hito>
-                <nombre>Molino de Pedro</nombre>
-                <descripcion>Molino en ruinas rodeado de vegetación.</descripcion>
-                <coordenadas latitud="43.248" longitud="-5.724" altitud="220"/>
-                <distancia unidad="km">0.7</distancia>
-                <fotos>
-                    <foto>molino2.jpg</foto>
-                    <foto>molino2_panorama.jpg</foto>
-                </fotos>
-            </hito>
-            <hito>
-                <nombre>Área recreativa</nombre>
-                <descripcion>Zona de descanso con mesas.</descripcion>
-                <coordenadas latitud="43.249" longitud="-5.725" altitud="225"/>
-                <distancia unidad="km">0.4</distancia>
-                <fotos>
-                    <foto>area.jpg</foto>
-                </fotos>
-            </hito>
-            <hito>
-                <nombre>Mirador del valle</nombre>
-                <descripcion>Vistas panorámicas del valle de Mieres.</descripcion>
-                <coordenadas latitud="43.250" longitud="-5.726" altitud="250"/>
-                <distancia unidad="km">1.0</distancia>
-                <fotos>
-                    <foto>mirador.jpg</foto>
-                </fotos>
-            </hito>
-        </hitos>
-
-        <planimetria>xml/ruta1.kml</planimetria>
-        <altimetria>xml/ruta1.svg</altimetria>
-    </ruta>
-
-    <ruta nombre="Ruta del Carbón">
-        <tipo>Mixta tapas y monumentos</tipo>
-        <transporte>Bicicleta</transporte>
-        <duracion>3 horas</duracion>
+        <fechaInicio opcional="true">2025-06-10</fechaInicio>
+        <horaInicio opcional="true">09:00</horaInicio>
+        <duracion>4 horas y 10 minutos</duracion>
         <agencia>Sin agencia</agencia>
-        <descripcion>Ruta por las antiguas zonas mineras de Mieres, con paradas gastronómicas.</descripcion>
+        <descripcion>
+            La ruta comienza en los puentes de La L.lera y transcurre por pueblos, montes y campas del Cordal de Urbiés. Pasamos por aldeas como L.leu, L’Artusu, San Xusto y Urbiés, cruzando bosques y disfrutando de vistas panorámicas desde La Campa Les Abeyes. El recorrido circular termina de nuevo en La L.lera.
+        </descripcion>
         <personasAdecuadas>Personas en buena forma física</personasAdecuadas>
-        <lugarInicio>Estación de Mieres</lugarInicio>
-        <direccionInicio>Avenida Principal</direccionInicio>
-        <coordenadasInicio latitud="43.260" longitud="-5.710" altitud="180"/>
-
+        <lugarInicio>La L.lera</lugarInicio>
+        <direccionInicio>Puente La Llera</direccionInicio>
+        <coordenadasInicio>
+            <longitud>-5.6850</longitud>
+            <latitud>43.2142</latitud>
+            <altitud unidades="metros sobre el nivel del mar">416</altitud>
+        </coordenadasInicio>
         <referencias>
-            <referencia>https://mieres.es/historia-minera</referencia>
-            <referencia>https://museominero.com</referencia>
-            <referencia>https://asturiasparadisfrutar.es</referencia>
+            <referencia>https://www.mieres.es/turismo/naturaleza/rutas-de-senderismo/ruta-cordal-urbies-p-r-as-34/</referencia>
+            <referencia>https://es.wikiloc.com/rutas-senderismo/pr-as-34-ruta-cordal-de-urbies-mieres-asturias-espana-52857538</referencia>
+            <referencia>https://es.wikiloc.com/rutas-a-pie/pr-as-34-ruta-del-cordal-de-urbies-9008559</referencia>
         </referencias>
-
-        <recomendacion>9</recomendacion>
-
+        <recomendacion>8</recomendacion>
         <hitos>
             <hito>
-                <nombre>Mina San Luis</nombre>
-                <descripcion>Antiguo pozo minero con museo.</descripcion>
-                <coordenadas latitud="43.261" longitud="-5.712" altitud="190"/>
-                <distancia unidad="km">1.2</distancia>
-                <fotos>
-                    <foto>mina.jpg</foto>
-                </fotos>
-                <videos>
-                    <video>mina_tour.mp4</video>
-                </videos>
+                <nombre>La LLera</nombre>
+                <descripcion>Punto de inicio y fin de la ruta.</descripcion>
+                <coordenadas>
+                    <longitud>-5.6850</longitud>
+                    <latitud>43.2142</latitud>
+                    <altitud unidades="metros sobre el nivel del mar">416</altitud>
+                </coordenadas>
+                <distancia unidad="km">0</distancia>
+                <galeriaFotografias>
+                    <foto>multimedia/imagenes/lleu.jpg</foto>
+                </galeriaFotografias>
             </hito>
+
             <hito>
-                <nombre>Tasca el Minero</nombre>
-                <descripcion>Degustación de productos típicos mineros.</descripcion>
-                <coordenadas latitud="43.262" longitud="-5.713" altitud="195"/>
+                <nombre>El LLéu</nombre>
+                <descripcion>Fuente en la que se pueden parar los senderistas</descripcion>
+                <coordenadas>
+                    <longitud>-5.6842</longitud>
+                    <latitud>43.2175</latitud>
+                    <altitud unidades="metros sobre el nivel del mar">531</altitud>
+                </coordenadas>
                 <distancia unidad="km">0.5</distancia>
-                <fotos>
-                    <foto>tasca.jpg</foto>
-                </fotos>
+                <galeriaFotografias>
+                    <foto>multimedia/imagenes/lleu.jpg</foto>
+                </galeriaFotografias>
+            </hito>
+
+            <hito>
+                <nombre>El Artoso</nombre>
+                <descripcion>Aldea deshabitada con casas en ruinas, testimonio de la vida rural tradicional.</descripcion>
+                <coordenadas>
+                    <longitud>-5.6886</longitud>
+                    <latitud>43.2180</latitud>
+                    <altitud unidades="metros sobre el nivel del mar">589</altitud>
+                </coordenadas>
+                <distancia unidad="km">1</distancia>
+                <galeriaFotografias>
+                    <foto>multimedia/imagenes/artusu.jpg</foto>
+                </galeriaFotografias>
             </hito>
             <hito>
-                <nombre>Casa de Cultura</nombre>
-                <descripcion>Exposición temporal sobre minería.</descripcion>
-                <coordenadas latitud="43.263" longitud="-5.714" altitud="200"/>
-                <distancia unidad="km">0.8</distancia>
-                <fotos>
-                    <foto>cultura.jpg</foto>
-                </fotos>
-            </hito>
-            <hito>
-                <nombre>Parque de la Libertad</nombre>
-                <descripcion>Espacio natural ideal para descansar.</descripcion>
-                <coordenadas latitud="43.264" longitud="-5.715" altitud="205"/>
-                <distancia unidad="km">0.6</distancia>
-                <fotos>
-                    <foto>parque.jpg</foto>
-                </fotos>
-            </hito>
-            <hito>
-                <nombre>Bar Casa Aurora</nombre>
-                <descripcion>Final de ruta con menú del día típico asturiano.</descripcion>
-                <coordenadas latitud="43.265" longitud="-5.716" altitud="210"/>
-                <distancia unidad="km">1.1</distancia>
-                <fotos>
-                    <foto>aurora.jpg</foto>
-                </fotos>
-            </hito>
-        </hitos>
-
-        <planimetria>xml/ruta2.kml</planimetria>
-        <altimetria>xml/ruta2.svg</altimetria>
-    </ruta>
-
-    <ruta nombre="Ruta Paisajística de Peña Redonda">
-        <tipo>Paisajística</tipo>
-        <transporte>Senderismo</transporte>
-        <duracion>4 horas</duracion>
-        <agencia>TurAstur</agencia>
-        <descripcion>Ruta circular con vistas espectaculares desde Peña Redonda.</descripcion>
-        <personasAdecuadas>Personas en buena forma física</personasAdecuadas>
-        <lugarInicio>Inicio Senda Verde</lugarInicio>
-        <direccionInicio>Camino de la Sierra</direccionInicio>
-        <coordenadasInicio latitud="43.230" longitud="-5.735" altitud="250"/>
-
-        <referencias>
-            <referencia>https://mieres.es/naturaleza</referencia>
-            <referencia>https://senderosasturianos.es</referencia>
-            <referencia>https://wikiloc.com/rutas-penaredonda</referencia>
-        </referencias>
-
-        <recomendacion>10</recomendacion>
-
-        <hitos>
-            <hito>
-                <nombre>Mirador Peña Redonda</nombre>
-                <descripcion>Vistas 360° de la montaña.</descripcion>
-                <coordenadas latitud="43.231" longitud="-5.736" altitud="500"/>
+                <nombre>San Justo</nombre>
+                <descripcion>El pueblo más alto y antiguo del concejo de Mieres, con la ermita de los Santos Justoy Pastor.</descripcion>
+                <coordenadas>
+                    <longitud>-5.7005</longitud>
+                    <latitud>43.2420</latitud>
+                    <altitud unidades="metros sobre el nivel del mar">724</altitud>
+                </coordenadas>
                 <distancia unidad="km">2.0</distancia>
-                <fotos>
-                    <foto>penaredonda1.jpg</foto>
-                </fotos>
-                <videos>
-                    <video>vista360.mp4</video>
-                </videos>
+                <galeriaFotografias>
+                    <foto>multimedia/imagenes/sanjusto.jpg</foto>
+                </galeriaFotografias>
             </hito>
+     
             <hito>
-                <nombre>Bosque de castaños</nombre>
-                <descripcion>Zona de castaños centenarios.</descripcion>
-                <coordenadas latitud="43.232" longitud="-5.737" altitud="400"/>
-                <distancia unidad="km">1.5</distancia>
-                <fotos>
-                    <foto>castanos.jpg</foto>
-                </fotos>
+                <nombre>La Vegona</nombre>
+                <descripcion>Zona de tránsito entre Urbiés y el regreso a La L.lera, con paisajes rurales.</descripcion>
+                <coordenadas>
+                    <longitud>-5.6750</longitud>
+                    <latitud>43.2147</latitud>
+                    <altitud unidades="metros sobre el nivel del mar">428</altitud>
+                </coordenadas>
+                <distancia unidad="km">5.0</distancia>
+                <galeriaFotografias>
+                    <foto>multimedia/imagenes/lavegona.jpg</foto>
+                </galeriaFotografias>
+                <galeriaVideos/>
             </hito>
-            <hito>
-                <nombre>Fuente de los Pastores</nombre>
-                <descripcion>Antigua fuente usada por los pastores.</descripcion>
-                <coordenadas latitud="43.233" longitud="-5.738" altitud="380"/>
-                <distancia unidad="km">0.7</distancia>
-                <fotos>
-                    <foto>fuente.jpg</foto>
-                </fotos>
-            </hito>
-            <hito>
-                <nombre>Ermita de la Sierra</nombre>
-                <descripcion>Capilla rural con historia medieval.</descripcion>
-                <coordenadas latitud="43.234" longitud="-5.739" altitud="370"/>
-                <distancia unidad="km">1.0</distancia>
-                <fotos>
-                    <foto>ermita.jpg</foto>
-                </fotos>
-            </hito>
-            <hito>
-                <nombre>Área de descanso</nombre>
-                <descripcion>Zona con bancos y sombra para merendar.</descripcion>
-                <coordenadas latitud="43.235" longitud="-5.740" altitud="360"/>
-                <distancia unidad="km">0.8</distancia>
-                <fotos>
-                    <foto>descanso.jpg</foto>
-                </fotos>
-            </hito>
-        </hitos>
-
-        <planimetria>xml/ruta3.kml</planimetria>
-        <altimetria>xml/ruta3.svg</altimetria>
+            
+    </hitos>
     </ruta>
-
 </rutas>
+
+
+       

@@ -1,24 +1,29 @@
 <!ELEMENT rutas (ruta+)>
 
-<!ELEMENT ruta (tipo, transporte, fechaInicio?, horaInicio?, duracion, agencia, descripcion, publico, inicio, referencias, recomendacion, hitos, planimetria, altimetria)>
-<!ATTLIST ruta nombre CDATA #REQUIRED>
-
+<!ELEMENT ruta (
+    nombre, tipo, transporte, fechaInicio?, horaInicio?, duracion,
+    agencia, descripcion, personasAdecuadas, lugarInicio, direccionInicio,
+    coordenadasInicio, referencias, recomendacion, hitos
+)>
+<!ELEMENT nombre (#PCDATA)>
 <!ELEMENT tipo (#PCDATA)>
 <!ELEMENT transporte (#PCDATA)>
 <!ELEMENT fechaInicio (#PCDATA)>
+<!ATTLIST fechaInicio opcional CDATA #IMPLIED>
 <!ELEMENT horaInicio (#PCDATA)>
+<!ATTLIST horaInicio opcional CDATA #IMPLIED>
 <!ELEMENT duracion (#PCDATA)>
 <!ELEMENT agencia (#PCDATA)>
 <!ELEMENT descripcion (#PCDATA)>
-<!ELEMENT publico (#PCDATA)>
+<!ELEMENT personasAdecuadas (#PCDATA)>
+<!ELEMENT lugarInicio (#PCDATA)>
+<!ELEMENT direccionInicio (#PCDATA)>
 
-<!ELEMENT inicio (lugar, direccion, coordenadas)>
-<!ELEMENT lugar (#PCDATA)>
-<!ELEMENT direccion (#PCDATA)>
-<!ELEMENT coordenadas (longitud, latitud, altitud)>
+<!ELEMENT coordenadasInicio (longitud, latitud, altitud)>
 <!ELEMENT longitud (#PCDATA)>
 <!ELEMENT latitud (#PCDATA)>
 <!ELEMENT altitud (#PCDATA)>
+<!ATTLIST altitud unidades CDATA #REQUIRED>
 
 <!ELEMENT referencias (referencia+)>
 <!ELEMENT referencia (#PCDATA)>
@@ -26,17 +31,14 @@
 <!ELEMENT recomendacion (#PCDATA)>
 
 <!ELEMENT hitos (hito+)>
-<!ELEMENT hito (nombre, descripcion, coordenadas, distancia, galeriaFotos, galeriaVideos?)>
-<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT hito (nombre, descripcion, coordenadas, distancia, galeriaFotografias, galeriaVideos?)>
+
+<!ELEMENT coordenadas (longitud, latitud, altitud)>
+
 <!ELEMENT distancia (#PCDATA)>
 <!ATTLIST distancia unidad CDATA #REQUIRED>
 
-<!ELEMENT galeriaFotos (foto+)>
+<!ELEMENT galeriaFotografias (foto+)>
 <!ELEMENT foto (#PCDATA)>
 
-<!ELEMENT galeriaVideos (video*)>
-<!ELEMENT video (#PCDATA)>
-
-<!ELEMENT planimetria (#PCDATA)>
-<!ELEMENT altimetria (#PCDATA)>
-
+<!ELEMENT galeriaVideos EMPTY>
