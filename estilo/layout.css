@@ -1,6 +1,21 @@
 /* Adriana Herrero González UO287543 */
 
 /* Especificidad = (0, 0, 1) */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #074480;
+  padding: 1rem;
+}
+
+/* Especificidad = (0, 0, 2) */
+header nav {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Especificidad = (0, 0, 1) */
 nav {
   display: flex;
   gap: 1rem;
@@ -10,38 +25,68 @@ nav {
   justify-content: flex-end;
 }
 
+/* Especificidad = (0, 0, 1) */
+main, aside {
+  padding-left: 1rem;
+}
 
-/* Especificidad = (0, 0, 2) */
-nav a {
-  color: white; /* Regla heredada de a de estilos.css, hay que cambiar el color de la navegación
-  ya que para el menú es diferente del del resto de la página*/
-  text-decoration: none;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-  transition: background-color 0.3s ease;
-  font-size: 1em;
+
+/* Especificidad = (0, 0, 1) */
+article, picture, video {
+  display: block;
+  margin: 1rem 0;
+  width: 50%;
+  height: auto;
+  text-align: left;
 }
 
 /* Especificidad = (0, 0, 3) */
-nav a:hover {
-  background-color: #0c5bab; 
-  color: white; /* Justificación: al pasar elratón por encima en el caso de la página actual
-                    la letra debe ponerse en blanco , no quedarse en negro ya que no habría contraste*/
+section article img {
+  display: block;
+  margin: 1rem 0;
+  width: 50%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
 }
 
+/* Especificidad = (0, 0, 2) */
+picture img {
+  width: 50%;
+  height: auto;
+  display: block;
+  max-width: 50%;
+  border-radius: 0.5rem;
+}
+
+
+/* Especificidad = (0, 1, 4) */
+main > section:nth-of-type(2) article > section {
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+}
+
+/* Especificidad = (0, 0, 2) */
+ul li, ol li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+  position: relative;
+}
 
 
 /* ----- Responsive para tablets y móviles ----- */
 
-/* Especificidad = (0, 0, 1) */
 /* Redefinición justificada: cambio de flex-direction para mejorar usabilidad y adaptabilidad en pantallas pequeñas */
 @media screen and (max-width: 768px) {
+  /* Especificidad = (0, 0, 1) */
   nav {
-    flex-direction: column; /* Cambia la dirección del flex para apilar enlaces verticalmente */
+    flex-direction: column; /* Esto cambia la dirección del flex para apilar enlaces verticalmente */
     align-items: stretch;
   }
 
   /* Especificidad = (0, 0, 2) */
+    /* Redefinición justificada: se ajusta el padding para mejorar la legibilidad y el tamaño del área táctil en dispositivos móviles */
   nav a {
     text-align: center;
     padding: 1rem;

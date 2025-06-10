@@ -2,17 +2,6 @@
 
 /* ----- Estilo general ----- */
 
-/* Especificidad = (0, 0, 1) */
-/* Especificidad = (0, 0, 1) */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #074480;
-  padding: 1rem;
-}
-
-
 /* Especificidad = (0, 0, 2) */
 header h1 {
   margin: 0;
@@ -28,27 +17,24 @@ header h1 a {
   font-weight: bold;
 }
 
-/* Especificidad = (0, 0, 2) */
-header nav {
-  display: flex;
-  gap: 1rem;
-}
 
-/* Especificidad = (0, 0, 3) */
-header nav a {
+/* Especificidad = (0, 0, 2) */
+nav a {
   color: white;
   text-decoration: none;
   font-weight: bold;
   padding: 0.5rem 1rem;
   transition: background-color 0.3s ease;
-  font-size: 1rem;
+  font-size: 1em;
 }
 
-/* Especificidad = (0, 0, 4) */
-header nav a:hover {
-  background-color: #0c5bab;
-  color: white;
+/* Especificidad = (0, 0, 3) */
+nav a:hover {
+  background-color: #0c5bab; 
+  color: white; /* Al pasar elratón por encima en el caso de la página actual
+                    la letra debe ponerse en blanco , no quedarse en negro ya que no habría contraste*/
 }
+
 
 
 /* Especificidad = (0, 0, 1) */
@@ -60,10 +46,6 @@ body {
   font-size: 1em;
 }
 
-/* Especificidad = (0, 0, 1) */
-main, aside {
-  padding-left: 1rem;
-}
 
 /* Especificidad = (0, 0, 1) */
 h1 {
@@ -137,7 +119,7 @@ a[href^="#"] {
 }
 
 /* Especificidad = (0, 1, 0) */
-/* Clase .active justificada: estado dinámico reutilizable (por ejemplo, para navegación o elementos seleccionados) */
+/* Clase .active justificada, el enunciado lo permite : estado dinámico reutilizable (por ejemplo, para navegación o elementos seleccionados) */
 .active {
   background-color: #ffcc00;
   color: #000000;
@@ -184,33 +166,8 @@ a[href^="#"] {
 
 /* ----- Multimedia y contenedores ----- */
 
-/* Especificidad = (0, 0, 1) */
-article, picture, video {
-  display: block;
-  margin: 1rem 0;
-  width: 50%;
-  height: auto;
-  text-align: left;
-}
 
-/* Especificidad = (0, 0, 3) */
-section article img {
-  display: block;
-  margin: 1rem 0;
-  width: 50%;
-  max-width: 100%;
-  height: auto;
-  border-radius: 0.5rem;
-}
 
-/* Especificidad = (0, 0, 2) */
-picture img {
-  width: 50%;
-  height: auto;
-  display: block;
-  max-width: 50%;
-  border-radius: 0.5rem;
-}
 
 /* Especificidad = (0, 0, 1) */
 video {
@@ -232,13 +189,6 @@ sup, sub {
 }
 
 /* ----- Listas ----- */
-
-/* Especificidad = (0, 0, 2) */
-ul li, ol li {
-  margin-bottom: 0.5rem;
-  line-height: 1.5;
-  position: relative;
-}
 
 /* Especificidad = (0, 0, 2) */
 li::marker {
@@ -275,14 +225,5 @@ aside a:active {
   padding: 0.2rem 0.3rem;
   border-radius: 4px;
   text-decoration: none;
-}
-
-/* Especificidad = (0, 1, 4) */
-main > section:nth-of-type(2) article > section {
-  background-color: #f0f0f0;
-  padding: 1rem;
-  margin: 1rem 0;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
