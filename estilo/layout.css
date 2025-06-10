@@ -2,13 +2,14 @@
 
 /* Especificidad = (0, 0, 1) */
 nav {
-  background-color: #074480; /* Color de fondo azul oscuro para contraste con texto blanco */
-  width: 100%;
   display: flex;
+  gap: 1rem;
+  background-color: transparent; 
+  padding: 0; 
   flex-wrap: wrap;
-  justify-content: space-around;
-  padding: 1rem 0;
+  justify-content: flex-end;
 }
+
 
 /* Especificidad = (0, 0, 2) */
 nav a {

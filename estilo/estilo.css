@@ -3,6 +3,55 @@
 /* ----- Estilo general ----- */
 
 /* Especificidad = (0, 0, 1) */
+/* Especificidad = (0, 0, 1) */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #074480;
+  padding: 1rem;
+}
+
+
+/* Especificidad = (0, 0, 2) */
+header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+/* Especificidad = (0, 0, 3) */
+header h1 a {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+/* Especificidad = (0, 0, 2) */
+header nav {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Especificidad = (0, 0, 3) */
+header nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+}
+
+/* Especificidad = (0, 0, 4) */
+header nav a:hover {
+  background-color: #0c5bab;
+  color: white;
+}
+
+
+/* Especificidad = (0, 0, 1) */
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;

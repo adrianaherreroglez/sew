@@ -1,12 +1,13 @@
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
+    <!-- Datos que describen el documento -->
     <meta charset="UTF-8" />
     <title>Mieres - Gastronomía</title>
     <meta name="author" content="Adriana Herrero González" />
     <meta name="description" content="Página que contiene información sobre la gastronomía en Mieres" />
     <meta name="keywords" content="Mieres, gastronomía, comida asturiana, fabada, cachopo, pote asturiano, platos típicos, cocina asturiana, ingredientes asturianos, sidra, embutidos, 
-                                    quesos asturianos, recetas tradicionales, cultura culinaria de Asturias" />
+                                    quesos asturianos, recetas tradicionales" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" type="text/css" href="estilo/estilo.css" />
@@ -17,6 +18,7 @@
 <body> 
     <!-- Menú de navegación -->
     <header>
+        <h1><a href="index.html">Turismo de Mieres</a></h1>
         <nav>
             <a href="index.html">Inicio</a>
             <a href="gastronomia.html" class="active">Gastronomía</a>
@@ -29,24 +31,23 @@
     </header>
 
     <main>
+        <h2>Gastronomía de Mieres</h2>
         <section>
-            <h1>Gastronomía de Mieres</h1>
-
-            <h2>Información General</h2>
+            <h3>Información General</h3>
             <p>Ubicación: Concejo de Mieres, Asturias</p>
             <p>Región: Norte de España</p>
             <p>Cultura: Tradición minera y gastronómica</p>
         </section>
 
         <section>
-            <h2>Presentación</h2>
+            <h3>Presentación</h3>
             <p>
                 La gastronomía de Mieres refleja la esencia de la cocina asturiana: platos contundentes, ingredientes locales y una fuerte tradición de comida casera. Entre sus especialidades destacan las legumbres, los embutidos y los quesos autóctonos.
             </p>
         </section>
 
         <section>
-            <h2>Platos Típicos</h2>
+            <h3>Platos Típicos</h3>
             <ol>
                 <li>Fabada asturiana</li>
                 <li>Cachopo</li>
@@ -55,7 +56,7 @@
         </section>
 
         <section>
-            <h2>Ingredientes más utilizados</h2>
+            <h3>Ingredientes más utilizados</h3>
             <ul>
                 <li>Legumbres</li>
                 <li>Embutidos
@@ -70,7 +71,7 @@
         </section>
 
         <section>
-            <h2>Tabla de Platos y Ingredientes</h2>
+            <h3>Tabla de Platos y Ingredientes</h3>
             <table id="tabla-gastronomia">
                 <tr>
                     <th scope="col" id="plato">Plato</th>
@@ -96,10 +97,13 @@
         </section>
 
         <section>
-            <h2>Contenido Multimedia</h2>
+            <h3>Contenido Multimedia</h3>
 
             <p>Esta es una imagen de la fabada, uno de los platos típicos de Mieres:</p>
             <picture>
+                <source media="(max-width: 465px)" srcset="multimedia/imagenes/fabada.jpg" />
+                <source media="(max-width:800px)" srcset="multimedia/imagenes/fabada.jpg" />
+                <source media="(min-width:800px)" srcset="multimedia/imagenes/fabada.jpg" />
                 <img src="multimedia/imagenes/fabada.jpg" alt="Plato de fabada asturiana" title="Fabada asturiana" />
             </picture>
 
@@ -107,20 +111,18 @@
             <video controls>
                 <source src="multimedia/videos/mieres-vista.mp4" type="video/mp4" />
                 <source src="multimedia/videos/mieres-vista.webm" type="video/webm" />
-                Tu navegador no soporta la reproducción de video.
             </video>
 
             <p>Este es un audio que relata una noticia ocurrida en Mieres:</p>
             <audio controls>
                 <source src="multimedia/audios/mieres-audio.mp3" type="audio/mp3" />
                 <source src="multimedia/audios/mieres-audio.ogg" type="audio/ogg" />
-                Tu navegador no soporta la reproducción de audio.
             </audio>
         </section>
     </main>
 
     <aside>
-        <h2>Conceptos Gastronómicos</h2>
+        <h3>Conceptos Gastronómicos</h3>
         <dl>
             <dt>Fabada</dt>
             <dd>Plato típico elaborado con fabes grandes, embutidos y tocino.</dd>
@@ -134,12 +136,12 @@
     </aside>
 
     <aside>
-        <h2>Referencias</h2>
+        <h3>Referencias</h3>
         <p>
-            <a href="https://www.turismoasturias.es" target="_blank" title="Turismo Asturias">Turismo Asturias</a>
+            <a href="https://www.turismoasturias.es" title="Turismo Asturias">Turismo Asturias</a>
         </p>
         <p>
-            <a href="https://es.wikipedia.org/wiki/Gastronomía_de_Asturias" target="_blank" title="Wikipedia Gastronomía Asturiana">Wikipedia</a>
+            <a href="https://es.wikipedia.org/wiki/Gastronomía_de_Asturias" title="Wikipedia Gastronomía Asturiana">Wikipedia</a>
         </p>
     </aside>
 </body>
