@@ -68,6 +68,23 @@ h2 {
   margin-bottom: 0.5rem;
 }
 
+section footer button {
+    background-color: #005bbb; /* Azul */
+    color: white;              /* Letra blanca */
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+}
+
+section footer button:hover {
+    background-color: #004299; /* Azul más oscuro al pasar el ratón */
+}
+
+
 /* Especificidad = (0, 0, 1) */
 p, ul, ol {
   margin-top: 0;
