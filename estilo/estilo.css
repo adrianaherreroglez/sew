@@ -117,7 +117,6 @@ article > section > * {
 a[href^="#"]:hover {
   background-color: #ffcc00;
   padding: 0.1rem 0.3rem;
-  border-radius: 4px;
 }
 
 /* Especificidad = (0, 0, 1) */
@@ -141,8 +140,8 @@ a[href^="#"] {
   margin: 2rem 0;
   border-collapse: collapse;
   background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
   overflow: hidden;
 }
 
@@ -157,7 +156,7 @@ caption {
 #tabla-gastronomia th,
 #tabla-gastronomia td {
   padding: 1rem;
-  border: 1px solid #dddddd;
+  border: solid #dddddd;
   text-align: left;
 }
 
@@ -231,7 +230,47 @@ aside a:active {
   color: white;
   background-color: #074480;
   padding: 0.2rem 0.3rem;
-  border-radius: 4px;
   text-decoration: none;
 }
 
+/* Contenedor de cada noticia (tarjeta) */
+section:nth-of-type(2) article section {
+    background-color: #f0f0f0; 
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin: 2% 0;
+}
+
+/* Efecto hover */
+section:nth-of-type(2) article section:hover {
+    transform: translateY(-0.25rem);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Título de la noticia */
+section:nth-of-type(2) article section h3 {
+    font-size: 1.25rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+/* Descripción de la noticia */
+section:nth-of-type(2) article section article p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* Enlace "Leer más" */
+section:nth-of-type(2) article section footer a {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #0066cc;
+    text-decoration: none;
+}
+
+section:nth-of-type(2) article section footer a:hover {
+    color: #003366;
+    text-decoration: underline;
+}
