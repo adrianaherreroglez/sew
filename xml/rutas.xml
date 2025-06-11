@@ -10,7 +10,7 @@
         <duracion>4 horas y 10 minutos</duracion>
         <agencia>Sin agencia</agencia>
         <descripcion>
-            La ruta comienza en los puentes de La L.lera y transcurre por pueblos, montes y campas del Cordal de Urbiés. Pasamos por aldeas como L.leu, L’Artusu, San Xusto y Urbiés, cruzando bosques y disfrutando de vistas panorámicas desde La Campa Les Abeyes. El recorrido circular termina de nuevo en La L.lera.
+            La ruta comienza en los puentes de La Llera y transcurre por pueblos, montes y campas del Cordal de Urbiés. Pasamos por aldeas como L.leu, L’Artusu, San Xusto y Urbiés, cruzando bosques y disfrutando de vistas panorámicas desde La Campa Les Abeyes. El recorrido circular termina de nuevo en La L.lera.
         </descripcion>
         <personasAdecuadas>Personas en buena forma física</personasAdecuadas>
         <lugarInicio>La L.lera</lugarInicio>
@@ -197,6 +197,105 @@
             
         </hitos>
         <kml>xml/planimetria2.kml</kml>
+    </ruta>
+
+    <ruta>
+        <nombre>Ruta del Valle Miñera P.R. AS-193</nombre>
+        <tipo>Senderismo</tipo>
+        <transporte>A pie</transporte>
+        <fechaInicio>2025-06-16</fechaInicio>
+        <horaInicio>09:00</horaInicio>
+        <duracion>2 horas y 45 minutos</duracion>
+        <agencia>Sin agencia</agencia>
+        <descripcion>
+            La ruta circular del Valle de Miñera (P.R. AS-193) parte de La Peña, asciende por antiguas minas y pueblos como Escalá y L’Arzolá, recorre el cordal hasta el Alto del Padrún, y desciende por La Rebollá hasta regresar a La Peña.
+        </descripcion>
+        <personasAdecuadas>Tercera edad</personasAdecuadas>
+        <lugarInicio>La Peña</lugarInicio>
+        <direccionInicio>Iglesia del Santísimo Cristo de la Misericordia</direccionInicio>
+        <coordenadasInicio>
+            <longitud>-5.7799</longitud>
+            <latitud>43.2636</latitud>
+            <altitud unidades="metros sobre el nivel del mar">203</altitud>
+        </coordenadasInicio>
+        <referencias>
+            <referencia>https://www.mieres.es/turismo/naturaleza/rutas-de-senderismo/ruta-valle-minera-p-r-as-193/</referencia>
+            <referencia>https://www.vivirasturias.com/entidades-poblacion/c/0/i/54880109/las-cruces</referencia>
+            <referencia>https://es.wikiloc.com/rutas-senderismo/pr-as-193-ruta-valle-minera-13842326</referencia>
+        </referencias>
+        <recomendacion>6.5</recomendacion>
+        <hitos>
+            <hito>
+                <nombre>La Peña</nombre>
+                <descripcion>Punto de inicio y fin de la ruta.</descripcion>
+                <coordenadas>
+                    <longitud>-5.7799</longitud>
+                    <latitud>43.2636</latitud>
+                    <altitud unidades="metros sobre el nivel del mar">203</altitud>
+                </coordenadas>
+                <distancia unidad="km">0</distancia>
+                <galeriaFotografias>
+                    <foto>multimedia/imagenes/lapena.jpg</foto>
+                </galeriaFotografias>
+            </hito>
+
+            <hito>
+                <nombre>Arzolar</nombre>
+                <descripcion>Aldea de la parroquia de La Peña (Mieres). Dista 4,50 km de la capital municipal (Mieres del Camín) y se encuentra a una altitud de 380 m</descripcion>
+                <coordenadas>
+                    <longitud>-5.7677</longitud>
+                    <latitud>43.2790</latitud>
+                    <altitud unidades="metros sobre el nivel del mar">380</altitud>
+                </coordenadas>
+                <distancia unidad="km">2.369</distancia>
+                <galeriaFotografias>
+                    <foto>multimedia/imagenes/arzolar.jpg</foto>
+                </galeriaFotografias>
+            </hito>
+
+            <hito>
+                <nombre>Las Cruces</nombre>
+                <descripcion>"Las Cruces" se refiere a un lugar específico dentro de la parroquia de La Peña, en el concejo de Mieres, Asturias. Es una pequeña localidad con unas pocas viviendas y habitantes, situada a unos 3,5 kilómetros de Mieres y a una altitud de 422 metros.</descripcion>
+                <coordenadas>
+                    <longitud>-5.76535</longitud>
+                    <latitud> 43.2905</latitud>
+                    <altitud unidades="metros sobre el nivel del mar">422</altitud>
+                </coordenadas>
+                <distancia unidad="km">1.04</distancia>
+                <galeriaFotografias>
+                    <foto>multimedia/imagenes/lascruces.jpg</foto>
+                </galeriaFotografias>
+            </hito>
+
+            <hito>
+                <nombre>El Nozal</nombre>
+                <descripcion>Casería de la parroquia de La Peña (Mieres). Dista 3,20 km de la capital municipal (Mieres del Camín) y se encuentra a una altitud de 470 m.</descripcion>
+                <coordenadas>
+                    <longitud>-5.76748</longitud>
+                    <latitud>43.29045</latitud>
+                    <altitud unidades="metros sobre el nivel del mar">470</altitud>
+                </coordenadas>
+                <distancia unidad="km">0.3</distancia>
+                <galeriaFotografias>
+                    <foto>multimedia/imagenes/nozal.jpg</foto>
+                </galeriaFotografias>
+            </hito>
+
+            <hito>
+                <nombre>Campa del Trave</nombre>
+                <descripcion>La Campa del Trave es un lugar natural de gran interés en Asturias, situado en la confluencia de los municipios de Mieres, Oviedo y Langreo. Se trata de una collada y campera ubicada a 609 metros de altitud en la sierra.</descripcion>
+                <coordenadas>
+                    <longitud>-5.7857</longitud>
+                    <latitud>43.2892</latitud>
+                    <altitud unidades="metros sobre el nivel del mar">609</altitud>
+                </coordenadas>
+                <distancia unidad="km">0.939</distancia>
+                <galeriaFotografias>
+                    <foto>multimedia/imagenes/campadeltrave.jpg</foto>
+                </galeriaFotografias>
+            </hito>
+        </hitos>
+        <kml>xml/planimetria3.kml</kml>
     </ruta>
 
 </rutas>
