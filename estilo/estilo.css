@@ -274,3 +274,18 @@ section:nth-of-type(2) article section footer a:hover {
     color: #003366;
     text-decoration: underline;
 }
+
+figure {
+    display: inline-block;
+    margin: 0.5em 1em;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+figure img {
+    width: 4rem; /* tamaño relativo, aprox 64px si la raíz es 16px */
+    height: auto;
+    display: block;
+    margin: 0 auto 0.3rem auto;
+}

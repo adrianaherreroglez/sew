@@ -3,52 +3,72 @@ class MeteorologiaMieres {
         this.lat = lat;
         this.lon = lon;
         this.url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,weathercode,precipitation_probability_max,windspeed_10m_max,winddirection_10m_dominant,sunrise,sunset&current_weather=true&timezone=Europe/Madrid&lang=es`;
-        this.spans = $('span');
-        this.article = $('article');
+
+        this.parrafoTemperatura = $('main section p').eq(0);
+        this.parrafoDescripcion = $('main section p').eq(1);
+        this.articulo = $('main section:nth-of-type(2) article');
     }
 
     cargarDatos() {
         $.ajax({
             url: this.url,
             method: 'GET',
-            success: (data) => this.mostrarDatos(data),
-            error: () => $('body').append('<p>Error al obtener los datos del tiempo.</p>')
+            success: this.mostrarDatos.bind(this),
+            error: this.mostrarError.bind(this)
         });
     }
 
+    mostrarError() {
+        this.parrafoTemperatura.text('Temperatura: — °C');
+        this.parrafoDescripcion.text('Condición: Error al obtener los datos del tiempo.');
+        this.articulo.empty().append('<p>Error al obtener la previsión.</p>');
+    }
+
     mostrarDatos(data) {
-        // Tiempo actual
-        const tempActual = data.current_weather.temperature;
-        const codigo = data.current_weather.weathercode;
-        const descripcion = this.obtenerDescripcionTiempo(codigo);
-        this.spans.eq(0).text(tempActual);
-        this.spans.eq(1).text(descripcion);
+        const actual = data.current_weather;
+        const descripcion = this.obtenerDescripcionTiempo(actual.weathercode);
+        const iconoUrl = this.obtenerIcono(actual.weathercode);
 
-        // Previsión 7 días
+        this.parrafoTemperatura.text(`Temperatura: ${actual.temperature} °C`);
+
+        // Aquí cambiamos a figure con figcaption
+        this.parrafoDescripcion.html(`
+            <figure>
+                <img src="${iconoUrl}" alt="${descripcion}">
+                <figcaption>Condición: ${descripcion}</figcaption>
+            </figure>
+        `);
+
+        this.articulo.empty();
         const dias = data.daily;
-        this.article.empty();
-        for (let i = 0; i < 7; i++) {
-            const fecha = new Date(dias.time[i]).toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'short' });
-            const max = dias.temperature_2m_max[i];
-            const min = dias.temperature_2m_min[i];
-            const desc = this.obtenerDescripcionTiempo(dias.weathercode[i]);
-            const viento = dias.windspeed_10m_max[i];
-            const direccion = this.obtenerDireccionViento(dias.winddirection_10m_dominant[i]);
-            const lluvia = dias.precipitation_probability_max[i];
-            const salidaSol = new Date(dias.sunrise[i]).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-            const puestaSol = new Date(dias.sunset[i]).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
 
-            this.article.append(`
-                <section>
-                    ${fecha}
-                    <p>${desc}<br>
-                    Máx: ${max}°C, Mín: ${min}°C<br>
-                    Lluvia: ${lluvia}%<br>
-                    Viento: ${viento} km/h (${direccion})<br>
-                    🌅 ${salidaSol} - 🌇 ${puestaSol}</p>
-                </section>
+        for (let i = 0; i < 7; i++) {
+            const fecha = new Date(dias.time[i]).toLocaleDateString('es-ES', {
+                weekday: 'long', day: 'numeric', month: 'short'
+            });
+
+            const desc = this.obtenerDescripcionTiempo(dias.weathercode[i]);
+            const iconoDia = this.obtenerIcono(dias.weathercode[i]);
+
+            const texto = `
+                ${fecha}<br>
+                Máx: ${dias.temperature_2m_max[i]} °C, Mín: ${dias.temperature_2m_min[i]} °C<br>
+                Lluvia: ${dias.precipitation_probability_max[i]}%<br>
+                Viento: ${dias.windspeed_10m_max[i]} km/h (${this.obtenerDireccionViento(dias.winddirection_10m_dominant[i])})<br>
+                Amanecer: ${new Date(dias.sunrise[i]).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}<br>
+                Anochecer: ${new Date(dias.sunset[i]).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}
+            `;
+
+            // Aquí también usamos figure para cada día
+            const seccionDia = $('<section></section>');
+            seccionDia.append(`<p>${texto}</p>`);
+            seccionDia.append(`
+                <figure>
+                    <img src="${iconoDia}" alt="${desc}">
+                    <figcaption>${desc}</figcaption>
+                </figure>
             `);
-            
+            this.articulo.append(seccionDia);
         }
     }
 
@@ -70,9 +90,36 @@ class MeteorologiaMieres {
         const index = Math.round(grados / 45) % 8;
         return direcciones[index];
     }
+
+    obtenerIcono(codigo) {
+        return `https://www.weatherbit.io/static/img/icons/${this.mapearCodigoAIcono(codigo)}.png`;
+    }
+
+    mapearCodigoAIcono(codigo) {
+        const iconMap = {
+            0: "c01d", 1: "c02d", 2: "c03d", 3: "c04d",
+            45: "a05d", 48: "a05d",
+            51: "d01d", 53: "d02d", 55: "d03d",
+            61: "r01d", 63: "r02d", 65: "r03d",
+            71: "s01d", 73: "s02d", 75: "s03d",
+            80: "r04d", 81: "r05d", 82: "r06d",
+            95: "t01d", 96: "t04d", 99: "t05d"
+        };
+        return iconMap[codigo] || "c04d";
+    }
 }
 
-$(document).ready(function () {
-    const meteorologia = new MeteorologiaMieres(43.2514, -5.7705);
-    meteorologia.cargarDatos();
-});
+class ControladorMeteorologia {
+    constructor() {
+        document.addEventListener('DOMContentLoaded', this.inicializar.bind(this));
+    }
+
+    inicializar() {
+        const lat = 43.2514;
+        const lon = -5.7705;
+        const mieres = new MeteorologiaMieres(lat, lon);
+        mieres.cargarDatos();
+    }
+}
+
+new ControladorMeteorologia();

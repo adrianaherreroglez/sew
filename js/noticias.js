@@ -14,18 +14,17 @@ class NoticiasMieres {
         $.ajax({
             url: this.apiUrl,
             method: 'GET',
-            success: (data) => {
-                this.mostrarNoticias(data.articles);
-            },
-            error: () => {
-                this.article.append('<p>No se pudieron cargar las noticias.</p>');
-            }
+            success: this.mostrarNoticias.bind(this),
+            error: this.mostrarError.bind(this)
         });
     }
 
-    mostrarNoticias(noticias) {
+    mostrarNoticias(data) {
+        const noticias = data.articles;
         const maxNoticias = 6;
-        noticias.slice(0, maxNoticias).forEach(noticia => {
+
+        for (let i = 0; i < Math.min(noticias.length, maxNoticias); i++) {
+            const noticia = noticias[i];
             const seccionNoticia = $('<section>');
             const cabecera = $(`<h3>${noticia.title}</h3>`);
             const cuerpo = $('<article>').append(`<p>${noticia.description || ''}</p>`);
@@ -33,26 +32,35 @@ class NoticiasMieres {
 
             seccionNoticia.append(cabecera, cuerpo, pie);
             this.article.append(seccionNoticia);
-        });
+        }
+    }
+
+    mostrarError() {
+        this.article.append('<p>No se pudieron cargar las noticias.</p>');
     }
 }
 
+
 class InitNoticias {
     constructor() {
-        this.esperarDOM(() => this.iniciar());
+        this.notificador = null;
+        this.apiKey = '9ed1addf608a4ba5bd0de626859fa965';
+        this.selector = 'main section:nth-of-type(2)';
+        this.inicializar();
     }
 
-    esperarDOM(callback) {
+    inicializar() {
+        // Sin pasar funciones anónimas: se llama a método de instancia
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', callback);
+            document.addEventListener('DOMContentLoaded', this.iniciar.bind(this));
         } else {
-            callback();
+            this.iniciar();
         }
     }
 
     iniciar() {
-        const noticias = new NoticiasMieres('9ed1addf608a4ba5bd0de626859fa965', 'main section:nth-of-type(2)');
-        noticias.iniciar();
+        this.notificador = new NoticiasMieres(this.apiKey, this.selector);
+        this.notificador.iniciar();
     }
 }
 
