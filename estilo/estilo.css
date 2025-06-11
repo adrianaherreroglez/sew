@@ -241,3 +241,10 @@ aside a:active {
   text-decoration: none;
 }
 
+main > section:nth-last-of-type(1) {
+    height: 400px;
+    margin-top: 1em;
+}
+
+
+

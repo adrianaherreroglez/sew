@@ -15,7 +15,8 @@
     coordenadasInicio,
     referencias,
     recomendacion,
-    hitos
+    hitos,
+    kml?
 )>
 
 <!ELEMENT nombre (#PCDATA)>
@@ -64,3 +65,5 @@
 
 <!ELEMENT galeriaVideos (video*)>
 <!ELEMENT video (#PCDATA)>
+
+<!ELEMENT kml (#PCDATA)>

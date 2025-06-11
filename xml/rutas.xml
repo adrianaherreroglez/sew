@@ -5,7 +5,7 @@
         <nombre>Ruta Cordal de Urbiés(P.R AS-34)</nombre>
         <tipo>Senderismo</tipo>
         <transporte>A pie</transporte>
-        <fechaInicio>2025-06-10</fechaInicio>
+        <fechaInicio>2025-06-16</fechaInicio>
         <horaInicio>09:00</horaInicio>
         <duracion>4 horas y 10 minutos</duracion>
         <agencia>Sin agencia</agencia>
@@ -96,5 +96,107 @@
                 </galeriaFotografias>
             </hito>
         </hitos>
+        <kml>xml/planimetria1.kml</kml>
     </ruta>
+
+    <ruta>
+        <nombre>Ruta de Castañir (P.R. AS-188)</nombre>
+        <tipo>Senderismo</tipo>
+        <transporte>A pie</transporte>
+        <fechaInicio>2025-06-16</fechaInicio>
+        <horaInicio>09:00</horaInicio>
+        <duracion>3 horas y 30 minutos</duracion>
+        <agencia>Sin agencia</agencia>
+        <descripcion>
+           Esta ruta tiene como inicio las cercanías del Pozu San José, en el barrio turonés San Francisco, exactamente dónde se encuentra el panel informativo. Desde ahí y subiendo unos metros enlazaremos con la Senda Verde de El Val.le Turón, por la que continuaremos hasta poder enlazar por la derecha con el sendero PR AS-188. Nos encontramos con una escombrera restaurada que tenemos que culminar, y allí mismo, girando a la izquierda, seguimos una antigua vía de ferrocarril minero y cruzamos lo que anteriormente fue un polvorín en 1963.
+        </descripcion>
+        <personasAdecuadas>Se puede ir con niños”</personasAdecuadas>
+        <lugarInicio>San José</lugarInicio>
+        <direccionInicio>Pozo San José</direccionInicio>
+        <coordenadasInicio>
+            <longitud>-5.7377</longitud>
+            <latitud>43.2083</latitud>
+            <altitud unidades="metros sobre el nivel del mar">416</altitud>
+        </coordenadasInicio>
+        <referencias>
+            <referencia>https://es.wikiloc.com/rutas-senderismo/pr-as-ruta-del-castanir-22079783#wp-22079798</referencia>
+            <referencia>https://fempa.net/ruta/ruta-de-castanir/</referencia>
+            <referencia>https://www.mieres.es/turismo/naturaleza/rutas-de-senderismo/ruta-castanir-p-r-as-188/</referencia>
+        </referencias>
+        <recomendacion>9</recomendacion>
+        <hitos>
+            <hito>
+                <nombre>San José</nombre>
+                <descripcion>Punto de inicio y fin de la ruta.</descripcion>
+                <coordenadas>
+                    <longitud>-5.7377</longitud>
+                    <latitud>43.2083</latitud>
+                    <altitud unidades="metros sobre el nivel del mar">263</altitud>
+                </coordenadas>
+                <distancia unidad="km">0</distancia>
+                <galeriaFotografias>
+                    <foto>multimedia/imagenes/sanjose.jpg</foto>
+                </galeriaFotografias>
+            </hito>
+
+            <hito>
+                <nombre>San Pedro</nombre>
+                <descripcion>La bocamina del 4º de San Pedro, la más antigua de las cuencas mineras. La podremos ver después de pasar la aldea de Castañir.</descripcion>
+                <coordenadas>
+                    <longitud>-5.7258</longitud>
+                    <latitud>43.2113</latitud>
+                    <altitud unidades="metros sobre el nivel del mar">410</altitud>
+                </coordenadas>
+                <distancia unidad="km">5.4</distancia>
+                <galeriaFotografias>
+                    <foto>multimedia/imagenes/sanpedro.jpg</foto>
+                </galeriaFotografias>
+            </hito>
+
+            <hito>
+                <nombre>Ablaneo</nombre>
+                <descripcion>Una de las más de veinticinco aldeas deshabitadas con las que cuenta el valle. </descripcion>
+                <coordenadas>
+                    <longitud>-5.71448</longitud>
+                    <latitud>43.20810</latitud>
+                    <altitud unidades="metros sobre el nivel del mar">592</altitud>
+                </coordenadas>
+                <distancia unidad="km">3.9</distancia>
+                <galeriaFotografias>
+                    <foto>multimedia/imagenes/ablaneo.jpg</foto>
+                </galeriaFotografias>
+            </hito>
+            <hito>
+                <nombre>Candanal</nombre>
+                <descripcion>Pueblo donde no se haya ninguna persona censada, el pueblo consta con una ocupación bastante habitual de propietarios de segundas residencias e incluso, como suele ocurrir en otras partes del valle, de propietarios que suben a diario para cuidar de la finca, huerto y animales de corral.</descripcion>
+                <coordenadas>
+                    <longitud>-5.7261</longitud>
+                    <latitud>43.2092</latitud>
+                    
+                    <altitud unidades="metros sobre el nivel del mar">435</altitud>
+                </coordenadas>
+                <distancia unidad="km">4.9</distancia>
+                <galeriaFotografias>
+                    <foto>multimedia/imagenes/candanal.jpg</foto>
+                </galeriaFotografias>
+            </hito>
+            <hito>
+                <nombre>Tablado</nombre>
+                <descripcion>Aldea de la parroquia de Extrarradio Mieres (Mieres)</descripcion>
+                <coordenadas>
+                    <longitud>-5.7276</longitud>
+                    <latitud> 43.2029</latitud>
+                    <altitud unidades="metros sobre el nivel del mar">319</altitud>
+                </coordenadas>
+                <distancia unidad="km">3.1</distancia>
+                <galeriaFotografias>
+                    <foto>multimedia/imagenes/tablado.jpg</foto>
+                </galeriaFotografias>
+            </hito>
+     
+            
+        </hitos>
+        <kml>xml/planimetria2.kml</kml>
+    </ruta>
+
 </rutas>

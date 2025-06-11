@@ -18,8 +18,6 @@ class Rutas {
     reader.onload = (e) => {
         const xmlStr = e.target.result;
         this.parseXML(xmlStr);
-
-        // Ahora cargamos el KML tras procesar el XML
         this.loadAndShowKML('planimetria1.kml');
     };
     reader.readAsText(file);
@@ -42,12 +40,8 @@ class Rutas {
             return;
         }
 
-        // Seleccionar el <main> (único) para mostrar las rutas
         const main = document.getElementsByTagName('main')[0];
 
-        // Antes de mostrar, borrar todo el contenido salvo el label y input
-        // Suponemos que el label y el input son los primeros hijos del main
-        // Vamos a dejar solo esos dos y eliminar el resto
         while (main.childNodes.length > 2) {
             main.removeChild(main.lastChild);
         }
@@ -109,7 +103,6 @@ class Rutas {
                     const li = document.createElement('li');
                     const a = document.createElement('a');
                     a.href = url;
-                    a.target = '_blank';
                     a.textContent = url;
                     li.appendChild(a);
                     ul.appendChild(li);
@@ -162,6 +155,11 @@ class Rutas {
                 }
             }
 
+            const kmlFile = this.getTextContent(ruta, 'kml');
+                if (kmlFile) {
+                this.loadAndShowKML(kmlFile, rutaDiv);
+            }
+
             main.appendChild(rutaDiv);
         }
     }
@@ -169,9 +167,9 @@ class Rutas {
     appendP(parent, label, text) {
         const p = document.createElement('p');
         if (label) {
-            const strong = document.createElement('strong');
-            strong.textContent = label + ': ';
-            p.appendChild(strong);
+            const li = document.createElement('li');
+            li.textContent = label + ': ';
+            p.appendChild(li);
         }
         p.appendChild(document.createTextNode(text));
         parent.appendChild(p);
@@ -181,6 +179,90 @@ class Rutas {
         const el = parent.getElementsByTagName(tagName)[0];
         return el ? el.textContent.trim() : '';
     }
+
+    loadAndShowKML(kmlPath, parentElement) {
+    fetch(kmlPath)
+        .then(response => {
+            if (!response.ok) throw new Error("No se pudo cargar el archivo KML");
+            return response.text();
+        })
+        .then(kmlText => {
+            const parser = new DOMParser();
+            const kmlDoc = parser.parseFromString(kmlText, "text/xml");
+
+            const features = [];
+
+            const lineStringElement = kmlDoc.querySelector("LineString > coordinates");
+            if (lineStringElement) {
+                const coordTextLine = lineStringElement.textContent.trim();
+                const coordLines = coordTextLine.split(/\s+/);
+                const lineCoordinates = coordLines.map(line => {
+                    const [lon, lat, alt] = line.split(',').map(Number);
+                    return ol.proj.fromLonLat([lon, lat]);
+                });
+
+                const lineString = new ol.geom.LineString(lineCoordinates);
+                const lineFeature = new ol.Feature({ geometry: lineString });
+                lineFeature.setStyle(new ol.style.Style({
+                    stroke: new ol.style.Stroke({ color: '#FF0000', width: 4 })
+                }));
+                features.push(lineFeature);
+            }
+
+            // Procesar los puntos (Placemark > Point)
+            const pointElements = kmlDoc.querySelectorAll("Placemark > Point > coordinates");
+            pointElements.forEach(coordEl => {
+                const coordText = coordEl.textContent.trim();
+                const [lon, lat, alt] = coordText.split(',').map(Number);
+                const coord = ol.proj.fromLonLat([lon, lat]);
+                const pointFeature = new ol.Feature(new ol.geom.Point(coord));
+
+                pointFeature.setStyle(new ol.style.Style({
+                    image: new ol.style.Icon({
+                        anchor: [0.5, 1],
+                        src: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', // símbolo de ubicación
+                        scale: 0.07
+                    })
+                }));
+                features.push(pointFeature);
+            });
+
+            // Capa vectorial
+            const vectorLayer = new ol.layer.Vector({
+                source: new ol.source.Vector({ features })
+            });
+
+            // Contenedor de mapa
+            const mapSection = document.createElement('section');
+            mapSection.style.height = '400px';
+            mapSection.style.marginTop = '1em';
+            parentElement.appendChild(mapSection);
+
+            // Crear el mapa
+            const map = new ol.Map({
+                target: mapSection,
+                layers: [
+                    new ol.layer.Tile({ source: new ol.source.OSM() }),
+                    vectorLayer
+                ],
+                view: new ol.View({
+                    center: features.length > 0 ? features[0].getGeometry().getCoordinates() : ol.proj.fromLonLat([-5.7, 43.21]),
+                    zoom: 14
+                })
+            });
+
+            // Ajustar el zoom para que se vean todos los elementos
+            const extent = vectorLayer.getSource().getExtent();
+            map.getView().fit(extent, { padding: [30, 30, 30, 30] });
+        })
+        .catch(error => {
+            const p = document.createElement('p');
+            p.textContent = 'Error al cargar el mapa: ' + error.message;
+            parentElement.appendChild(p);
+        });
+}
+
+
 
 }
 
