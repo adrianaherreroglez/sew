@@ -1,8 +1,9 @@
 class Carrusel {
-    constructor(selector) {
-        this.$section = $(selector).eq(0);
+    constructor($section) {
+        this.$section = $section;
         this.$article = this.$section.find('article');
         this.$botones = this.$section.find('footer').find('button');
+
         this.imagenes = [
             'multimedia/imagenes/mapa.png',
             'multimedia/imagenes/mieres1.jpg',
@@ -17,7 +18,7 @@ class Carrusel {
 
     inicializar() {
         this.mostrarImagen();
-        this.botones();
+        this.asignarEventos();
     }
 
     mostrarImagen() {
@@ -29,9 +30,9 @@ class Carrusel {
         this.$article.append($img);
     }
 
-    botones() {
-        this.$botones.eq(0).on('click', () => this.anterior());
-        this.$botones.eq(1).on('click', () => this.siguiente());
+    asignarEventos() {
+        this.$botones.eq(0).on('click', this.anterior.bind(this));
+        this.$botones.eq(1).on('click', this.siguiente.bind(this));
     }
 
     anterior() {
@@ -45,22 +46,28 @@ class Carrusel {
     }
 }
 
-class InitCarrusel {
+class App {
     constructor() {
-        this.esperarDOM(() => this.iniciar());
+        this.intento = 0;
+        this.maxIntentos = 100; // Por si nunca carga
+        this.buscarMain();
     }
 
-    esperarDOM(callback) {
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', callback);
-        } else {
-            callback();
+    buscarMain() {
+        this.intervalo = setInterval(this.verificarMain.bind(this), 50);
+    }
+
+    verificarMain() {
+        const $main = $('main');
+        if ($main.length > 0 || this.intento > this.maxIntentos) {
+            clearInterval(this.intervalo);
+            if ($main.length > 0) {
+                const $seccion = $main.find('section').eq(0);
+                new Carrusel($seccion);
+            }
         }
-    }
-
-    iniciar() {
-        new Carrusel('main section:nth-of-type(1)');
+        this.intento++;
     }
 }
 
-new InitCarrusel();
+new App();
