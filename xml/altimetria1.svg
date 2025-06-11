@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="300">
+<line x1="40" y1="260.0" x2="760" y2="260.0" stroke="#888" stroke-dasharray="4"/>
+<path d="M 40.00,133.59 L 220.00,98.65 L 400.00,81.02 L 580.00,40.00 L 760.00,129.94" fill="none" stroke="#007acc" stroke-width="2"/>
+<circle cx="40.0" cy="133.59116022099448" r="3" fill="#007acc" />
+<text x="40.0" y="125.59116022099448" font-size="10" fill="#000" text-anchor="middle">La LLera</text>
+<circle cx="220.0" cy="98.64640883977899" r="3" fill="#007acc" />
+<text x="220.0" y="90.64640883977899" font-size="10" fill="#000" text-anchor="middle">El LLéu</text>
+<circle cx="400.0" cy="81.02209944751382" r="3" fill="#007acc" />
+<text x="400.0" y="73.02209944751382" font-size="10" fill="#000" text-anchor="middle">El Artoso</text>
+<circle cx="580.0" cy="40.0" r="3" fill="#007acc" />
+<text x="580.0" y="32.0" font-size="10" fill="#000" text-anchor="middle">San Justo</text>
+<circle cx="760.0" cy="129.94475138121547" r="3" fill="#007acc" />
+<text x="760.0" y="121.94475138121547" font-size="10" fill="#000" text-anchor="middle">La Vegona</text>
+</svg>

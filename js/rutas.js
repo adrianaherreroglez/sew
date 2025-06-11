@@ -160,6 +160,20 @@ class Rutas {
                 this.loadAndShowKML(kmlFile, rutaDiv);
             }
 
+            const altimetriaFile = `xml/altimetria${i + 1}.svg`;
+                fetch(altimetriaFile)
+                .then(response => response.text())
+                .then(svgText => {
+                    const svgContainer = document.createElement('section');
+                    svgContainer.innerHTML = svgText;
+                    rutaDiv.appendChild(svgContainer);
+                        })
+                    .catch(error => {
+                    const p = document.createElement('p');
+                    p.textContent = 'No se pudo cargar el perfil de altimetría.';
+                     rutaDiv.appendChild(p);
+            });
+
             main.appendChild(rutaDiv);
         }
     }

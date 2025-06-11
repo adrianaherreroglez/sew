@@ -97,6 +97,7 @@
             </hito>
         </hitos>
         <kml>xml/planimetria1.kml</kml>
+        <svg>xml/altimetria1.svg</svg>
     </ruta>
 
     <ruta>
@@ -197,6 +198,7 @@
             
         </hitos>
         <kml>xml/planimetria2.kml</kml>
+        <svg>xml/altimetria2.svg</svg>
     </ruta>
 
     <ruta>
@@ -296,6 +298,7 @@
             </hito>
         </hitos>
         <kml>xml/planimetria3.kml</kml>
+        <svg>xml/altimetria3.svg</svg>
     </ruta>
 
 </rutas>

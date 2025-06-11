@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="300">
+<line x1="40" y1="260.0" x2="760" y2="260.0" stroke="#888" stroke-dasharray="4"/>
+<path d="M 40.00,186.67 L 220.00,122.73 L 400.00,107.55 L 580.00,90.21 L 760.00,40.00" fill="none" stroke="#007acc" stroke-width="2"/>
+<circle cx="40.0" cy="186.66666666666669" r="3" fill="#007acc" />
+<text x="40.0" y="178.66666666666669" font-size="10" fill="#000" text-anchor="middle">La Peña</text>
+<circle cx="220.0" cy="122.72577996715927" r="3" fill="#007acc" />
+<text x="220.0" y="114.72577996715927" font-size="10" fill="#000" text-anchor="middle">Arzolar</text>
+<circle cx="400.0" cy="107.55336617405581" r="3" fill="#007acc" />
+<text x="400.0" y="99.55336617405581" font-size="10" fill="#000" text-anchor="middle">Las Cruces</text>
+<circle cx="580.0" cy="90.21346469622333" r="3" fill="#007acc" />
+<text x="580.0" y="82.21346469622333" font-size="10" fill="#000" text-anchor="middle">El Nozal</text>
+<circle cx="760.0" cy="40.0" r="3" fill="#007acc" />
+<text x="760.0" y="32.0" font-size="10" fill="#000" text-anchor="middle">Campa del Trave</text>
+</svg>

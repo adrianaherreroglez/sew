@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="300">
+<line x1="40" y1="260.0" x2="760" y2="260.0" stroke="#888" stroke-dasharray="4"/>
+<path d="M 40.00,162.26 L 220.00,107.64 L 400.00,40.00 L 580.00,98.34 L 760.00,141.45" fill="none" stroke="#007acc" stroke-width="2"/>
+<circle cx="40.0" cy="162.26351351351352" r="3" fill="#007acc" />
+<text x="40.0" y="154.26351351351352" font-size="10" fill="#000" text-anchor="middle">San José</text>
+<circle cx="220.0" cy="107.63513513513513" r="3" fill="#007acc" />
+<text x="220.0" y="99.63513513513513" font-size="10" fill="#000" text-anchor="middle">San Pedro</text>
+<circle cx="400.0" cy="40.0" r="3" fill="#007acc" />
+<text x="400.0" y="32.0" font-size="10" fill="#000" text-anchor="middle">Ablaneo</text>
+<circle cx="580.0" cy="98.34459459459461" r="3" fill="#007acc" />
+<text x="580.0" y="90.34459459459461" font-size="10" fill="#000" text-anchor="middle">Candanal</text>
+<circle cx="760.0" cy="141.4527027027027" r="3" fill="#007acc" />
+<text x="760.0" y="133.4527027027027" font-size="10" fill="#000" text-anchor="middle">Tablado</text>
+</svg>

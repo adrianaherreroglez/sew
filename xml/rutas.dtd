@@ -16,7 +16,8 @@
     referencias,
     recomendacion,
     hitos,
-    kml?
+    kml,
+    svg
 )>
 
 <!ELEMENT nombre (#PCDATA)>
@@ -67,3 +68,4 @@
 <!ELEMENT video (#PCDATA)>
 
 <!ELEMENT kml (#PCDATA)>
+<!ELEMENT svg (#PCDATA)>
