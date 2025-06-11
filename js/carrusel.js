@@ -45,11 +45,9 @@ class Carrusel {
     }
 }
 
-class App {
+class InitCarrusel {
     constructor() {
-        this.esperarDOM(() => {
-            this.carrusel = new Carrusel('main section');
-        });
+        this.esperarDOM(() => this.iniciar());
     }
 
     esperarDOM(callback) {
@@ -59,6 +57,10 @@ class App {
             callback();
         }
     }
+
+    iniciar() {
+        new Carrusel('main section:nth-of-type(1)');
+    }
 }
 
-new App();
+new InitCarrusel();

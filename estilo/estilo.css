@@ -26,6 +26,11 @@ header h1 a {
   font-weight: bold;
 }
 
+section >  h3 {
+  font-weight:bold;
+  color:black;
+  font-size:1.5em;
+}
 
 /* Especificidad = (0, 0, 2) */
 nav a {
@@ -110,24 +115,6 @@ section:nth-of-type(2) article section footer a:link {
   color: #074480;
 }
 
-article > section > h3 {
-  font-weight: bold;
-}
-
-article > section header,
-article > section article,
-article > section footer {
-  font-weight: normal;
-}
-
-
-article > section {
-  font-weight: bold;
-}
-
-article > section > * {
-  font-weight: normal;
-}
 
 
 /* Especificidad = (0, 0, 2) */
@@ -265,3 +252,10 @@ main > section:nth-last-of-type(1) {
 
 
 
+/* Estilo individual para cada noticia con unidades relativas */
+section:nth-of-type(2) article > section {
+  background-color: #f5f5f5;
+  border: 0.0625rem solid #ddd; /* 1px ≈ 0.0625rem */
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1); /* 2px 5px */
+}
