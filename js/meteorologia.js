@@ -19,8 +19,12 @@ class MeteorologiaMieres {
     }
 
     mostrarError() {
-        this.parrafoTemperatura.text('Temperatura: — °C');
-        this.parrafoDescripcion.text('Condición: Error al obtener los datos del tiempo.');
+        this.parrafoTemperatura.html(`
+            <p>Temperatura: — °C</p>
+            <p>Velocidad del viento: —</p>
+            <p>Dirección del viento: —</p>
+        `);
+        this.parrafoDescripcion.html('Condición: Error al obtener los datos del tiempo.');
         this.articulo.empty().append('<p>Error al obtener la previsión.</p>');
     }
 
@@ -29,9 +33,15 @@ class MeteorologiaMieres {
         const descripcion = this.obtenerDescripcionTiempo(actual.weathercode);
         const iconoUrl = this.obtenerIcono(actual.weathercode);
 
-        this.parrafoTemperatura.text(`Temperatura: ${actual.temperature} °C`);
+        const viento = `${actual.windspeed} km/h`;
+        const direccion = this.obtenerDireccionViento(actual.winddirection);
 
-        // Aquí cambiamos a figure con figcaption
+        this.parrafoTemperatura.html(`
+            <p>Temperatura actual: ${actual.temperature} °C</p>
+            <p>Velocidad del viento: ${viento}</p>
+            <p>Dirección del viento: ${direccion}</p>
+        `);
+
         this.parrafoDescripcion.html(`
             <figure>
                 <img src="${iconoUrl}" alt="${descripcion}">
@@ -50,18 +60,19 @@ class MeteorologiaMieres {
             const desc = this.obtenerDescripcionTiempo(dias.weathercode[i]);
             const iconoDia = this.obtenerIcono(dias.weathercode[i]);
 
-            const texto = `
-                ${fecha}<br>
-                Máx: ${dias.temperature_2m_max[i]} °C, Mín: ${dias.temperature_2m_min[i]} °C<br>
-                Lluvia: ${dias.precipitation_probability_max[i]}%<br>
-                Viento: ${dias.windspeed_10m_max[i]} km/h (${this.obtenerDireccionViento(dias.winddirection_10m_dominant[i])})<br>
-                Amanecer: ${new Date(dias.sunrise[i]).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}<br>
-                Anochecer: ${new Date(dias.sunset[i]).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}
-            `;
+            const bloqueDia = $(`
+                <div>
+                    <p><strong>${fecha}</strong></p>
+                    <p>Máx: ${dias.temperature_2m_max[i]} °C, Mín: ${dias.temperature_2m_min[i]} °C</p>
+                    <p>Lluvia: ${dias.precipitation_probability_max[i]}%</p>
+                    <p>Viento: ${dias.windspeed_10m_max[i]} km/h (${this.obtenerDireccionViento(dias.winddirection_10m_dominant[i])})</p>
+                    <p>Amanecer: ${new Date(dias.sunrise[i]).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</p>
+                    <p>Anochecer: ${new Date(dias.sunset[i]).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</p>
+                </div>
+            `);
 
-            // Aquí también usamos figure para cada día
             const seccionDia = $('<section></section>');
-            seccionDia.append(`<p>${texto}</p>`);
+            seccionDia.append(bloqueDia);
             seccionDia.append(`
                 <figure>
                     <img src="${iconoDia}" alt="${desc}">
