@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
-    <meta name="author" content="Tu nombre" />
+    <meta name="author" content="Adriana Herrero González" />
     <meta name="description" content="Rutas turísticas por el concejo de Mieres" />
     <meta name="keywords" content="Mieres, rutas, turismo, montaña, senderismo, bicicleta" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -42,103 +42,6 @@
     <!-- OpenLayers JS -->
     <script src="https://cdn.jsdelivr.net/npm/ol@latest/dist/ol.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            $.ajax({
-                type: "GET",
-                url: "xml/rutas.xml",
-                dataType: "xml",
-                success: function (xml) {
-                    $(xml).find("ruta").each(function (index) {
-                        let nombre = $(this).attr("nombre");
-                        let descripcion = $(this).find("descripcion").text();
-                        let planimetriaUrl = $(this).find("planimetria").text();
-                        let altimetriaUrl = $(this).find("altimetria").text();
-
-                        // Crear sección para la ruta
-                        let $seccion = $('<section class="ruta"></section>');
-                        $seccion.append(`<h2>${nombre}</h2>`);
-                        $seccion.append(`<p>${descripcion}</p>`);
-                        $seccion.append('<h3>Mapa de la ruta</h3>');
-                        let $mapaDiv = $('<div class="mapa" style="width:100%;height:400px;"></div>');
-                        $seccion.append($mapaDiv);
-                        $seccion.append('<h3>Perfil altimétrico</h3>');
-                        let $altimetria = $(`<object class="altimetria" type="image/svg+xml" width="100%" height="300"></object>`);
-                        $altimetria.attr('data', altimetriaUrl);
-                        $seccion.append($altimetria);
-
-                        $('body').append($seccion);
-
-                        // Cargar y mostrar KML en mapa con OpenLayers
-                        let map = new ol.Map({
-                            target: $mapaDiv[0],
-                            layers: [
-                                new ol.layer.Tile({
-                                    source: new ol.source.OSM()
-                                }),
-                                new ol.layer.Vector({
-                                    source: new ol.source.Vector({
-                                        url: planimetriaUrl,
-                                        format: new ol.format.KML()
-                                    }),
-                                    style: new ol.style.Style({
-                                        stroke: new ol.style.Stroke({
-                                            color: '#FF0000',
-                                            width: 3
-                                        })
-                                    })
-                                })
-                            ],
-                            view: new ol.View({
-                                center: ol.proj.fromLonLat([-5.77, 43.15]), // Centrado en Mieres (Asturias)
-                                zoom: 12
-                            })
-                        });
-
-                        // Al cargar el SVG, añadimos la línea de cota cero y textos/hitos
-                        $altimetria.on('load', function () {
-                            try {
-                                let svgDoc = this.contentDocument;
-                                if (!svgDoc) return;
-
-                                // Línea de cota cero (línea azul discontinua)
-                                let lineaCota = svgDoc.createElementNS("http://www.w3.org/2000/svg", "line");
-                                lineaCota.setAttribute("x1", "0");
-                                lineaCota.setAttribute("y1", "250"); // Ajusta según SVG
-                                lineaCota.setAttribute("x2", "1000");
-                                lineaCota.setAttribute("y2", "250");
-                                lineaCota.setAttribute("stroke", "blue");
-                                lineaCota.setAttribute("stroke-width", "2");
-                                lineaCota.setAttribute("stroke-dasharray", "5,5");
-                                svgDoc.documentElement.appendChild(lineaCota);
-
-                                // Ejemplo de hitos (puedes modificar o cargar dinámicamente)
-                                let hitos = [
-                                    { x: 50, y: 230, texto: "Inicio" },
-                                    { x: 500, y: 230, texto: "Pico Alto" },
-                                    { x: 900, y: 230, texto: "Fin" }
-                                ];
-                                hitos.forEach(hito => {
-                                    let texto = svgDoc.createElementNS("http://www.w3.org/2000/svg", "text");
-                                    texto.setAttribute("x", hito.x);
-                                    texto.setAttribute("y", hito.y);
-                                    texto.setAttribute("fill", "black");
-                                    texto.textContent = hito.texto;
-                                    svgDoc.documentElement.appendChild(texto);
-                                });
-
-                            } catch (e) {
-                                console.error("Error al manipular SVG altimetría:", e);
-                            }
-                        });
-
-                    });
-                },
-                error: function () {
-                    alert("Error al cargar rutas.xml");
-                }
-            });
-        });
-    </script>
+    
 </body>
 </html>

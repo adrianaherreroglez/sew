@@ -5,8 +5,8 @@
         <nombre>Ruta Cordal de Urbiés(P.R AS-34)</nombre>
         <tipo>Senderismo</tipo>
         <transporte>A pie</transporte>
-        <fechaInicio opcional="true">2025-06-10</fechaInicio>
-        <horaInicio opcional="true">09:00</horaInicio>
+        <fechaInicio>2025-06-10</fechaInicio>
+        <horaInicio>09:00</horaInicio>
         <duracion>4 horas y 10 minutos</duracion>
         <agencia>Sin agencia</agencia>
         <descripcion>
@@ -94,12 +94,7 @@
                 <galeriaFotografias>
                     <foto>multimedia/imagenes/lavegona.jpg</foto>
                 </galeriaFotografias>
-                <galeriaVideos/>
             </hito>
-            
-    </hitos>
+        </hitos>
     </ruta>
 </rutas>
-
-
-       

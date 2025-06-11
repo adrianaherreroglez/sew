@@ -1,17 +1,28 @@
 <!ELEMENT rutas (ruta+)>
 
 <!ELEMENT ruta (
-    nombre, tipo, transporte, fechaInicio?, horaInicio?, duracion,
-    agencia, descripcion, personasAdecuadas, lugarInicio, direccionInicio,
-    coordenadasInicio, referencias, recomendacion, hitos
+    nombre,
+    tipo,
+    transporte,
+    fechaInicio?,
+    horaInicio?,
+    duracion,
+    agencia,
+    descripcion,
+    personasAdecuadas,
+    lugarInicio,
+    direccionInicio,
+    coordenadasInicio,
+    referencias,
+    recomendacion,
+    hitos
 )>
+
 <!ELEMENT nombre (#PCDATA)>
 <!ELEMENT tipo (#PCDATA)>
 <!ELEMENT transporte (#PCDATA)>
-<!ELEMENT fechaInicio (#PCDATA)>
-<!ATTLIST fechaInicio opcional CDATA #IMPLIED>
-<!ELEMENT horaInicio (#PCDATA)>
-<!ATTLIST horaInicio opcional CDATA #IMPLIED>
+<!ELEMENT fechaInicio (#PCDATA)> <!-- Opcional -->
+<!ELEMENT horaInicio (#PCDATA)> <!-- Opcional -->
 <!ELEMENT duracion (#PCDATA)>
 <!ELEMENT agencia (#PCDATA)>
 <!ELEMENT descripcion (#PCDATA)>
@@ -26,19 +37,30 @@
 <!ATTLIST altitud unidades CDATA #REQUIRED>
 
 <!ELEMENT referencias (referencia+)>
+
 <!ELEMENT referencia (#PCDATA)>
 
 <!ELEMENT recomendacion (#PCDATA)>
 
 <!ELEMENT hitos (hito+)>
-<!ELEMENT hito (nombre, descripcion, coordenadas, distancia, galeriaFotografias, galeriaVideos?)>
+<!ELEMENT hito (
+    nombre,
+    descripcion,
+    coordenadas,
+    distancia,
+    galeriaFotografias,
+    galeriaVideos?
+)>
 
 <!ELEMENT coordenadas (longitud, latitud, altitud)>
+<!-- reutilizamos longitud, latitud, altitud ya definidos arriba -->
 
 <!ELEMENT distancia (#PCDATA)>
 <!ATTLIST distancia unidad CDATA #REQUIRED>
 
 <!ELEMENT galeriaFotografias (foto+)>
+
 <!ELEMENT foto (#PCDATA)>
 
-<!ELEMENT galeriaVideos EMPTY>
+<!ELEMENT galeriaVideos (video*)>
+<!ELEMENT video (#PCDATA)>

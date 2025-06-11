@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<kml xmlns="http://www.opengis.net/kml/2.2"><Document><name>
+Planimetría Ruta
+</name><Placemark><LineString><extrude>
+1
+</extrude><tessellation>
+1
+</tessellation><coordinates>
+-5.6850,43.2142,416
+-5.6842,43.2175,531
+-5.6886,43.2180,589
+-5.7005,43.2420,724
+-5.6750,43.2147,428
+-5.6850,43.2142,416
+</coordinates><altitudeMode>
+relativeToGround
+</altitudeMode></LineString><Style><LineStyle><color>
+#ff0000ff
+</color><width>
+4
+</width></LineStyle></Style></Placemark></Document></kml>
