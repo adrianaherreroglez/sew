@@ -17,12 +17,17 @@ main, aside {
 
 
 /* Especificidad = (0, 0, 1) */
-article, video {
+article {
   margin: 1rem 0;
   width: 50%;
-  height: auto;
-  text-align: left;
 }
+
+video {
+  margin: 1rem 0;
+  max-width: 50%;
+  height: auto;
+}
+
 
 
 /* Especificidad = (0, 0, 1) */
