@@ -24,28 +24,34 @@ class DB {
     }
 
     public function insertarRecursosDesdeCSV($archivo) {
-        if (($handle = fopen($archivo, "r")) !== FALSE) {
-            fgetcsv($handle); // Saltar encabezado
+    if (($handle = fopen($archivo, "r")) !== FALSE) {
+        fgetcsv($handle); // Saltar encabezado
 
-            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                list($nombre, $descripcion, $capacidad, $fecha_inicio, $fecha_fin, $precio, $tipo_nombre) = $data;
-
-                $tipo_id = $this->getTipoId(trim($tipo_nombre));
-
-                $stmt = $this->pdo->prepare("
-                    INSERT INTO recursos (nombre, descripcion, capacidad, fecha_inicio, fecha_fin, precio, tipo_id)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
-                ");
-                $stmt->execute([
-                    $nombre, $descripcion, $capacidad, $fecha_inicio, $fecha_fin, $precio, $tipo_id
-                ]);
+        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+            // Asegúrate de que hay exactamente 5 columnas
+            if (count($data) < 5) {
+                continue;
             }
-            fclose($handle);
-            echo "Recursos importados correctamente.";
-        } else {
-            echo "Error al abrir el archivo.";
+
+            list($nombre, $descripcion, $capacidad, $precio, $tipo_nombre) = $data;
+
+            $tipo_id = $this->getTipoId(trim($tipo_nombre));
+
+            $stmt = $this->pdo->prepare("
+                INSERT INTO recursos (nombre, descripcion, capacidad, precio, tipo_id)
+                VALUES (?, ?, ?, ?, ?)
+            ");
+            $stmt->execute([
+                $nombre, $descripcion, $capacidad, $precio, $tipo_id
+            ]);
         }
+        fclose($handle);
+        echo "Recursos importados correctamente.";
+    } else {
+        echo "Error al abrir el archivo.";
     }
+}
+
 }
 
 $db = new DB();
