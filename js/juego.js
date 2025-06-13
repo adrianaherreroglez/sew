@@ -119,8 +119,8 @@ class JuegoApp {
                 correcta: 2
             },
             {
-                pregunta: "¿Qué formato tiene la sección de reservas?",
-                opciones: ["Formulario en HTML", "PDF descargable", "Correo automático", "Documento Word", "Chat en vivo"],
+                pregunta: "¿Cuantos recursos turísticos muestra la sección de reservas?",
+                opciones: ["5", "3", "10", "7", "9"],
                 correcta: 0
             },
             {
