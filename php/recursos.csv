@@ -1,6 +1,6 @@
-nombre,descripcion,capacidad,fecha_inicio,fecha_fin,precio,tipo
-Museo de Historia,Visita guiada por el museo,50,2025-06-20 10:00:00,2025-06-20 12:00:00,12.00,Museo
-Ruta del Vino,Degustación en viñedos,20,2025-06-21 09:00:00,2025-06-21 13:00:00,30.00,Ruta
-Hotel Relax,Estancia en hotel con spa,100,2025-06-20 14:00:00,2025-06-25 12:00:00,120.00,Hotel
-Restaurante Gourmet,Cena degustación,30,2025-06-20 20:00:00,2025-06-20 22:00:00,45.00,Restaurante
-Excursión Montaña,Senderismo guiado,25,2025-06-22 08:00:00,2025-06-22 11:00:00,18.00,Excursión
+nombre,descripcion,capacidad,precio,tipo
+Museo de Historia,Visita guiada por el museo,50,12.00,Museo
+Ruta del Vino,Degustación en viñedos,20,30.00,Ruta
+Hotel Relax,Estancia en hotel con spa,100,120.00,Hotel
+Restaurante Gourmet,Cena degustación,30,45.00,Restaurante
+Excursión Montaña,Senderismo guiado,25,18.00,Excursión

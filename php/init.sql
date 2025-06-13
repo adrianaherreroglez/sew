@@ -19,8 +19,6 @@ CREATE TABLE recursos (
   nombre VARCHAR(100) NOT NULL,
   descripcion TEXT,
   capacidad INT NOT NULL,
-  fecha_inicio DATETIME,
-  fecha_fin DATETIME,
   precio DECIMAL(10,2),
   tipo_id INT,
   FOREIGN KEY (tipo_id) REFERENCES tipos_recurso(id) ON DELETE SET NULL
@@ -30,7 +28,8 @@ CREATE TABLE reservas (
   id INT AUTO_INCREMENT PRIMARY KEY,
   usuario_id INT,
   recurso_id INT,
-  fecha_reserva DATETIME DEFAULT CURRENT_TIMESTAMP,
+  fecha_inicio DATETIME,
+  fecha_fin DATETIME,
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
   FOREIGN KEY (recurso_id) REFERENCES recursos(id) ON DELETE CASCADE
 );

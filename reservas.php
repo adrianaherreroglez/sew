@@ -26,14 +26,18 @@ $recursoPresupuesto = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuestar'])) {
     $mostrarPresupuesto = true;
-    $precioPresupuesto = floatval($_POST['precio']);
-    $recursoIdPresupuesto = intval($_POST['recurso_id']);
-    foreach ($recursos as $r) {
-        if ($r['id'] === $recursoIdPresupuesto) {
-            $recursoPresupuesto = $r;
-            break;
-        }
+$precioPresupuesto = floatval($_POST['precio']);
+$fechaInicioPresupuesto = $_POST['fecha_inicio'];
+$fechaFinPresupuesto = $_POST['fecha_fin'];
+
+$recursoIdPresupuesto = intval($_POST['recurso_id']);
+foreach ($recursos as $r) {
+    if ($r['id'] === $recursoIdPresupuesto) {
+        $recursoPresupuesto = $r;
+        break;
     }
+}
+
 }
 ?>
 <!DOCTYPE html>
@@ -68,7 +72,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuestar'])) {
 <table>
 <thead>
 <tr>
-  <th>Nombre</th><th>Tipo</th><th>Descripción</th><th>Capacidad</th><th>Inicio</th><th>Fin</th><th>Precio (€)</th><th>Acción</th>
+  <th>Nombre</th><th>Tipo</th><th>Descripción</th><th>Capacidad</th><th>Precio (€)</th><th>Acción</th>
+
 </tr>
 </thead>
 <tbody>
@@ -78,14 +83,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuestar'])) {
   <td><?= htmlspecialchars($r['tipo']) ?></td>
   <td><?= htmlspecialchars($r['descripcion']) ?></td>
   <td><?= $r['capacidad'] ?></td>
-  <td><?= date('d/m/Y H:i', strtotime($r['fecha_inicio'])) ?></td>
-  <td><?= date('d/m/Y H:i', strtotime($r['fecha_fin'])) ?></td>
   <td><?= number_format($r['precio'], 2) ?></td>
   <td>
     <form method="POST" style="margin:0;">
-      <input type="hidden" name="recurso_id" value="<?= $r['id'] ?>">
-      <input type="hidden" name="precio" value="<?= $r['precio'] ?>">
-      <button type="submit" name="presupuestar">Presupuestar</button>
+    <input type="hidden" name="recurso_id" value="<?= $r['id'] ?>">
+    <input type="hidden" name="precio" value="<?= $r['precio'] ?>">
+    <label for="fecha_inicio">Inicio:</label>
+    <input type="datetime-local" name="fecha_inicio" required>
+    <label for="fecha_fin">Fin:</label>
+    <input type="datetime-local" name="fecha_fin" required>
+    <button type="submit" name="presupuestar">Presupuestar</button>
     </form>
   </td>
 </tr>
@@ -97,10 +104,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuestar'])) {
   <hr>
   <h3>Presupuesto para: <?= htmlspecialchars($recursoPresupuesto['nombre']) ?></h3>
   <p>Precio: <?= number_format($precioPresupuesto, 2) ?> €</p>
-  <form method="POST" action="php/controllers/ReservaController.php">
-    <input type="hidden" name="recurso_id" value="<?= $recursoPresupuesto['id'] ?>">
-    <button type="submit" name="reservar">Confirmar reserva</button>
-  </form>
+  <p>Fecha de inicio: <?= date('d/m/Y H:i', strtotime($fechaInicioPresupuesto)) ?></p>
+<p>Fecha de fin: <?= date('d/m/Y H:i', strtotime($fechaFinPresupuesto)) ?></p>
+
+<form method="POST" action="php/controllers/ReservaController.php">
+  <input type="hidden" name="recurso_id" value="<?= $recursoPresupuesto['id'] ?>">
+  <input type="hidden" name="fecha_inicio" value="<?= $fechaInicioPresupuesto ?>">
+  <input type="hidden" name="fecha_fin" value="<?= $fechaFinPresupuesto ?>">
+  <button type="submit" name="reservar">Confirmar reserva</button>
+</form>
+
 <?php endif; ?>
 
 <?php

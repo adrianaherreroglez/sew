@@ -9,17 +9,19 @@ $rc = new Recurso();
 if (isset($_POST['reservar'])) {
     $usuario_id = $_SESSION['usuario']['id'];
     $recurso_id = $_POST['recurso_id'];
+    $fecha_inicio = $_POST['fecha_inicio'];
+    $fecha_fin = $_POST['fecha_fin'];
 
-    $result = $rCtrl->crear($usuario_id, $recurso_id);
+    $result = $rCtrl->crear($usuario_id, $recurso_id, $fecha_inicio, $fecha_fin);
 
     if ($result) {
         header('Location: /sew/reservas.php?confirmacion=1');
-
     } else {
         header('Location: ../reservas.php?error=1');
     }
     exit;
 }
+
 
 if (isset($_POST['anular'])) {
     if (!isset($_SESSION['usuario'])) {
