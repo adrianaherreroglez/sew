@@ -54,13 +54,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuestar'])) {
 <header>
     <h1><a href="index.html">Turismo de Mieres</a></h1>
     <nav>
-        <a href="/index.html">Inicio</a>
-        <a href="/gastronomia.html">Gastronomía</a>
-        <a href="/rutas.html">Rutas</a>
-        <a href="/meteorologia.html">Meteorología</a>
-        <a href="/juego.html">Juego</a>
-       <a href="/reservas.php" class="active">Reservas</a>
-        <a href="/ayuda.html">Ayuda</a>
+        <a href="index.html">Inicio</a>
+        <a href="gastronomia.html">Gastronomía</a>
+        <a href="rutas.html">Rutas</a>
+        <a href="meteorologia.html">Meteorología</a>
+        <a href="juego.html">Juego</a>
+       <a href="reservas.php" class="active">Reservas</a>
+        <a href="ayuda.html">Ayuda</a>
     </nav>
 </header>
 

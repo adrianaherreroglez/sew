@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['usuario'])) {
-    header('Location: views/recursos.php');
+    header('Location: /sew/reservas.php');
     exit();
 }
 
@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = $controller->autenticar($_POST['email'], $_POST['password']);
     if ($user) {
         $_SESSION['usuario'] = $user;
-        header('Location: views/recursos.php');
+        header('Location: /sew/reservas.php');
         exit();
     } else {
         $error = "Credenciales incorrectas";

@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'nombre' => $_POST['nombre'],
             'email' => $_POST['email']
         ];
-        header('Location: /reservas.php');
+        header('Location: /sew/reservas.php');
         exit();
     } else {
         $resultado = "Error en el registro";
@@ -36,13 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <header>
     <h1><a href="index.html">Turismo de Mieres</a></h1>
     <nav>
-        <a href="index.html">Inicio</a>
-        <a href="gastronomia.html">Gastronomía</a>
-        <a href="rutas.html">Rutas</a>
-        <a href="meteorologia.html">Meteorología</a>
-        <a href="juego.html">Juego</a>
+        <a href="../index.html">Inicio</a>
+        <a href="../gastronomia.html">Gastronomía</a>
+        <a href="../rutas.html">Rutas</a>
+        <a href="../meteorologia.html">Meteorología</a>
+        <a href="../juego.html">Juego</a>
         <a href="reservas.php" class="active">Reservas</a>
-        <a href="ayuda.html">Ayuda</a>
+        <a href="../ayuda.html">Ayuda</a>
     </nav>
 </header>
     <h2>Registro</h2>
