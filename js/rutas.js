@@ -1,6 +1,11 @@
 class Rutas {
   constructor() {
-    this.apiFile = !!(window.File && window.FileReader && window.FileList && window.Blob);
+     this.apiFile = Boolean(
+    window.File && 
+    window.FileReader && 
+    window.FileList && 
+    window.Blob
+  );
   }
 
   printInfo(files) {
@@ -253,7 +258,6 @@ if (hitos.length > 0) {
     .catch(self.handleSVGError.bind(self, $parentSection));
 }
 
-// Primer método: comprobar la respuesta HTTP
 handleSVGResponse($parentSection, response) {
   if (!response.ok) {
     throw new Error("No se pudo cargar el archivo SVG");
