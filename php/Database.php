@@ -1,20 +1,22 @@
 <?php
-class Database {
-    private $host = "localhost";
-    private $db_name = "central_reservas";
-    private $username = "DBUSER2025";
-    private $password = "DBPWD2025";
-    public $conn;
+require_once 'config.php';
 
-    public function getConnection(){
-        $this->conn = null;
-        try{
-            $this->conn = new PDO("mysql:host=".$this->host.";dbname=".$this->db_name.";charset=utf8mb4", $this->username, $this->password);
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        }catch(PDOException $exception){
-            echo "Error de conexión: " . $exception->getMessage();
-        }
-        return $this->conn;
+class Database {
+  private static $instance = null;
+  private $pdo;
+
+  private function __construct() {
+    $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME;
+    $this->pdo = new PDO($dsn, DB_USER, DB_PASS);
+    $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }
+
+  public static function getInstance() {
+    if (!self::$instance) {
+      self::$instance = new Database();
     }
+    return self::$instance->pdo;
+  }
 }
 ?>
+

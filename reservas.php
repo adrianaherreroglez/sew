@@ -1,137 +1,149 @@
 <?php
 session_start();
 
-// Comprueba si el usuario está logueado
-if (!isset($_SESSION['usuario_id'])) {
-    header("Location: login.php"); // Redirige al login si no está autenticado
+// Si no hay usuario autenticado, redirigir a login
+if (!isset($_SESSION['usuario'])) {
+    header('Location: php/login.php');
     exit();
 }
 
-// Conexión a la base de datos (usa tu clase o PDO)
-$host = 'localhost';
-$dbname = 'tu_basededatos';
-$user = 'DBUSER2025';
-$pass = 'DBPWD2025';
+require_once 'php/models/Reserva.php';
+require_once 'php/models/Recurso.php';
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Error en la conexión: " . $e->getMessage());
-}
+$usuario = $_SESSION['usuario'];
+$usuario_id = $usuario['id'] ?? null;
 
-$usuario_id = $_SESSION['usuario_id'];
-$mensaje = "";
+$reservaObj = new Reserva();
+$recursoObj = new Recurso();
 
-// Procesar anulación de reserva si viene por GET
-if (isset($_GET['cancelar_reserva_id'])) {
-    $reserva_id = intval($_GET['cancelar_reserva_id']);
-    $stmt = $pdo->prepare("DELETE FROM reservas WHERE id = ? AND usuario_id = ?");
-    $stmt->execute([$reserva_id, $usuario_id]);
-    $mensaje = "Reserva anulada correctamente.";
-}
+$reservas = $reservaObj->obtenerPorUsuario($usuario_id);
+$recursos = $recursoObj->obtenerTodos();
 
-// Procesar nueva reserva si viene por POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $recurso_id = intval($_POST['recurso_id']);
-    $fecha_inicio = $_POST['fecha_inicio'];
-    $fecha_fin = $_POST['fecha_fin'];
+// Variables para mostrar presupuesto
+$mostrarPresupuesto = false;
+$precioPresupuesto = 0;
+$recursoPresupuesto = null;
 
-    // Validar datos (simplificado)
-    if ($recurso_id && $fecha_inicio && $fecha_fin) {
-        // Comprobar ocupación (ejemplo sencillo)
-        $stmt = $pdo->prepare("SELECT plazas FROM recursos WHERE id = ?");
-        $stmt->execute([$recurso_id]);
-        $plazas = $stmt->fetchColumn();
-
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM reservas WHERE recurso_id = ? AND 
-            ((fecha_inicio <= ? AND fecha_fin >= ?) OR (fecha_inicio <= ? AND fecha_fin >= ?))");
-        $stmt->execute([$recurso_id, $fecha_fin, $fecha_fin, $fecha_inicio, $fecha_inicio]);
-        $ocupadas = $stmt->fetchColumn();
-
-        if ($ocupadas < $plazas) {
-            // Insertar reserva
-            $stmt = $pdo->prepare("INSERT INTO reservas (usuario_id, recurso_id, fecha_inicio, fecha_fin) VALUES (?, ?, ?, ?)");
-            $stmt->execute([$usuario_id, $recurso_id, $fecha_inicio, $fecha_fin]);
-            $mensaje = "Reserva realizada con éxito.";
-        } else {
-            $mensaje = "No hay plazas disponibles para esas fechas.";
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuestar'])) {
+    $mostrarPresupuesto = true;
+    $precioPresupuesto = floatval($_POST['precio']);
+    $recursoIdPresupuesto = intval($_POST['recurso_id']);
+    foreach ($recursos as $r) {
+        if ($r['id'] === $recursoIdPresupuesto) {
+            $recursoPresupuesto = $r;
+            break;
         }
-    } else {
-        $mensaje = "Por favor, rellena todos los campos.";
     }
 }
-
-// Cargar recursos turísticos para mostrar en el formulario
-$stmt = $pdo->query("SELECT id, nombre, descripcion, precio FROM recursos");
-$recursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// Cargar reservas del usuario
-$stmt = $pdo->prepare("SELECT r.id, r.fecha_inicio, r.fecha_fin, rec.nombre FROM reservas r JOIN recursos rec ON r.recurso_id = rec.id WHERE r.usuario_id = ?");
-$stmt->execute([$usuario_id]);
-$reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
-    <title>Reservas</title>
+    <title>Mieres - Reservas</title>
+    <meta name="author" content="Adriana Herrero González" />
+    <meta name="description" content="Página sobre Mieres, Asturias" />
+    <meta name="keywords" content="Mieres, Asturias, turismo, rutas, gastronomía" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="estilo/estilo.css" />
+    <link rel="stylesheet" type="text/css" href="estilo/layout.css" />
+    <link rel="icon" href="multimedia/imagenes/favicon.ico" />
 </head>
 <body>
-    <!-- Menú de navegación -->
-    <header>
-        <nav>
-            <a href="index.html">Inicio</a>
-            <a href="gastronomia.html" class="active">Gastronomía</a>
-            <a href="rutas.html">Rutas</a>
-            <a href="meteorologia.html">Meteorología</a>
-            <a href="juego.html">Juego</a>
-            <a href="reservas.php">Reservas</a>
-            <a href="ayuda.html">Ayuda</a>
-        </nav>
-    </header>
+<header>
+    <h1><a href="index.html">Turismo de Mieres</a></h1>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="gastronomia.html">Gastronomía</a>
+        <a href="rutas.html">Rutas</a>
+        <a href="meteorologia.html">Meteorología</a>
+        <a href="juego.html">Juego</a>
+        <a href="reservas.php" class="active">Reservas</a>
+        <a href="ayuda.html">Ayuda</a>
+    </nav>
+</header>
 
-    <h1>Hacer una nueva reserva</h1>
-
-    <?php if ($mensaje): ?>
-        <p><strong><?= htmlspecialchars($mensaje) ?></strong></p>
-    <?php endif; ?>
-
-    <form method="POST" action="reservas.php">
-        <label for="recurso_id">Recurso turístico:</label>
-        <select name="recurso_id" id="recurso_id" required>
-            <option value="">-- Selecciona un recurso --</option>
-            <?php foreach ($recursos as $recurso): ?>
-                <option value="<?= $recurso['id'] ?>">
-                    <?= htmlspecialchars($recurso['nombre']) ?> (<?= htmlspecialchars($recurso['precio']) ?> €)
-                </option>
-            <?php endforeach; ?>
-        </select><br><br>
-
-        <label for="fecha_inicio">Fecha inicio:</label>
-        <input type="date" name="fecha_inicio" id="fecha_inicio" required><br><br>
-
-        <label for="fecha_fin">Fecha fin:</label>
-        <input type="date" name="fecha_fin" id="fecha_fin" required><br><br>
-
-        <button type="submit">Reservar</button>
+<h2>Recursos turísticos disponibles</h2>
+<table cellpadding="5" cellspacing="0">
+<thead>
+<tr>
+  <th>Nombre</th><th>Tipo</th><th>Descripción</th><th>Capacidad</th><th>Inicio</th><th>Fin</th><th>Precio (€)</th><th>Acción</th>
+</tr>
+</thead>
+<tbody>
+<?php foreach ($recursos as $r): ?>
+<tr>
+  <td><?= htmlspecialchars($r['nombre']) ?></td>
+  <td><?= htmlspecialchars($r['tipo']) ?></td>
+  <td><?= htmlspecialchars($r['descripcion']) ?></td>
+  <td><?= $r['capacidad'] ?></td>
+  <td><?= date('d/m/Y H:i', strtotime($r['fecha_inicio'])) ?></td>
+  <td><?= date('d/m/Y H:i', strtotime($r['fecha_fin'])) ?></td>
+  <td><?= number_format($r['precio'], 2) ?></td>
+  <td>
+    <form method="POST" style="margin:0;">
+      <input type="hidden" name="recurso_id" value="<?= $r['id'] ?>">
+      <input type="hidden" name="precio" value="<?= $r['precio'] ?>">
+      <button type="submit" name="presupuestar">Presupuestar</button>
     </form>
+  </td>
+</tr>
+<?php endforeach; ?>
+</tbody>
+</table>
 
-    <h2>Mis reservas</h2>
-    <?php if ($reservas): ?>
-        <ul>
-            <?php foreach ($reservas as $reserva): ?>
-                <li>
-                    <?= htmlspecialchars($reserva['nombre']) ?> - 
-                    Desde: <?= htmlspecialchars($reserva['fecha_inicio']) ?> Hasta: <?= htmlspecialchars($reserva['fecha_fin']) ?> 
-                    <a href="reservas.php?cancelar_reserva_id=<?= $reserva['id'] ?>" onclick="return confirm('¿Seguro que quieres anular esta reserva?')">[Anular]</a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    <?php else: ?>
-        <p>No tienes reservas realizadas.</p>
-    <?php endif; ?>
+<?php if ($mostrarPresupuesto && $recursoPresupuesto): ?>
+  <hr>
+  <h3>Presupuesto para: <?= htmlspecialchars($recursoPresupuesto['nombre']) ?></h3>
+  <p>Precio: <?= number_format($precioPresupuesto, 2) ?> €</p>
+  <form method="POST" action="php/controllers/ReservaController.php">
+    <input type="hidden" name="recurso_id" value="<?= $recursoPresupuesto['id'] ?>">
+    <button type="submit" name="reservar">Confirmar reserva</button>
+  </form>
+<?php endif; ?>
+
+<?php
+if (isset($_GET['confirmacion'])) {
+    echo '<p style="color:green;">Reserva confirmada correctamente.</p>';
+}
+if (isset($_GET['error'])) {
+    echo '<p style="color:red;">Error al realizar la reserva. Intenta de nuevo.</p>';
+}
+?>
+
+<hr>
+<h2>Mis reservas</h2>
+
+<?php if (empty($reservas)): ?>
+    <p>No tienes reservas activas.</p>
+<?php else: ?>
+<table cellpadding="5" cellspacing="0">
+<thead>
+<tr><th>Recurso turístico</th><th>Fecha de reserva</th><th>Acción</th></tr>
+</thead>
+<tbody>
+<?php foreach ($reservas as $reserva): ?>
+<tr>
+  <td><?= htmlspecialchars($reserva['nombre']) ?></td>
+  <td><?= htmlspecialchars($reserva['fecha_reserva']) ?></td>
+  <td>
+    <form method="POST" action="php/controllers/ReservaController.php" onsubmit="return confirm('¿Seguro que quieres anular esta reserva?');" style="margin:0;">
+      <input type="hidden" name="reserva_id" value="<?= $reserva['id'] ?>">
+      <button type="submit" name="anular">Anular</button>
+    </form>
+  </td>
+</tr>
+<?php endforeach; ?>
+</tbody>
+</table>
+<?php endif; ?>
+
+<form action="php/cerrar_sesion.php" method="POST" style="text-align: center; margin: 20px 0;">
+    <button type="submit" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">
+        Cerrar Sesión
+    </button>
+</form>
+
 </body>
 </html>

@@ -1,47 +1,32 @@
 <?php
-require_once 'php/config.php';
+session_start();
+if (isset($_SESSION['usuario'])) {
+    header('Location: views/recursos.php');
+    exit();
+}
 
-$mensaje = '';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'] ?? '';
-    $password = $_POST['password'] ?? '';
-
-    if (!$email || !$password) {
-        $mensaje = "Rellena todos los campos.";
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    require_once __DIR__ . '/controllers/UsuarioController.php';
+    $controller = new UsuarioController();
+    $user = $controller->autenticar($_POST['email'], $_POST['password']);
+    if ($user) {
+        $_SESSION['usuario'] = $user;
+        header('Location: views/recursos.php');
+        exit();
     } else {
-        $query = "SELECT * FROM usuarios WHERE email = :email LIMIT 1";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($usuario && password_verify($password, $usuario['password'])) {
-            $_SESSION['usuario_id'] = $usuario['id'];
-            $_SESSION['usuario_nombre'] = $usuario['nombre'];
-            header('Location: reservas_usuario.php');
-            exit;
-        } else {
-            $mensaje = "Email o contraseña incorrectos.";
-        }
+        $error = "Credenciales incorrectas";
     }
 }
-?>
 
+?>
 <!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8" />
-<title>Login</title>
-</head>
-<body>
-<h1>Iniciar sesión</h1>
-<p style="color:red;"><?php echo $mensaje; ?></p>
-<form method="post" action="">
-    <label>Email: <input type="email" name="email" required></label><br>
-    <label>Contraseña: <input type="password" name="password" required></label><br>
-    <button type="submit">Entrar</button>
+<html><body>
+<h2>Login</h2>
+<form method="POST">
+  <input type="email" name="email" placeholder="Correo" required><br>
+  <input type="password" name="password" placeholder="Contraseña" required><br>
+  <button type="submit">Iniciar sesión</button>
 </form>
-<a href="registro.php">Registrarse</a>
-</body>
-</html>
+<?php if (isset($error)) echo "<p>$error</p>"; ?>
+<a href="registro.php">¿No tienes cuenta?</a>
+</body></html>

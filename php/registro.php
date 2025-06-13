@@ -1,46 +1,38 @@
 <?php
-require_once 'php/config.php';
-
-$mensaje = '';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $usuario = new Usuario($db);
-    $usuario->nombre = $_POST['nombre'] ?? '';
-    $usuario->email = $_POST['email'] ?? '';
-    $usuario->password = $_POST['password'] ?? '';
-
-    // Validación sencilla
-    if (!$usuario->nombre || !$usuario->email || !$usuario->password) {
-        $mensaje = "Por favor, rellena todos los campos.";
-    } elseif (!filter_var($usuario->email, FILTER_VALIDATE_EMAIL)) {
-        $mensaje = "Email no válido.";
-    } elseif ($usuario->emailExiste()) {
-        $mensaje = "El email ya está registrado.";
+session_start();
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    require_once __DIR__ . '/controllers/UsuarioController.php';
+    $controller = new UsuarioController();
+    $registroExitoso = $controller->registrar($_POST['nombre'], $_POST['email'], $_POST['password']);
+    if ($registroExitoso) {
+        // Guarda usuario en sesión
+        $_SESSION['usuario'] = [
+            'nombre' => $_POST['nombre'],
+            'email' => $_POST['email']
+        ];
+        header('Location: reservas.php');  
+        exit();
     } else {
-        if ($usuario->registrar()) {
-            $mensaje = "Registro correcto. Ya puedes <a href='login.php'>iniciar sesión</a>.";
-        } else {
-            $mensaje = "Error al registrar.";
-        }
+        $resultado = "Error en el registro";
     }
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-<meta charset="UTF-8" />
-<title>Registro Usuario</title>
+    <meta charset="UTF-8">
+    <title>Registro de Usuario</title>
 </head>
 <body>
-<h1>Registro de usuario</h1>
-<p style="color:red;"><?php echo $mensaje; ?></p>
-<form method="post" action="">
-    <label>Nombre: <input type="text" name="nombre" required></label><br>
-    <label>Email: <input type="email" name="email" required></label><br>
-    <label>Contraseña: <input type="password" name="password" required></label><br>
-    <button type="submit">Registrar</button>
-</form>
-<a href="login.php">¿Ya tienes cuenta? Inicia sesión</a>
+    <h2>Registro</h2>
+    <form method="POST">
+        <input type="text" name="nombre" placeholder="Nombre completo" required><br>
+        <input type="email" name="email" placeholder="Correo electrónico" required><br>
+        <input type="password" name="password" placeholder="Contraseña" required><br>
+        <button type="submit">Registrarse</button>
+    </form>
+    <a href="login.php">¿Ya tienes cuenta?</a>
+    <?php if (isset($resultado)) echo "<p>$resultado</p>"; ?>
 </body>
 </html>

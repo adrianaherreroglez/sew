@@ -1,9 +1,6 @@
 <?php
-session_start();
-
-require_once 'Database.php';
-require_once 'Usuario.php';
-require_once 'Reserva.php';
-
-$db = (new Database())->getConnection();
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'central_reservas');
+define('DB_USER', 'DBUSER2025');
+define('DB_PASS', 'DBPWD2025');
 ?>
