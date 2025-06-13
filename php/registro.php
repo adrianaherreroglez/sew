@@ -1,20 +1,27 @@
 <?php
-session_start();
+require_once __DIR__ . '/controllers/UsuarioController.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    require_once __DIR__ . '/controllers/UsuarioController.php';
-    $controller = new UsuarioController();
+$controller = new UsuarioController();
 
-    // registrar() ahora devuelve un array con id, nombre, email
-    $usuario = $controller->registrar($_POST['nombre'], $_POST['email'], $_POST['password']);
+if ($controller->estaLogueado()) {
+    $controller->redirigir('/sew/reservas.php');
+}
 
-    if ($usuario) {
-        // Guarda el usuario completo en sesión
-        $_SESSION['usuario'] = $usuario;
-        header('Location: /sew/reservas.php');
-        exit();
-    } else {
-        $resultado = "Error en el registro";
+$resultado = null;
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nombre = $_POST['nombre'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+
+    try {
+        if ($controller->registrar($nombre, $email, $password)) {
+            $controller->redirigir('/sew/reservas.php');
+        } else {
+            $resultado = "Error en el registro";
+        }
+    } catch (Exception $e) {
+        $resultado = "Error: " . $e->getMessage();
     }
 }
 ?>
@@ -26,12 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Mieres - Reservas</title>
     <meta name="author" content="Adriana Herrero González" />
     <meta name="description" content="Página sobre Mieres, Asturias" />
-    <meta name="keywords" content="Mieres, Asturias, reservas, recursos, presupuestar" />
+    <meta name="keywords" content="Mieres, Asturias, registro" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <link rel="stylesheet" type="text/css" href="../estilo/estilo.css" />
     <link rel="stylesheet" type="text/css" href="../estilo/layout.css" />
-    <link rel="icon" href="multimedia/imagenes/favicon.ico" />
+    <link rel="icon" href="../multimedia/imagenes/favicon.ico" />
 </head>
 <body>
 <header>
@@ -56,7 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </form>
 <a href="login.php">¿Ya tienes cuenta?</a>
 
-<?php if (isset($resultado)) echo "<p style='color:red;'>$resultado</p>"; ?>
-
+<?php if ($resultado) echo "<p>$resultado</p>"; ?>
 </body>
 </html>

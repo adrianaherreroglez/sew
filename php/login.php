@@ -1,24 +1,26 @@
 <?php
-session_start();
-if (isset($_SESSION['usuario'])) {
-    header('Location: /sew/reservas.php');
-    exit();
+require_once __DIR__ . '/controllers/UsuarioController.php';
+
+$controller = new UsuarioController();
+
+if ($controller->estaLogueado()) {
+    $controller->redirigir('/sew/reservas.php');
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    require_once __DIR__ . '/controllers/UsuarioController.php';
-    $controller = new UsuarioController();
-    $user = $controller->autenticar($_POST['email'], $_POST['password']);
-    if ($user) {
-        $_SESSION['usuario'] = $user;
-        header('Location: /sew/reservas.php');
-        exit();
+$error = null;
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+
+    if ($controller->autenticar($email, $password)) {
+        $controller->redirigir('/sew/reservas.php');
     } else {
         $error = "Credenciales incorrectas";
     }
 }
-
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -26,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Mieres - Reservas</title>
     <meta name="author" content="Adriana Herrero González" />
     <meta name="description" content="Página sobre Mieres, Asturias" />
-    <meta name="keywords" content="Mieres, Asturias, reservas, recursos, presupuestar" />
+    <meta name="keywords" content="Mieres, Asturias, login" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <link rel="stylesheet" type="text/css" href="../estilo/estilo.css" />
@@ -53,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <input type="password" name="password" placeholder="Contraseña" required><br>
   <button type="submit">Iniciar sesión</button>
 </form>
-<?php if (isset($error)) echo "<p>$error</p>"; ?>
+<?php if ($error) echo "<p>$error</p>"; ?>
 <a href="registro.php">¿No tienes cuenta?</a>
-</body></html>
+</body>
+</html>

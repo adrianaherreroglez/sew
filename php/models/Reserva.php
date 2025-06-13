@@ -8,11 +8,7 @@ class Reserva {
     $this->db = Database::getInstance();
   }
 
-  /**
-   * Crea reserva y devuelve el ID insertado, o false si falla.
-   */
   public function crear($usuario_id, $recurso_id, $fecha_inicio, $fecha_fin) {
-    // Calcular días (mínimo 1)
     $inicio = new DateTime($fecha_inicio);
     $fin = new DateTime($fecha_fin);
     $interval = $inicio->diff($fin);

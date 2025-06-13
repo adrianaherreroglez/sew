@@ -470,3 +470,11 @@ main > section:last-of-type {
   border-radius: 0.5rem;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
+
+/* Párrafos dentro del formulario de registro (errores) */
+form + p {
+  color: red;
+  font-weight: bold;
+  margin-top: 1em;
+  text-align: center;
+}

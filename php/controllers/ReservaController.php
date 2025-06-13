@@ -1,106 +1,106 @@
 <?php
-session_start();
-
-// Verificar que el usuario esté autenticado
-if (!isset($_SESSION['usuario'])) {
-    header('Location: ../login.php');
-    exit();
-}
-
-// Requiere los modelos necesarios
 require_once '../models/Reserva.php';
 require_once '../models/Pago.php';
 require_once '../models/Recurso.php';
 
-// Verificar que sea una petición POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $usuario_id = $_SESSION['usuario']['id'] ?? null;
+class ReservaController 
+{
+    private $reservaModel;
+    private $pagoModel;
+    private $recursoModel;
 
-    // Validación de usuario
-    if (!$usuario_id) {
-        header('Location: ../../reservas.php?error=1');
-        exit();
+    public function __construct() {
+        $this->reservaModel = new Reserva();
+        $this->pagoModel = new Pago();
+        $this->recursoModel = new Recurso();
     }
 
-    // Confirmar reserva
-    if (isset($_POST['reservar'])) {
+    public function procesarSolicitud() 
+    {
+        session_start();
+
+        if (!isset($_SESSION['usuario'])) {
+            $this->redirigir('../login.php');
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirigir('../reservas.php?error=Solicitud inválida');
+        }
+
+        $usuario_id = $_SESSION['usuario']['id'] ?? null;
+        if (!$usuario_id) {
+            $this->redirigir('../reservas.php?error=Usuario no autenticado');
+        }
+
+        if (isset($_POST['reservar'])) {
+            $this->crearReserva($usuario_id);
+        } elseif (isset($_POST['anular'])) {
+            $this->anularReserva($usuario_id);
+        } else {
+            $this->redirigir('../reservas.php?error=Acción no reconocida');
+        }
+    }
+
+    private function crearReserva($usuario_id)
+    {
         $recurso_id = intval($_POST['recurso_id'] ?? 0);
         $fecha_inicio = $_POST['fecha_inicio'] ?? null;
         $fecha_fin = $_POST['fecha_fin'] ?? null;
 
-        // Validación básica de campos
         if (!$recurso_id || !$fecha_inicio || !$fecha_fin) {
-            header('Location: ../../reservas.php?error=1');
-            exit();
+            $this->redirigir('../reservas.php?error=Datos incompletos');
         }
 
-        $reservaObj = new Reserva();
-        $pagoObj = new Pago();
-        $recursoObj = new Recurso();
-
-        // Obtener recurso y precio
-        $recurso = $recursoObj->obtenerPorId($recurso_id);
+        $recurso = $this->recursoModel->obtenerPorId($recurso_id);
         if (!$recurso) {
-            header('Location: ../../reservas.php?error=1');
-            exit();
+            $this->redirigir('../reservas.php?error=Recurso no encontrado');
         }
 
-        // Crear la reserva
-        $reserva_id = $reservaObj->crear($usuario_id, $recurso_id, $fecha_inicio, $fecha_fin);
+        $reserva_id = $this->reservaModel->crear($usuario_id, $recurso_id, $fecha_inicio, $fecha_fin);
         if (!$reserva_id) {
-            header('Location: ../../reservas.php?error=1');
-            exit();
+            $this->redirigir('../reservas.php?error=No se pudo crear la reserva');
         }
 
-        // Calcular días de reserva
         try {
             $inicio = new DateTime($fecha_inicio);
             $fin = new DateTime($fecha_fin);
             $interval = $inicio->diff($fin);
             $numDias = max(1, (int)$interval->format('%a'));
         } catch (Exception $e) {
-            // Si falla la fecha, eliminar reserva recién creada y salir
-            $reservaObj->anular($reserva_id, $usuario_id);
-            header('Location: ../../reservas.php?error=1');
-            exit();
+            $this->reservaModel->anular($reserva_id, $usuario_id);
+            $this->redirigir('../reservas.php?error=Fecha inválida');
         }
 
-        // Calcular el monto del pago
         $monto = $numDias * $recurso['precio'];
 
-        // Registrar el pago
-        $exitoPago = $pagoObj->registrarPago($reserva_id, $monto);
-
+        $exitoPago = $this->pagoModel->registrarPago($reserva_id, $monto);
         if (!$exitoPago) {
-            // Si falla el pago, eliminar la reserva para evitar inconsistencias
-            $reservaObj->anular($reserva_id, $usuario_id);
-            header('Location: ../../reservas.php?error=1');
-            exit();
+            $this->reservaModel->anular($reserva_id, $usuario_id);
+            $this->redirigir('../reservas.php?error=Error en el pago');
         }
 
-        // Éxito total
-        header('Location: ../../reservas.php?confirmacion=1');
+        $this->redirigir('../reservas.php?confirmacion=Reserva realizada');
+    }
+
+    private function anularReserva($usuario_id)
+    {
+        $reserva_id = intval($_POST['reserva_id'] ?? 0);
+        if (!$reserva_id) {
+            $this->redirigir('../reservas.php?error=ID de reserva inválido');
+        }
+
+        $ok = $this->reservaModel->anular($reserva_id, $usuario_id);
+        if ($ok) {
+            $this->redirigir('../reservas.php?confirmacion=Reserva anulada');
+        } else {
+            $this->redirigir('../reservas.php?error=No se pudo anular la reserva');
+        }
+    }
+
+    private function redirigir($url)
+    {
+        header("Location: $url");
         exit();
     }
-
-    // Anular reserva
-    if (isset($_POST['anular'])) {
-    require_once '../models/Reserva.php';
-    session_start();
-
-    $reserva_id = intval($_POST['reserva_id']);
-    $usuario_id = $_SESSION['usuario']['id'] ?? null;
-
-    $reservaObj = new Reserva();
-    $ok = $reservaObj->anular($reserva_id, $usuario_id);
-
-    if ($ok) {
-        header('Location: ../../reservas.php?anulada=1');
-    } else {
-        header('Location: ../../reservas.php?error=1');
-    }
-    exit();
 }
 
-}
-?>

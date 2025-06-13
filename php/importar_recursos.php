@@ -8,7 +8,6 @@ class DB {
     }
 
     public function getTipoId($nombre_tipo) {
-        // Verificar si ya existe
         $stmt = $this->pdo->prepare("SELECT id FROM tipos_recurso WHERE nombre = ?");
         $stmt->execute([$nombre_tipo]);
         $row = $stmt->fetch();
@@ -16,7 +15,6 @@ class DB {
         if ($row) {
             return $row['id'];
         } else {
-            // Insertar nuevo tipo
             $insert = $this->pdo->prepare("INSERT INTO tipos_recurso (nombre) VALUES (?)");
             $insert->execute([$nombre_tipo]);
             return $this->pdo->lastInsertId();
@@ -28,7 +26,6 @@ class DB {
         fgetcsv($handle); // Saltar encabezado
 
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-            // Asegúrate de que hay exactamente 5 columnas
             if (count($data) < 5) {
                 continue;
             }
