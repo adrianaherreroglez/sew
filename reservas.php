@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuestar'])) {
     <title>Mieres - Reservas</title>
     <meta name="author" content="Adriana Herrero González" />
     <meta name="description" content="Página sobre Mieres, Asturias" />
-    <meta name="keywords" content="Mieres, Asturias, turismo, rutas, gastronomía" />
+    <meta name="keywords" content="Mieres, Asturias, reservas, recursos, presupuestar" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <link rel="stylesheet" type="text/css" href="estilo/estilo.css" />
@@ -54,18 +54,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuestar'])) {
 <header>
     <h1><a href="index.html">Turismo de Mieres</a></h1>
     <nav>
-        <a href="index.html">Inicio</a>
-        <a href="gastronomia.html">Gastronomía</a>
-        <a href="rutas.html">Rutas</a>
-        <a href="meteorologia.html">Meteorología</a>
-        <a href="juego.html">Juego</a>
-        <a href="reservas.php" class="active">Reservas</a>
-        <a href="ayuda.html">Ayuda</a>
+        <a href="/index.html">Inicio</a>
+        <a href="/gastronomia.html">Gastronomía</a>
+        <a href="/rutas.html">Rutas</a>
+        <a href="/meteorologia.html">Meteorología</a>
+        <a href="/juego.html">Juego</a>
+       <a href="/reservas.php" class="active">Reservas</a>
+        <a href="/ayuda.html">Ayuda</a>
     </nav>
 </header>
 
 <h2>Recursos turísticos disponibles</h2>
-<table cellpadding="5" cellspacing="0">
+<table>
 <thead>
 <tr>
   <th>Nombre</th><th>Tipo</th><th>Descripción</th><th>Capacidad</th><th>Inicio</th><th>Fin</th><th>Precio (€)</th><th>Acción</th>
@@ -112,13 +112,12 @@ if (isset($_GET['error'])) {
 }
 ?>
 
-<hr>
 <h2>Mis reservas</h2>
 
 <?php if (empty($reservas)): ?>
     <p>No tienes reservas activas.</p>
 <?php else: ?>
-<table cellpadding="5" cellspacing="0">
+<table>
 <thead>
 <tr><th>Recurso turístico</th><th>Fecha de reserva</th><th>Acción</th></tr>
 </thead>

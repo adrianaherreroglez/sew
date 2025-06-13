@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'nombre' => $_POST['nombre'],
             'email' => $_POST['email']
         ];
-        header('Location: reservas.php');  
+        header('Location: /reservas.php');
         exit();
     } else {
         $resultado = "Error en el registro";
@@ -19,12 +19,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Registro de Usuario</title>
+    <meta charset="UTF-8" />
+    <title>Mieres - Reservas</title>
+    <meta name="author" content="Adriana Herrero González" />
+    <meta name="description" content="Página sobre Mieres, Asturias" />
+    <meta name="keywords" content="Mieres, Asturias, reservas, recursos, presupuestar" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="../estilo/estilo.css" />
+    <link rel="stylesheet" type="text/css" href="../estilo/layout.css" />
+    <link rel="icon" href="multimedia/imagenes/favicon.ico" />
 </head>
 <body>
+<header>
+    <h1><a href="index.html">Turismo de Mieres</a></h1>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="gastronomia.html">Gastronomía</a>
+        <a href="rutas.html">Rutas</a>
+        <a href="meteorologia.html">Meteorología</a>
+        <a href="juego.html">Juego</a>
+        <a href="reservas.php" class="active">Reservas</a>
+        <a href="ayuda.html">Ayuda</a>
+    </nav>
+</header>
     <h2>Registro</h2>
     <form method="POST">
         <input type="text" name="nombre" placeholder="Nombre completo" required><br>
