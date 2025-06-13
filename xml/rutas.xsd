@@ -10,23 +10,39 @@
               <xs:element name="nombre" type="xs:string"/>
               <xs:element name="tipo" type="xs:string"/>
               <xs:element name="transporte" type="xs:string"/>
-              <xs:element name="fechaInicio" type="xs:date"/>
-              <xs:element name="horaInicio" type="xs:time"/>
+              <xs:element name="fechaInicio" type="xs:string" minOccurs="0"/>
+              <xs:element name="horaInicio" type="xs:string" minOccurs="0"/>
               <xs:element name="duracion" type="xs:string"/>
               <xs:element name="agencia" type="xs:string"/>
               <xs:element name="descripcion" type="xs:string"/>
               <xs:element name="personasAdecuadas" type="xs:string"/>
               <xs:element name="lugarInicio" type="xs:string"/>
               <xs:element name="direccionInicio" type="xs:string"/>
-              <xs:element name="coordenadasInicio" type="coordenadasType"/>
-              <xs:element name="referencias">
+              <xs:element name="coordenadasInicio">
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="referencia" type="xs:anyURI" maxOccurs="unbounded"/>
+                    <xs:element name="longitud" type="xs:string"/>
+                    <xs:element name="latitud" type="xs:string"/>
+                    <xs:element name="altitud">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="unidades" type="xs:string" use="required"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:element name="recomendacion" type="xs:decimal"/>
+              <xs:element name="referencias">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="referencia" type="xs:string" maxOccurs="unbounded"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="recomendacion" type="xs:string"/>
               <xs:element name="hitos">
                 <xs:complexType>
                   <xs:sequence>
@@ -35,11 +51,27 @@
                         <xs:sequence>
                           <xs:element name="nombre" type="xs:string"/>
                           <xs:element name="descripcion" type="xs:string"/>
-                          <xs:element name="coordenadas" type="coordenadasType"/>
+                          <xs:element name="coordenadas">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="longitud" type="xs:string"/>
+                                <xs:element name="latitud" type="xs:string"/>
+                                <xs:element name="altitud">
+                                  <xs:complexType>
+                                    <xs:simpleContent>
+                                      <xs:extension base="xs:string">
+                                        <xs:attribute name="unidades" type="xs:string" use="required"/>
+                                      </xs:extension>
+                                    </xs:simpleContent>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
                           <xs:element name="distancia">
                             <xs:complexType>
                               <xs:simpleContent>
-                                <xs:extension base="xs:decimal">
+                                <xs:extension base="xs:string">
                                   <xs:attribute name="unidad" type="xs:string" use="required"/>
                                 </xs:extension>
                               </xs:simpleContent>
@@ -49,6 +81,13 @@
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="foto" type="xs:string" maxOccurs="unbounded"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="galeriaVideos" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="video" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
@@ -66,22 +105,5 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-
-  <!-- Coordenadas Type -->
-  <xs:complexType name="coordenadasType">
-    <xs:sequence>
-      <xs:element name="longitud" type="xs:decimal"/>
-      <xs:element name="latitud" type="xs:decimal"/>
-      <xs:element name="altitud">
-        <xs:complexType>
-          <xs:simpleContent>
-            <xs:extension base="xs:decimal">
-              <xs:attribute name="unidades" type="xs:string" use="required"/>
-            </xs:extension>
-          </xs:simpleContent>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
 
 </xs:schema>
