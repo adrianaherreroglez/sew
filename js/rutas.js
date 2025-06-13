@@ -50,7 +50,7 @@ class Rutas {
       var $section = $("<section></section>");
 
       var nombre = this.getTextContent(ruta, "nombre");
-      $section.append("<h2>" + nombre + "</h2>");
+      $section.append("<h3>" + nombre + "</h3>");
       this.appendP($section, "Tipo", this.getTextContent(ruta, "tipo"));
       this.appendP($section, "Transporte", this.getTextContent(ruta, "transporte"));
       this.appendP($section, "Fecha Inicio", this.getTextContent(ruta, "fechaInicio"));
@@ -60,7 +60,7 @@ class Rutas {
       this.appendP($section, "Descripción", this.getTextContent(ruta, "descripcion"));
       this.appendP($section, "Personas adecuadas", this.getTextContent(ruta, "personasAdecuadas"));
       this.appendP($section, "Lugar de inicio", this.getTextContent(ruta, "lugarInicio"));
-      this.appendP($section, "Dirección de inicio", this.getTextContent(ruta, "direccionInicio"));
+      this.appendP($section, "Dirección de inicio ", this.getTextContent(ruta, "direccionInicio"));
 
       var referencias = ruta.getElementsByTagName("referencia");
       if (referencias.length > 0) {
@@ -69,7 +69,7 @@ class Rutas {
           var url = referencias[j].textContent.trim();
           $ul.append("<li><a href='" + url + "'>" + url + "</a></li>");
         }
-        $section.append("<h3>Referencias</h3>").append($ul);
+        $section.append("<h4>Referencias</h4>").append($ul);
       }
 
      var hitos = ruta.getElementsByTagName("hito");
@@ -81,7 +81,6 @@ if (hitos.length > 0) {
     $hito.append("<h5>" + this.getTextContent(hito, "nombre") + "</h5>");
     this.appendP($hito, "Descripción", this.getTextContent(hito, "descripcion"));
 
-    // Obtener foto dentro de galeriaFotografias
     var galeria = hito.getElementsByTagName("galeriaFotografias")[0];
     if (galeria) {
       var fotoEl = galeria.getElementsByTagName("foto")[0];
@@ -228,18 +227,55 @@ if (hitos.length > 0) {
   }
 
   loadAndShowSVG(svgPath, $parentSection) {
-    $.ajax({
-      url: svgPath,
-      dataType: "xml",
-      success: this.onSVGLoadSuccess.bind(this, $parentSection),
-      error: this.onSVGLoadError.bind(this, $parentSection),
-    });
+  var self = this;
+
+  fetch(svgPath)
+    .then(self.handleSVGResponse.bind(self, $parentSection))
+    .then(self.handleSVGContent.bind(self, $parentSection))
+    .catch(self.handleSVGError.bind(self, $parentSection));
+}
+
+// Primer método: comprobar la respuesta HTTP
+handleSVGResponse($parentSection, response) {
+  if (!response.ok) {
+    throw new Error("No se pudo cargar el archivo SVG");
   }
+  return response.text();
+}
+
+// Segundo método: procesar el contenido SVG
+handleSVGContent($parentSection, svgContent) {
+  var parser = new DOMParser();
+  var svgDoc = parser.parseFromString(svgContent, "image/svg+xml");
+  var svgElement = svgDoc.documentElement;
+
+  // Eliminar atributos de tamaño fijo para hacer que escale
+  svgElement.removeAttribute("width");
+  svgElement.removeAttribute("height");
+
+  // Si no tiene viewBox, lo podríamos calcular (opcional)
+  if (!svgElement.hasAttribute("viewBox")) {
+    // svgElement.setAttribute("viewBox", "0 0 800 400");
+  }
+
+  var serializer = new XMLSerializer();
+  var cleanedSVG = serializer.serializeToString(svgElement);
+
+  var $svgWrapper = $("<figure></figure>").html(cleanedSVG);
+  $parentSection.append($svgWrapper);
+}
+
+handleSVGError($parentSection, error) {
+  $parentSection.append("<p>Error al cargar el archivo SVG.</p>");
+  console.error(error);
+}
+
+
 
   onSVGLoadSuccess($parentSection, data) {
     var svgContent = new XMLSerializer().serializeToString(data.documentElement);
-    var $svgSection = $("<section></section>").html(svgContent);
-    $parentSection.append($svgSection);
+    var $svgContainer = $("<figure></figure>").html(svgContent);
+    $parentSection.append($svgContainer);
   }
 
   onSVGLoadError($parentSection) {

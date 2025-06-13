@@ -276,12 +276,17 @@ section:nth-of-type(2) article section footer a:hover {
 }
 
 figure {
-    display: inline-block;
-    margin: 0.5em 1em;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #555;
+  width: 90%;
+  max-width: 50em;  /* 50em son aprox. 800px si el font-size raíz es 16px */
+  margin: 0 auto;
 }
+
+figure svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 
 figure img {
     width: 4rem; /* tamaño relativo, aprox 64px si la raíz es 16px */
@@ -294,8 +299,139 @@ label {
   font-weight:bold;
 }
 
+
+/* Especificidad: 0-0-1 (selector de etiqueta) */
+/* Estilo global del body */
+body {
+  background: linear-gradient(to bottom right, #e9f0f7, #ffffff);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #1e1e1e;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  font-size: 100%; /* base para rem */
+}
+
+/* Especificidad: 0-0-1 */
+/* Titulares principales */
+h3 {
+  font-size: 1.8rem;
+  color: #074480;
+  margin-bottom: 0.5em;
+  border-bottom: 0.125em solid #ffcc00;
+  padding-bottom: 0.2em;
+}
+
+/* Especificidad: 0-0-1 */
+/* Titulares secundarios */
+h4 {
+  font-size: 1.4rem;
+  color: #0c5bab;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  text-decoration: underline;
+}
+
+/* Especificidad: 0-0-1 */
+/* Subtítulos o encabezados menores */
+h5 {
+  font-size: 1.2rem;
+  color: #333333;
+  margin-bottom: 0.5em;
+}
+
+/* Especificidad: 0-0-1 */
+/* Estilo de párrafos descriptivos */
+p {
+  background-color: #ffffff;
+  margin: 0.3em 0;
+  padding: 0.6em 0.8em;
+  border-left: 0.25em solid #074480;
+  border-radius: 0.5em;
+  box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.05);
+}
+
+/* Especificidad: 0-0-1 */
+/* Etiquetas informativas */
+label {
+  font-weight: bold;
+  color: #0c5bab;
+  display: inline-block;
+  margin-bottom: 0.2em;
+}
+
+/* Especificidad: 0-0-1 */
+/* Imágenes dentro del contenido */
+img {
+  display: block;
+  max-width: 90%;
+  height: auto;
+  border-radius: 0.5em;
+  margin: 1em auto;
+  box-shadow: 0 0 0.625em rgba(0, 0, 0, 0.1);
+}
+
+/* Especificidad: 0-0-1 */
+/* Estilo de enlaces */
+a {
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Especificidad: 0-0-1 + pseudo-clase = 0-1-1 */
+a:hover {
+  text-decoration: underline;
+  background-color: #0c5bab;
+  text-decoration: none;
+}
+
+/* Especificidad: 0-0-1 */
+/* Listas sin clases */
+ul {
+  padding-left: 1.5em;
+  margin: 0.5em 0 1.5em 0;
+  background-color: #f7faff;
+  border-left: 0.25em solid #074480;
+  padding: 1em;
+  border-radius: 0.5em;
+}
+
+/* Especificidad: 0-0-2 (pseudo-elemento de etiqueta) */
+/* Marcadores de lista */
+li::marker {
+  color: #074480;
+}
+
+/* Especificidad: 0-0-2 */
+/* Secciones principales (ej. rutas) */
+main > section {
+  background-color: #ffffff;
+  margin: 1.5em auto;
+  padding: 1.5em;
+  max-width: 90%;
+  width: 100%;
+  border-radius: 1em;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.1);
+}
+
+
+/* Especificidad: 0-0-3 */
+/* Secciones internas anidadas (hitos dentro de rutas) */
+main > section > section {
+  background-color: #f4f7fb;
+  border-left: 0.25em solid #0c5bab;
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 0.75em;
+}
+
+/* Especificidad: 0-0-1 + atributo = 0-1-1 */
+/* Estilo específico para secciones de mapa */
 section[data-map="true"] {
-  height: 70vh;
-  width: 70vh;
-  margin-top: 1em;
+  height: 60vh;
+  width: 100%;
+  margin-top: 2em;
+  border-radius: 1em;
+  box-shadow: 0 0 0.75em rgba(0, 0, 0, 0.15);
 }
