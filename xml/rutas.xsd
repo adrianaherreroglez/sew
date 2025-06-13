@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns="http://www.uniovi.es" elementFormDefault="qualified"
-	targetNamespace="http://www.uniovi.es" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <xs:element name="rutas">
     <xs:complexType>
@@ -11,24 +10,8 @@
               <xs:element name="nombre" type="xs:string"/>
               <xs:element name="tipo" type="xs:string"/>
               <xs:element name="transporte" type="xs:string"/>
-              <xs:element name="fechaInicio" minOccurs="0">
-                <xs:complexType>
-                  <xs:simpleContent>
-                    <xs:extension base="xs:date">
-                      <xs:attribute name="opcional" type="xs:string" use="optional"/>
-                    </xs:extension>
-                  </xs:simpleContent>
-                </xs:complexType>
-              </xs:element>
-              <xs:element name="horaInicio" minOccurs="0">
-                <xs:complexType>
-                  <xs:simpleContent>
-                    <xs:extension base="xs:time">
-                      <xs:attribute name="opcional" type="xs:string" use="optional"/>
-                    </xs:extension>
-                  </xs:simpleContent>
-                </xs:complexType>
-              </xs:element>
+              <xs:element name="fechaInicio" type="xs:date"/>
+              <xs:element name="horaInicio" type="xs:time"/>
               <xs:element name="duracion" type="xs:string"/>
               <xs:element name="agencia" type="xs:string"/>
               <xs:element name="descripcion" type="xs:string"/>
@@ -43,7 +26,7 @@
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:element name="recomendacion" type="xs:integer"/>
+              <xs:element name="recomendacion" type="xs:decimal"/>
               <xs:element name="hitos">
                 <xs:complexType>
                   <xs:sequence>
@@ -62,20 +45,21 @@
                               </xs:simpleContent>
                             </xs:complexType>
                           </xs:element>
-                          <xs:element name="galeriaFotografias" minOccurs="0">
+                          <xs:element name="galeriaFotografias">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="foto" type="xs:string" maxOccurs="unbounded"/>
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
-                          <xs:element name="galeriaVideos" minOccurs="0"/>
                         </xs:sequence>
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
+              <xs:element name="kml" type="xs:string"/>
+              <xs:element name="svg" type="xs:string"/>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -83,6 +67,7 @@
     </xs:complexType>
   </xs:element>
 
+  <!-- Coordenadas Type -->
   <xs:complexType name="coordenadasType">
     <xs:sequence>
       <xs:element name="longitud" type="xs:decimal"/>
