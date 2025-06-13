@@ -289,3 +289,13 @@ figure img {
     display: block;
     margin: 0 auto 0.3rem auto;
 }
+
+label {
+  font-weight:bold;
+}
+
+section[data-map="true"] {
+  height: 70vh;
+  width: 70vh;
+  margin-top: 1em;
+}

@@ -1,283 +1,250 @@
 class Rutas {
-    constructor() {
-        // Constructor vacío, no necesitamos variables globales
+  constructor() {
+    this.apiFile = !!(window.File && window.FileReader && window.FileList && window.Blob);
+  }
+
+  printInfo(files) {
+    if (!this.apiFile) {
+      $("main").append("<h4>No se ha podido leer el archivo pues su navegador no dispone de API File</h4>");
+      return;
     }
-    
-    printXMLInfo(files) {
+
     if (files.length === 0) {
-        alert('No ha seleccionado ningún archivo XML');
-        return;
+      alert('No ha seleccionado ningún archivo XML');
+      return;
     }
-    // Ocultar el label 'Introduzca XML:'
-    const main = document.getElementsByTagName('main')[0];
-    const label = main.getElementsByTagName('label')[0];
-    if (label) label.style.display = 'none';
 
     const file = files[0];
     const reader = new FileReader();
-    reader.onload = (e) => {
-        const xmlStr = e.target.result;
-        this.parseXML(xmlStr);
-        this.loadAndShowKML('planimetria1.kml');
-    };
+
+    reader.onload = this.onFileLoad.bind(this);
     reader.readAsText(file);
+  }
+
+  onFileLoad(e) {
+    var xmlStr = e.target.result;
+    this.parseXML(xmlStr);
+  }
+
+  parseXML(xmlStr) {
+    var xmlDoc = new DOMParser().parseFromString(xmlStr, "text/xml");
+
+    if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
+      alert("Error al parsear el XML");
+      return;
+    }
+
+    var $main = $("main");
+    $main.find("label").hide();
+    $main.children("section, h4, ul, p").remove();
+
+    var rutas = xmlDoc.getElementsByTagName("ruta");
+
+    if (rutas.length === 0) {
+      alert("No se encontraron rutas en el XML");
+      return;
+    }
+
+    for (var i = 0; i < rutas.length; i++) {
+      var ruta = rutas[i];
+      var $section = $("<section></section>");
+
+      var nombre = this.getTextContent(ruta, "nombre");
+      $section.append("<h2>" + nombre + "</h2>");
+      this.appendP($section, "Tipo", this.getTextContent(ruta, "tipo"));
+      this.appendP($section, "Transporte", this.getTextContent(ruta, "transporte"));
+      this.appendP($section, "Fecha Inicio", this.getTextContent(ruta, "fechaInicio"));
+      this.appendP($section, "Hora Inicio", this.getTextContent(ruta, "horaInicio"));
+      this.appendP($section, "Duración", this.getTextContent(ruta, "duracion"));
+      this.appendP($section, "Agencia", this.getTextContent(ruta, "agencia"));
+      this.appendP($section, "Descripción", this.getTextContent(ruta, "descripcion"));
+      this.appendP($section, "Personas adecuadas", this.getTextContent(ruta, "personasAdecuadas"));
+      this.appendP($section, "Lugar de inicio", this.getTextContent(ruta, "lugarInicio"));
+      this.appendP($section, "Dirección de inicio", this.getTextContent(ruta, "direccionInicio"));
+
+      var referencias = ruta.getElementsByTagName("referencia");
+      if (referencias.length > 0) {
+        var $ul = $("<ul></ul>");
+        for (var j = 0; j < referencias.length; j++) {
+          var url = referencias[j].textContent.trim();
+          $ul.append("<li><a href='" + url + "'>" + url + "</a></li>");
+        }
+        $section.append("<h3>Referencias</h3>").append($ul);
+      }
+
+     var hitos = ruta.getElementsByTagName("hito");
+if (hitos.length > 0) {
+  $section.append("<h4>Hitos</h4>");
+  for (var j = 0; j < hitos.length; j++) {
+    var hito = hitos[j];
+    var $hito = $("<section></section>");
+    $hito.append("<h5>" + this.getTextContent(hito, "nombre") + "</h5>");
+    this.appendP($hito, "Descripción", this.getTextContent(hito, "descripcion"));
+
+    // Obtener foto dentro de galeriaFotografias
+    var galeria = hito.getElementsByTagName("galeriaFotografias")[0];
+    if (galeria) {
+      var fotoEl = galeria.getElementsByTagName("foto")[0];
+      if (fotoEl && fotoEl.textContent.trim() !== "") {
+        var foto = fotoEl.textContent.trim();
+        var $img = $("<img>")
+          .attr("src", foto)
+          .attr("alt", this.getTextContent(hito, "nombre"));
+        $hito.append($img);
+      }
+    }
+
+    var distanciaEl = hito.getElementsByTagName("distancia")[0];
+    if (distanciaEl) {
+      var dist = distanciaEl.textContent.trim();
+      var unidad = distanciaEl.getAttribute("unidad") || "";
+      this.appendP($hito, "Distancia", dist + " " + unidad);
+    }
+    $section.append($hito);
+  }
 }
 
 
+      // Planimetría (KML)
+      var kml = this.getTextContent(ruta, "kml");
+      if (kml) {
+        var $planimetriaSection = $("<section></section>");
+        $planimetriaSection.append("<h3>Planimetría de la ruta</h3>");
+        this.loadAndShowKML(kml, $planimetriaSection);
+        $section.append($planimetriaSection);
+      }
 
-    parseXML(xmlStr) {
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlStr, "text/xml");
+      // Altimetría (SVG)
+      var svgPath = "xml/altimetria" + (i + 1) + ".svg";
+      var $altimetriaSection = $("<section></section>");
+      $altimetriaSection.append("<h3>Altimetría de la ruta</h3>");
+      this.loadAndShowSVG(svgPath, $altimetriaSection);
+      $section.append($altimetriaSection);
 
-        if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
-            alert("Error al parsear el XML");
-            return;
-        }
-
-        const rutas = xmlDoc.getElementsByTagName("ruta");
-        if (rutas.length === 0) {
-            alert("No se encontraron rutas en el XML");
-            return;
-        }
-
-        const main = document.getElementsByTagName('main')[0];
-
-        while (main.childNodes.length > 2) {
-            main.removeChild(main.lastChild);
-        }
-
-        for (let i = 0; i < rutas.length; i++) {
-            const ruta = rutas[i];
-
-            
-            const rutaDiv = document.createElement('section');
-
-            // Nombre
-            const nombre = this.getTextContent(ruta, 'nombre');
-            const h2 = document.createElement('h2');
-            h2.textContent = nombre;
-            rutaDiv.appendChild(h2);
-
-            // Tipo
-            this.appendP(rutaDiv, 'Tipo', this.getTextContent(ruta, 'tipo'));
-
-            // Transporte
-            this.appendP(rutaDiv, 'Transporte', this.getTextContent(ruta, 'transporte'));
-
-            // Fecha Inicio (opcional)
-            const fechaInicio = this.getTextContent(ruta, 'fechaInicio');
-            if (fechaInicio) this.appendP(rutaDiv, 'Fecha Inicio', fechaInicio);
-
-            // Hora Inicio (opcional)
-            const horaInicio = this.getTextContent(ruta, 'horaInicio');
-            if (horaInicio) this.appendP(rutaDiv, 'Hora Inicio', horaInicio);
-
-            // Duración
-            this.appendP(rutaDiv, 'Duración', this.getTextContent(ruta, 'duracion'));
-
-            // Agencia
-            this.appendP(rutaDiv, 'Agencia', this.getTextContent(ruta, 'agencia'));
-
-            // Descripción
-            this.appendP(rutaDiv, 'Descripción', this.getTextContent(ruta, 'descripcion'));
-
-            // Personas adecuadas
-            this.appendP(rutaDiv, 'Personas adecuadas', this.getTextContent(ruta, 'personasAdecuadas'));
-
-            // Lugar de inicio
-            this.appendP(rutaDiv, 'Lugar de inicio', this.getTextContent(ruta, 'lugarInicio'));
-
-            // Dirección inicio
-            this.appendP(rutaDiv, 'Dirección inicio', this.getTextContent(ruta, 'direccionInicio'));
-
-            // Referencias
-            const referencias = ruta.getElementsByTagName('referencia');
-            if (referencias.length > 0) {
-                const h3ref = document.createElement('h3');
-                h3ref.textContent = 'Referencias';
-                rutaDiv.appendChild(h3ref);
-
-                const ul = document.createElement('ul');
-                for (let j = 0; j < referencias.length; j++) {
-                    const url = referencias[j].textContent;
-                    const li = document.createElement('li');
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.textContent = url;
-                    li.appendChild(a);
-                    ul.appendChild(li);
-                }
-                rutaDiv.appendChild(ul);
-            }
-
-            // Hitos
-            const hitos = ruta.getElementsByTagName('hito');
-            if (hitos.length > 0) {
-                const h3hitos = document.createElement('h3');
-                h3hitos.textContent = 'Hitos';
-                rutaDiv.appendChild(h3hitos);
-
-                for (let k = 0; k < hitos.length; k++) {
-                    const hito = hitos[k];
-
-                    const hitoDiv = document.createElement('section');
-
-                    // Nombre hito
-                    const h4 = document.createElement('h4');
-                    h4.textContent = this.getTextContent(hito, 'nombre');
-                    hitoDiv.appendChild(h4);
-
-                    // Descripción hito
-                    this.appendP(hitoDiv, '', this.getTextContent(hito, 'descripcion'));
-
-                    // Distancia con unidad
-                    const distanciaEl = hito.getElementsByTagName('distancia')[0];
-                    if (distanciaEl) {
-                        const distancia = distanciaEl.textContent;
-                        const unidad = distanciaEl.getAttribute('unidad') || '';
-                        this.appendP(hitoDiv, 'Distancia', `${distancia} ${unidad}`);
-                    }
-
-                    // Galería fotos
-                    const fotos = hito.getElementsByTagName('foto');
-                    if (fotos.length > 0) {
-                        const fotosDiv = document.createElement('section');
-                        for (let f = 0; f < fotos.length; f++) {
-                            const img = document.createElement('img');
-                            img.src = fotos[f].textContent;
-                            img.alt = `Foto de ${h4.textContent}`;
-                            fotosDiv.appendChild(img);
-                        }
-                        hitoDiv.appendChild(fotosDiv);
-                    }
-
-                    rutaDiv.appendChild(hitoDiv);
-                }
-            }
-
-            const kmlFile = this.getTextContent(ruta, 'kml');
-                if (kmlFile) {
-                this.loadAndShowKML(kmlFile, rutaDiv);
-            }
-
-            const altimetriaFile = `xml/altimetria${i + 1}.svg`;
-                fetch(altimetriaFile)
-                .then(response => response.text())
-                .then(svgText => {
-                    const svgContainer = document.createElement('section');
-                    svgContainer.innerHTML = svgText;
-                    rutaDiv.appendChild(svgContainer);
-                        })
-                    .catch(error => {
-                    const p = document.createElement('p');
-                    p.textContent = 'No se pudo cargar el perfil de altimetría.';
-                     rutaDiv.appendChild(p);
-            });
-
-            main.appendChild(rutaDiv);
-        }
+      $("main").append($section);
     }
+  }
 
-    appendP(parent, label, text) {
-        const p = document.createElement('p');
-        if (label) {
-            const li = document.createElement('li');
-            li.textContent = label + ': ';
-            p.appendChild(li);
-        }
-        p.appendChild(document.createTextNode(text));
-        parent.appendChild(p);
+  appendP($parent, label, value) {
+    var $p = $("<p></p>");
+    if (label) {
+      $p.append($("<label></label>").text(label + ": "));
     }
+    $p.append(document.createTextNode(value));
+    $parent.append($p);
+  }
 
-    getTextContent(parent, tagName) {
-        const el = parent.getElementsByTagName(tagName)[0];
-        return el ? el.textContent.trim() : '';
-    }
+  getTextContent(parent, tagName) {
+    var el = parent.getElementsByTagName(tagName)[0];
+    return el ? el.textContent.trim() : "";
+  }
 
-    loadAndShowKML(kmlPath, parentElement) {
+  loadAndShowKML(kmlPath, $parentSection) {
     fetch(kmlPath)
-        .then(response => {
-            if (!response.ok) throw new Error("No se pudo cargar el archivo KML");
-            return response.text();
+      .then(this.checkResponse.bind(this, $parentSection))
+      .then(this.onKMLTextLoaded.bind(this, $parentSection))
+      .catch(this.onKMLTextLoadError.bind(this, $parentSection));
+  }
+
+  checkResponse($parentSection, response) {
+    if (!response.ok) {
+      throw new Error("No se pudo cargar el archivo KML");
+    }
+    return response.text();
+  }
+
+  onKMLTextLoaded($parentSection, kmlText) {
+    var parser = new DOMParser();
+    var kmlDoc = parser.parseFromString(kmlText, "text/xml");
+    var features = [];
+
+    var lineCoords = kmlDoc.querySelector("LineString > coordinates");
+    if (lineCoords) {
+      var coordsText = lineCoords.textContent.trim();
+      var coordsArray = coordsText.split(/\s+/);
+      var coords = [];
+      for (var i = 0; i < coordsArray.length; i++) {
+        var c = coordsArray[i].split(",");
+        var lon = parseFloat(c[0]);
+        var lat = parseFloat(c[1]);
+        coords.push(ol.proj.fromLonLat([lon, lat]));
+      }
+      var line = new ol.Feature(new ol.geom.LineString(coords));
+      line.setStyle(
+        new ol.style.Style({
+          stroke: new ol.style.Stroke({ color: "red", width: 3 }),
         })
-        .then(kmlText => {
-            const parser = new DOMParser();
-            const kmlDoc = parser.parseFromString(kmlText, "text/xml");
+      );
+      features.push(line);
+    }
 
-            const features = [];
-
-            const lineStringElement = kmlDoc.querySelector("LineString > coordinates");
-            if (lineStringElement) {
-                const coordTextLine = lineStringElement.textContent.trim();
-                const coordLines = coordTextLine.split(/\s+/);
-                const lineCoordinates = coordLines.map(line => {
-                    const [lon, lat, alt] = line.split(',').map(Number);
-                    return ol.proj.fromLonLat([lon, lat]);
-                });
-
-                const lineString = new ol.geom.LineString(lineCoordinates);
-                const lineFeature = new ol.Feature({ geometry: lineString });
-                lineFeature.setStyle(new ol.style.Style({
-                    stroke: new ol.style.Stroke({ color: '#FF0000', width: 4 })
-                }));
-                features.push(lineFeature);
-            }
-
-            // Procesar los puntos (Placemark > Point)
-            const pointElements = kmlDoc.querySelectorAll("Placemark > Point > coordinates");
-            pointElements.forEach(coordEl => {
-                const coordText = coordEl.textContent.trim();
-                const [lon, lat, alt] = coordText.split(',').map(Number);
-                const coord = ol.proj.fromLonLat([lon, lat]);
-                const pointFeature = new ol.Feature(new ol.geom.Point(coord));
-
-                pointFeature.setStyle(new ol.style.Style({
-                    image: new ol.style.Icon({
-                        anchor: [0.5, 1],
-                        src: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', // símbolo de ubicación
-                        scale: 0.07
-                    })
-                }));
-                features.push(pointFeature);
-            });
-
-            // Capa vectorial
-            const vectorLayer = new ol.layer.Vector({
-                source: new ol.source.Vector({ features })
-            });
-
-            // Contenedor de mapa
-            const mapSection = document.createElement('section');
-            mapSection.style.height = '400px';
-            mapSection.style.marginTop = '1em';
-            parentElement.appendChild(mapSection);
-
-            // Crear el mapa
-            const map = new ol.Map({
-                target: mapSection,
-                layers: [
-                    new ol.layer.Tile({ source: new ol.source.OSM() }),
-                    vectorLayer
-                ],
-                view: new ol.View({
-                    center: features.length > 0 ? features[0].getGeometry().getCoordinates() : ol.proj.fromLonLat([-5.7, 43.21]),
-                    zoom: 14
-                })
-            });
-
-            // Ajustar el zoom para que se vean todos los elementos
-            const extent = vectorLayer.getSource().getExtent();
-            map.getView().fit(extent, { padding: [30, 30, 30, 30] });
+    var points = kmlDoc.querySelectorAll("Placemark > Point > coordinates");
+    for (var i = 0; i < points.length; i++) {
+      var point = points[i];
+      var coordsPoint = point.textContent.trim().split(",");
+      var lonP = parseFloat(coordsPoint[0]);
+      var latP = parseFloat(coordsPoint[1]);
+      var coord = ol.proj.fromLonLat([lonP, latP]);
+      var feature = new ol.Feature(new ol.geom.Point(coord));
+      feature.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            src: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
+            scale: 0.05,
+            anchor: [0.5, 1],
+          }),
         })
-        .catch(error => {
-            const p = document.createElement('p');
-            p.textContent = 'Error al cargar el mapa: ' + error.message;
-            parentElement.appendChild(p);
-        });
-}
+      );
+      features.push(feature);
+    }
 
+    var vectorLayer = new ol.layer.Vector({
+      source: new ol.source.Vector({ features: features }),
+    });
 
+    var mapSection = document.createElement("section");
+    mapSection.setAttribute("data-map", "true");
 
+    $parentSection.append(mapSection);
+
+    var map = new ol.Map({
+      target: mapSection,
+      layers: [new ol.layer.Tile({ source: new ol.source.OSM() }), vectorLayer],
+      view: new ol.View({
+        center:
+          features.length > 0
+            ? features[0].getGeometry().getCoordinates()
+            : ol.proj.fromLonLat([-5.7, 43.2]),
+        zoom: 13,
+      }),
+    });
+
+    var extent = vectorLayer.getSource().getExtent();
+    map.getView().fit(extent, { padding: [20, 20, 20, 20] });
+  }
+
+  onKMLTextLoadError($parentSection, err) {
+    this.appendP($parentSection, "", "Error al cargar el KML.");
+  }
+
+  loadAndShowSVG(svgPath, $parentSection) {
+    $.ajax({
+      url: svgPath,
+      dataType: "xml",
+      success: this.onSVGLoadSuccess.bind(this, $parentSection),
+      error: this.onSVGLoadError.bind(this, $parentSection),
+    });
+  }
+
+  onSVGLoadSuccess($parentSection, data) {
+    var svgContent = new XMLSerializer().serializeToString(data.documentElement);
+    var $svgSection = $("<section></section>").html(svgContent);
+    $parentSection.append($svgSection);
+  }
+
+  onSVGLoadError($parentSection) {
+    this.appendP($parentSection, "", "No se pudo cargar el perfil de altimetría.");
+  }
 }
 
 const rutas = new Rutas();
