@@ -64,6 +64,7 @@ h1 {
 
 /* Especificidad = (0, 0, 1) */
 h2 {
+  font-size: 1.8rem;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
 }
@@ -315,7 +316,7 @@ body {
 /* Especificidad: 0-0-1 */
 /* Titulares principales */
 h3 {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: #074480;
   margin-bottom: 0.5em;
   border-bottom: 0.125em solid #ffcc00;
@@ -408,14 +409,20 @@ li::marker {
 /* Secciones principales (ej. rutas) */
 main > section {
   background-color: #ffffff;
-  margin: 1.5em auto;
-  padding: 1.5em;
+  margin: 0.5em auto;
+  padding: 0.5em;
   max-width: 90%;
   width: 100%;
   border-radius: 1em;
   box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.1);
 }
 
+
+main > article {
+  background-color: #f0e9e9;
+  margin: 0.5em auto;
+  padding: 0.5em;
+}
 
 /* Especificidad: 0-0-3 */
 /* Secciones internas anidadas (hitos dentro de rutas) */
@@ -454,3 +461,12 @@ button:hover {
   color: white;
 }
 
+
+main > section:last-of-type {
+  min-height: 6.25rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
