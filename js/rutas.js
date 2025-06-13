@@ -62,6 +62,18 @@ class Rutas {
       this.appendP($section, "Lugar de inicio", this.getTextContent(ruta, "lugarInicio"));
       this.appendP($section, "Dirección de inicio ", this.getTextContent(ruta, "direccionInicio"));
 
+      var coordInicio = ruta.getElementsByTagName("coordenadasInicio")[0];
+if (coordInicio) {
+  var longitud = this.getTextContent(coordInicio, "longitud");
+  var latitud = this.getTextContent(coordInicio, "latitud");
+  var altitud = this.getTextContent(coordInicio, "altitud");
+  var altitudUnidad = coordInicio.getElementsByTagName("altitud")[0]?.getAttribute("unidades") || "";
+
+  var coordTexto = `Longitud: ${longitud}, Latitud: ${latitud}, Altitud: ${altitud} ${altitudUnidad}`;
+  this.appendP($section, "Coordenadas geográficas de inicio de la ruta", coordTexto);
+}
+
+
       var referencias = ruta.getElementsByTagName("referencia");
       if (referencias.length > 0) {
         var $ul = $("<ul></ul>");
@@ -71,6 +83,12 @@ class Rutas {
         }
         $section.append("<h4>Referencias</h4>").append($ul);
       }
+
+      var recomendacion = this.getTextContent(ruta, "recomendacion");
+if (recomendacion) {
+  this.appendP($section, "Recomendación", recomendacion);
+}
+
 
      var hitos = ruta.getElementsByTagName("hito");
 if (hitos.length > 0) {
@@ -243,20 +261,14 @@ handleSVGResponse($parentSection, response) {
   return response.text();
 }
 
-// Segundo método: procesar el contenido SVG
+// Procesar el contenido SVG
 handleSVGContent($parentSection, svgContent) {
   var parser = new DOMParser();
   var svgDoc = parser.parseFromString(svgContent, "image/svg+xml");
   var svgElement = svgDoc.documentElement;
 
-  // Eliminar atributos de tamaño fijo para hacer que escale
   svgElement.removeAttribute("width");
   svgElement.removeAttribute("height");
-
-  // Si no tiene viewBox, lo podríamos calcular (opcional)
-  if (!svgElement.hasAttribute("viewBox")) {
-    // svgElement.setAttribute("viewBox", "0 0 800 400");
-  }
 
   var serializer = new XMLSerializer();
   var cleanedSVG = serializer.serializeToString(svgElement);

@@ -382,7 +382,8 @@ a {
 /* Especificidad: 0-0-1 + pseudo-clase = 0-1-1 */
 a:hover {
   text-decoration: underline;
-  background-color: #0c5bab;
+  background-color: #5f8ebd;
+  color:white;
   text-decoration: none;
 }
 
