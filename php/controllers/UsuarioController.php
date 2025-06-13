@@ -9,13 +9,17 @@ class UsuarioController {
     }
 
     public function registrar($nombre, $email, $password) {
-        $resultado = $this->usuario->registrar($nombre, $email, $password);
-        if ($resultado) {
-            return "Registro exitoso";
-        } else {
-            return "Error en el registro";
-        }
+    $nuevoId = $this->usuario->registrar($nombre, $email, $password);
+    if ($nuevoId) {
+        return [
+            'id' => $nuevoId,
+            'nombre' => $nombre,
+            'email' => $email
+        ];
     }
+    return false;
+}
+
 
     public function autenticar($email, $password) {
         return $this->usuario->autenticar($email, $password);

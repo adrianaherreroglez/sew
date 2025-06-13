@@ -10,8 +10,13 @@ class Usuario {
 
   public function registrar($nombre, $email, $password) {
     $stmt = $this->db->prepare("INSERT INTO usuarios(nombre, email, password) VALUES (?, ?, ?)");
-    return $stmt->execute([$nombre, $email, password_hash($password, PASSWORD_DEFAULT)]);
-  }
+    $success = $stmt->execute([$nombre, $email, password_hash($password, PASSWORD_DEFAULT)]);
+    if ($success) {
+        return $this->db->lastInsertId(); 
+    }
+    return false;
+}
+
 
 
   public function autenticar($email, $password) {
