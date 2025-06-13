@@ -7,6 +7,9 @@ class JuegoTest {
         this.$resultado = $('main section').last();
         this.$boton = $('main > button');
 
+        // No creamos mensajeError todavía
+        this.$mensajeError = null;
+
         this.mostrarPreguntas();
         this.asignarEventos();
     }
@@ -29,7 +32,6 @@ class JuegoTest {
                 const $p = $('<p>');
                 $p.append($label);
                 $fieldset.append($p);
-
             }
 
             this.$form.append($fieldset);
@@ -40,13 +42,32 @@ class JuegoTest {
         this.$boton.on('click', this.comprobarRespuestas.bind(this));
     }
 
+    mostrarError(mensaje) {
+        if (!this.$mensajeError) {
+            this.$mensajeError = $('<p>').css({ color: 'red', fontWeight: 'bold' });
+        }
+        this.$mensajeError.text(mensaje);
+        if (!this.$mensajeError.parent().is(this.$boton.parent())) {
+            this.$mensajeError.insertAfter(this.$boton);
+        }
+    }
+
+    quitarError() {
+        if (this.$mensajeError) {
+            this.$mensajeError.remove();
+            this.$mensajeError = null;
+        }
+    }
+
     comprobarRespuestas() {
         this.aciertos = 0;
+        this.quitarError();  // eliminar error si existía
 
         for (let i = 0; i < this.preguntas.length; i++) {
             const $respuesta = this.$form.find(`input[name="pregunta${i}"]:checked`);
             if ($respuesta.length === 0) {
-                window.alert(`Debes responder la pregunta ${i + 1}`);
+                this.mostrarError(`Debes responder la pregunta ${i + 1}`);
+                this.$resultado.empty();
                 return;
             }
             const valor = parseInt($respuesta.val());
@@ -59,6 +80,7 @@ class JuegoTest {
     }
 
     mostrarResultado() {
+        this.quitarError(); // asegurar que no hay error visible
         this.$resultado.empty();
         this.$resultado.append(`<p>Tu puntuación: ${this.aciertos} / ${this.preguntas.length}</p>`);
     }

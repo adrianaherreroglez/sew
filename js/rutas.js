@@ -1,21 +1,26 @@
 class Rutas {
   constructor() {
-     this.apiFile = Boolean(
-    window.File && 
-    window.FileReader && 
-    window.FileList && 
-    window.Blob
-  );
+    this.apiFile = Boolean(
+      window.File &&
+      window.FileReader &&
+      window.FileList &&
+      window.Blob
+    );
+
+    this.$mensajeError = $("<p>").css({ color: "red", fontWeight: "bold" });
+    $("main").prepend(this.$mensajeError);
   }
 
   printInfo(files) {
+    this.$mensajeError.text("");
+
     if (!this.apiFile) {
       $("main").append("<h4>No se ha podido leer el archivo pues su navegador no dispone de API File</h4>");
       return;
     }
 
     if (files.length === 0) {
-      alert('No ha seleccionado ningún archivo XML');
+      this.$mensajeError.text('No ha seleccionado ningún archivo XML');
       return;
     }
 
@@ -35,7 +40,7 @@ class Rutas {
     var xmlDoc = new DOMParser().parseFromString(xmlStr, "text/xml");
 
     if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
-      alert("Error al parsear el XML");
+      this.$mensajeError.text("Error al parsear el XML");
       return;
     }
 
@@ -46,7 +51,7 @@ class Rutas {
     var rutas = xmlDoc.getElementsByTagName("ruta");
 
     if (rutas.length === 0) {
-      alert("No se encontraron rutas en el XML");
+      this.$mensajeError.text("No se encontraron rutas en el XML");
       return;
     }
 
@@ -68,16 +73,15 @@ class Rutas {
       this.appendP($section, "Dirección de inicio ", this.getTextContent(ruta, "direccionInicio"));
 
       var coordInicio = ruta.getElementsByTagName("coordenadasInicio")[0];
-if (coordInicio) {
-  var longitud = this.getTextContent(coordInicio, "longitud");
-  var latitud = this.getTextContent(coordInicio, "latitud");
-  var altitud = this.getTextContent(coordInicio, "altitud");
-  var altitudUnidad = coordInicio.getElementsByTagName("altitud")[0]?.getAttribute("unidades") || "";
+      if (coordInicio) {
+        var longitud = this.getTextContent(coordInicio, "longitud");
+        var latitud = this.getTextContent(coordInicio, "latitud");
+        var altitud = this.getTextContent(coordInicio, "altitud");
+        var altitudUnidad = coordInicio.getElementsByTagName("altitud")[0]?.getAttribute("unidades") || "";
 
-  var coordTexto = `Longitud: ${longitud}, Latitud: ${latitud}, Altitud: ${altitud} ${altitudUnidad}`;
-  this.appendP($section, "Coordenadas geográficas de inicio de la ruta", coordTexto);
-}
-
+        var coordTexto = `Longitud: ${longitud}, Latitud: ${latitud}, Altitud: ${altitud} ${altitudUnidad}`;
+        this.appendP($section, "Coordenadas geográficas de inicio de la ruta", coordTexto);
+      }
 
       var referencias = ruta.getElementsByTagName("referencia");
       if (referencias.length > 0) {
@@ -90,44 +94,41 @@ if (coordInicio) {
       }
 
       var recomendacion = this.getTextContent(ruta, "recomendacion");
-if (recomendacion) {
-  this.appendP($section, "Recomendación", recomendacion);
-}
-
-
-     var hitos = ruta.getElementsByTagName("hito");
-if (hitos.length > 0) {
-  $section.append("<h4>Hitos</h4>");
-  for (var j = 0; j < hitos.length; j++) {
-    var hito = hitos[j];
-    var $hito = $("<section></section>");
-    $hito.append("<h5>" + this.getTextContent(hito, "nombre") + "</h5>");
-    this.appendP($hito, "Descripción", this.getTextContent(hito, "descripcion"));
-
-    var galeria = hito.getElementsByTagName("galeriaFotografias")[0];
-    if (galeria) {
-      var fotoEl = galeria.getElementsByTagName("foto")[0];
-      if (fotoEl && fotoEl.textContent.trim() !== "") {
-        var foto = fotoEl.textContent.trim();
-        var $img = $("<img>")
-          .attr("src", foto)
-          .attr("alt", this.getTextContent(hito, "nombre"));
-        $hito.append($img);
+      if (recomendacion) {
+        this.appendP($section, "Recomendación", recomendacion);
       }
-    }
 
-    var distanciaEl = hito.getElementsByTagName("distancia")[0];
-    if (distanciaEl) {
-      var dist = distanciaEl.textContent.trim();
-      var unidad = distanciaEl.getAttribute("unidad") || "";
-      this.appendP($hito, "Distancia", dist + " " + unidad);
-    }
-    $section.append($hito);
-  }
-}
+      var hitos = ruta.getElementsByTagName("hito");
+      if (hitos.length > 0) {
+        $section.append("<h4>Hitos</h4>");
+        for (var j = 0; j < hitos.length; j++) {
+          var hito = hitos[j];
+          var $hito = $("<section></section>");
+          $hito.append("<h5>" + this.getTextContent(hito, "nombre") + "</h5>");
+          this.appendP($hito, "Descripción", this.getTextContent(hito, "descripcion"));
 
+          var galeria = hito.getElementsByTagName("galeriaFotografias")[0];
+          if (galeria) {
+            var fotoEl = galeria.getElementsByTagName("foto")[0];
+            if (fotoEl && fotoEl.textContent.trim() !== "") {
+              var foto = fotoEl.textContent.trim();
+              var $img = $("<img>")
+                .attr("src", foto)
+                .attr("alt", this.getTextContent(hito, "nombre"));
+              $hito.append($img);
+            }
+          }
 
-      // Planimetría (KML)
+          var distanciaEl = hito.getElementsByTagName("distancia")[0];
+          if (distanciaEl) {
+            var dist = distanciaEl.textContent.trim();
+            var unidad = distanciaEl.getAttribute("unidad") || "";
+            this.appendP($hito, "Distancia", dist + " " + unidad);
+          }
+          $section.append($hito);
+        }
+      }
+
       var kml = this.getTextContent(ruta, "kml");
       if (kml) {
         var $planimetriaSection = $("<section></section>");
@@ -136,7 +137,6 @@ if (hitos.length > 0) {
         $section.append($planimetriaSection);
       }
 
-      // Altimetría (SVG)
       var svgPath = "xml/altimetria" + (i + 1) + ".svg";
       var $altimetriaSection = $("<section></section>");
       $altimetriaSection.append("<h3>Altimetría de la ruta</h3>");
@@ -250,52 +250,39 @@ if (hitos.length > 0) {
   }
 
   loadAndShowSVG(svgPath, $parentSection) {
-  var self = this;
+    var self = this;
 
-  fetch(svgPath)
-    .then(self.handleSVGResponse.bind(self, $parentSection))
-    .then(self.handleSVGContent.bind(self, $parentSection))
-    .catch(self.handleSVGError.bind(self, $parentSection));
-}
-
-handleSVGResponse($parentSection, response) {
-  if (!response.ok) {
-    throw new Error("No se pudo cargar el archivo SVG");
-  }
-  return response.text();
-}
-
-// Procesar el contenido SVG
-handleSVGContent($parentSection, svgContent) {
-  var parser = new DOMParser();
-  var svgDoc = parser.parseFromString(svgContent, "image/svg+xml");
-  var svgElement = svgDoc.documentElement;
-
-  svgElement.removeAttribute("width");
-  svgElement.removeAttribute("height");
-
-  var serializer = new XMLSerializer();
-  var cleanedSVG = serializer.serializeToString(svgElement);
-
-  var $svgWrapper = $("<figure></figure>").html(cleanedSVG);
-  $parentSection.append($svgWrapper);
-}
-
-handleSVGError($parentSection, error) {
-  $parentSection.append("<p>Error al cargar el archivo SVG.</p>");
-  console.error(error);
-}
-
-
-
-  onSVGLoadSuccess($parentSection, data) {
-    var svgContent = new XMLSerializer().serializeToString(data.documentElement);
-    var $svgContainer = $("<figure></figure>").html(svgContent);
-    $parentSection.append($svgContainer);
+    fetch(svgPath)
+      .then(self.handleSVGResponse.bind(self, $parentSection))
+      .then(self.handleSVGContent.bind(self, $parentSection))
+      .catch(self.handleSVGError.bind(self, $parentSection));
   }
 
-  onSVGLoadError($parentSection) {
-    this.appendP($parentSection, "", "No se pudo cargar el perfil de altimetría.");
+  handleSVGResponse($parentSection, response) {
+    if (!response.ok) {
+      throw new Error("No se pudo cargar el archivo SVG");
+    }
+    return response.text();
+  }
+
+  handleSVGContent($parentSection, svgContent) {
+    var parser = new DOMParser();
+    var svgDoc = parser.parseFromString(svgContent, "image/svg+xml");
+    var svgElement = svgDoc.documentElement;
+
+    svgElement.removeAttribute("width");
+    svgElement.removeAttribute("height");
+
+    var serializer = new XMLSerializer();
+    var cleanedSVG = serializer.serializeToString(svgElement);
+
+    var $svgWrapper = $("<figure></figure>").html(cleanedSVG);
+    $parentSection.append($svgWrapper);
+  }
+
+  handleSVGError($parentSection, error) {
+    $parentSection.append("<p>Error al cargar el archivo SVG.</p>");
+    console.error(error);
   }
 }
 

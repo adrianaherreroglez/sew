@@ -27,28 +27,27 @@ $errorFecha = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuestar'])) {
     $fechaInicioPresupuesto = $_POST['fecha_inicio'];
-$fechaFinPresupuesto = $_POST['fecha_fin'];
-$recursoIdPresupuesto = intval($_POST['recurso_id']);
-$precioUnitario = floatval($_POST['precio']);
-
-// Calcular número de días (mínimo 1)
-$inicio = new DateTime($fechaInicioPresupuesto);
-$fin = new DateTime($fechaFinPresupuesto);
-$interval = $inicio->diff($fin);
-$numDias = (int)$interval->format('%a');
-if ($numDias < 1) $numDias = 1;
-
-$precioPresupuesto = $precioUnitario * $numDias;
-
-
-    $fechaActual = date('Y-m-d\TH:i'); // formato compatible datetime-local (ej: 2025-06-13T14:30)
+    $fechaFinPresupuesto = $_POST['fecha_fin'];
+    $recursoIdPresupuesto = intval($_POST['recurso_id']);
+    $precioUnitario = floatval($_POST['precio']);
 
     // Validar fechas
+    $fechaActual = date('Y-m-d\TH:i'); // formato datetime-local
+
     if ($fechaInicioPresupuesto < $fechaActual) {
         $errorFecha = "La fecha de inicio debe ser hoy o una fecha futura.";
     } elseif ($fechaFinPresupuesto <= $fechaInicioPresupuesto) {
         $errorFecha = "La fecha de fin debe ser posterior a la fecha de inicio.";
     } else {
+        // Calcular número de días (mínimo 1)
+        $inicio = new DateTime($fechaInicioPresupuesto);
+        $fin = new DateTime($fechaFinPresupuesto);
+        $interval = $inicio->diff($fin);
+        $numDias = (int)$interval->format('%a');
+        if ($numDias < 1) $numDias = 1;
+
+        $precioPresupuesto = $precioUnitario * $numDias;
+
         // Buscar recurso para mostrar presupuesto
         foreach ($recursos as $r) {
             if ($r['id'] === $recursoIdPresupuesto) {
@@ -91,24 +90,27 @@ $precioPresupuesto = $precioUnitario * $numDias;
 <main>
 
 <h2>Recursos turísticos disponibles</h2>
+
 <?php if ($errorFecha): ?>
-    <p><?= htmlspecialchars($errorFecha) ?></p>
+    <p style="color:red;"><?= htmlspecialchars($errorFecha) ?></p>
 <?php endif; ?>
+
 <?php
 // Mostrar mensajes solo si NO estás presupuestando para evitar confusión
 if (isset($_GET['confirmacion']) && !$mostrarPresupuesto) {
     if ($_GET['confirmacion'] === 'Reserva realizada') {
-        echo '<p>Reserva confirmada correctamente.</p>';
+        echo '<p style="color:green;">Reserva confirmada correctamente.</p>';
     } elseif ($_GET['confirmacion'] === 'Reserva anulada') {
-        echo '<p>Reserva anulada correctamente.</p>';
+        echo '<p style="color:green;">Reserva anulada correctamente.</p>';
     }
 }
 
 if (isset($_GET['error']) && !$mostrarPresupuesto) {
-    echo '<p>Error al realizar la reserva. Intenta de nuevo.</p>';
+    echo '<p style="color:red;">Error al realizar la reserva. Intenta de nuevo.</p>';
 }
 ?>
-<table id="tabla-recursos">
+
+<table id="tabla-recursos" border="1" cellspacing="0" cellpadding="5">
   <caption>Recursos turísticos disponibles</caption>
   <tr>
     <th scope="col" id="nombre">Nombre</th>
@@ -127,24 +129,22 @@ if (isset($_GET['error']) && !$mostrarPresupuesto) {
     <td headers="precio recurso<?= $r['id'] ?>"><?= number_format($r['precio'], 2) ?></td>
     <td headers="accion recurso<?= $r['id'] ?>">
       <form method="POST">
-      <input type="hidden" name="recurso_id" value="<?= $r['id'] ?>">
-      <input type="hidden" name="precio" value="<?= $r['precio'] ?>">
-      <label for="fecha_inicio">Inicio:</label>
-      <input type="datetime-local" name="fecha_inicio" required>
-      <label for="fecha_fin">Fin:</label>
-      <input type="datetime-local" name="fecha_fin" required>
-      <button type="submit" name="presupuestar">Presupuestar</button>
-    </form>
+        <input type="hidden" name="recurso_id" value="<?= $r['id'] ?>">
+        <input type="hidden" name="precio" value="<?= $r['precio'] ?>">
+        <label for="fecha_inicio_<?= $r['id'] ?>">Inicio:</label>
+        <input type="datetime-local" id="fecha_inicio_<?= $r['id'] ?>" name="fecha_inicio" required>
+        <label for="fecha_fin_<?= $r['id'] ?>">Fin:</label>
+        <input type="datetime-local" id="fecha_fin_<?= $r['id'] ?>" name="fecha_fin" required>
+        <button type="submit" name="presupuestar">Presupuestar</button>
+      </form>
     </td>
   </tr>
   <?php endforeach; ?>
 </table>
 
-
 <?php if ($mostrarPresupuesto && $recursoPresupuesto): ?>
-  <hr>
   <h3>Presupuesto para: <?= htmlspecialchars($recursoPresupuesto['nombre']) ?></h3>
-  <p>Precio: <?= number_format($precioPresupuesto, 2) ?> €</p>
+  <p>Precio estimado: <?= number_format($precioPresupuesto, 2) ?> €</p>
   <p>Fecha de inicio: <?= date('d/m/Y H:i', strtotime($fechaInicioPresupuesto)) ?></p>
   <p>Fecha de fin: <?= date('d/m/Y H:i', strtotime($fechaFinPresupuesto)) ?></p>
 
@@ -152,18 +152,16 @@ if (isset($_GET['error']) && !$mostrarPresupuesto) {
     <input type="hidden" name="recurso_id" value="<?= $recursoPresupuesto['id'] ?>">
     <input type="hidden" name="fecha_inicio" value="<?= $fechaInicioPresupuesto ?>">
     <input type="hidden" name="fecha_fin" value="<?= $fechaFinPresupuesto ?>">
-    <button name="reservar">Confirmar reserva</button>
+    <button type="submit" name="reservar">Confirmar reserva</button>
   </form>
 <?php endif; ?>
 
-</section>
-  <section>
 <h2>Mis reservas</h2>
 
 <?php if (empty($reservas)): ?>
     <p>No tienes reservas activas.</p>
 <?php else: ?>
-<table>
+<table border="1" cellspacing="0" cellpadding="5">
 <thead>
 <tr><th>Recurso turístico</th><th>Fecha de reserva</th><th>Acción</th></tr>
 </thead>
@@ -185,7 +183,6 @@ if (isset($_GET['error']) && !$mostrarPresupuesto) {
 </tbody>
 </table>
 <?php endif; ?>
-</section>
 
 <form action="php/cerrar_sesion.php" method="POST" style="text-align: center; margin: 20px 0;">
     <button type="submit" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">
@@ -193,18 +190,19 @@ if (isset($_GET['error']) && !$mostrarPresupuesto) {
     </button>
 </form>
 
-<!-- Script para limpiar confirmacion de la URL tras mostrar mensaje -->
+<!-- Script para limpiar confirmacion/error de la URL tras mostrar mensaje -->
 <script>
-if (window.location.search.includes('confirmacion')) {
+(() => {
     const url = new URL(window.location);
-    url.searchParams.delete('confirmacion');
-    window.history.replaceState({}, document.title, url.toString());
-}
-if (window.location.search.includes('error')) {
-    const url = new URL(window.location);
-    url.searchParams.delete('error');
-    window.history.replaceState({}, document.title, url.toString());
-}
+    if (url.searchParams.has('confirmacion')) {
+        url.searchParams.delete('confirmacion');
+        window.history.replaceState({}, document.title, url.toString());
+    }
+    if (url.searchParams.has('error')) {
+        url.searchParams.delete('error');
+        window.history.replaceState({}, document.title, url.toString());
+    }
+})();
 </script>
 </main>
 </body>

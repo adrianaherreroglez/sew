@@ -58,7 +58,7 @@ class ReservaController
 
         $reserva_id = $this->reservaModel->crear($usuario_id, $recurso_id, $fecha_inicio, $fecha_fin);
         if (!$reserva_id) {
-            $this->redirigir('../reservas.php?error=No se pudo crear la reserva');
+            $this->redirigir('../../reservas.php?error=No se pudo crear la reserva');
         }
 
         try {
@@ -80,6 +80,7 @@ class ReservaController
         }
 
         $this->redirigir('../../reservas.php?confirmacion=Reserva realizada');
+
     }
 
     private function anularReserva($usuario_id)
@@ -91,7 +92,7 @@ class ReservaController
 
         $ok = $this->reservaModel->anular($reserva_id, $usuario_id);
         if ($ok) {
-            $this->redirigir('/sew/reservas.php?confirmacion=Reserva anulada');
+            $this->redirigir('../../reservas.php?confirmacion=Reserva anulada');
 
         } else {
             $this->redirigir('../reservas.php?error=No se pudo anular la reserva');
@@ -107,3 +108,4 @@ class ReservaController
 
 $controller = new ReservaController();
 $controller->procesarSolicitud();
+

@@ -59,11 +59,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <h2>Registro</h2>
 <form method="POST">
      <label>Nombre:</label>
-    <input type="text" name="nombre" placeholder="Nombre completo" required><br>
+    <input type="text" name="nombre" placeholder="Nombre completo" required>
      <label>Correo:</label>
-    <input type="email" name="email" placeholder="Correo electrónico" required><br>
+    <input type="email" name="email" placeholder="Correo electrónico" required>
      <label>Contraseña:</label>
-    <input type="password" name="password" placeholder="Contraseña" required><br>
+    <input type="password" name="password" placeholder="Contraseña" required>
     <button type="submit">Registrarse</button>
 </form>
 <a href="login.php">¿Ya tienes cuenta?</a>

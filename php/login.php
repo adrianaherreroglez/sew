@@ -55,9 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <h2>Login</h2>
 <form method="POST">
   <label>Correo:</label>
-  <input type="email" name="email" placeholder="Correo" required><br>
+  <input type="email" name="email" placeholder="Correo" required>
   <label>Contraseña:</label>
-  <input type="password" name="password" placeholder="Contraseña" required><br>
+  <input type="password" name="password" placeholder="Contraseña" required>
   <button type="submit">Iniciar sesión</button>
 </form>
 <?php if ($error) echo "<p>$error</p>"; ?>
