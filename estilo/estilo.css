@@ -436,3 +436,20 @@ section[data-map="true"] {
   border-radius: 1em;
   box-shadow: 0 0 0.75em rgba(0, 0, 0, 0.15);
 }
+
+/* ----- Botones del carrusel u otros ----- */
+/* Especificidad: (0, 0, 1) */
+button {
+  background-color: #074480;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #607991;
+  color: white;
+}
