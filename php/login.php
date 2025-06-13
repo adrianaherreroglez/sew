@@ -33,7 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     <link rel="stylesheet" type="text/css" href="../estilo/estilo.css" />
     <link rel="stylesheet" type="text/css" href="../estilo/layout.css" />
-    <link rel="icon" href="multimedia/imagenes/favicon.ico" />
+    <link rel="icon" href="../multimedia/imagenes/favicon.ico" />
+
+
 </head>
 <body>
 <header>
@@ -49,13 +51,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </nav>
 </header>
 
+<main>
 <h2>Login</h2>
 <form method="POST">
+  <label>Correo:</label>
   <input type="email" name="email" placeholder="Correo" required><br>
+  <label>Contraseña:</label>
   <input type="password" name="password" placeholder="Contraseña" required><br>
   <button type="submit">Iniciar sesión</button>
 </form>
 <?php if ($error) echo "<p>$error</p>"; ?>
 <a href="registro.php">¿No tienes cuenta?</a>
+</main>
 </body>
 </html>

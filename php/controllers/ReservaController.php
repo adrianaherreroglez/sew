@@ -79,7 +79,7 @@ class ReservaController
             $this->redirigir('../reservas.php?error=Error en el pago');
         }
 
-        $this->redirigir('../reservas.php?confirmacion=Reserva realizada');
+        $this->redirigir('../../reservas.php?confirmacion=Reserva realizada');
     }
 
     private function anularReserva($usuario_id)
@@ -91,7 +91,8 @@ class ReservaController
 
         $ok = $this->reservaModel->anular($reserva_id, $usuario_id);
         if ($ok) {
-            $this->redirigir('../reservas.php?confirmacion=Reserva anulada');
+            $this->redirigir('/sew/reservas.php?confirmacion=Reserva anulada');
+
         } else {
             $this->redirigir('../reservas.php?error=No se pudo anular la reserva');
         }
@@ -104,3 +105,5 @@ class ReservaController
     }
 }
 
+$controller = new ReservaController();
+$controller->procesarSolicitud();

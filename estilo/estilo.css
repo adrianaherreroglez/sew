@@ -331,8 +331,10 @@ h4 {
 h5 {
   font-size: 1.2rem;
   color: #333333;
-  margin-bottom: 0.5em;
+  margin-top: 0;      /* quita margen arriba */
+  margin-bottom: 0.5em; /* mantiene margen abajo */
 }
+
 
 /* Especificidad: 0-0-1 */
 /* Estilo de párrafos descriptivos */
@@ -434,14 +436,19 @@ section[data-map="true"] {
 /* ----- Botones del carrusel u otros ----- */
 /* Especificidad: (0, 0, 1) */
 button {
+  display: inline-block; /* para que el ancho sea solo el necesario */
+  width: auto;           /* no force ancho */
+  max-width: none;       /* quitar cualquier max-width que lo limite */
+  padding: 0.5rem 1rem;  /* ajusta padding si quieres */
   background-color: #074480;
-  color: #ffffff;
-  padding: 0.5rem 1rem;
+  color: #fff;
   border-radius: 0.5rem;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
+  white-space: nowrap;   /* evitar salto de línea dentro del botón */
 }
+
 
 button:hover {
   background-color: #607991;
@@ -464,4 +471,92 @@ form + p {
   font-weight: bold;
   margin-top: 1em;
   text-align: center;
+}
+
+
+input {
+  padding: 0.8em 1em;
+  border: 1px solid #ccc;
+  border-radius: 0.5em;
+  font-size: 1em;
+  transition: border-color 0.3s;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2em 0;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border-radius: 0.5em;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 1em;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background-color: #074480;
+  color: white;
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+input[type="datetime-local"] {
+  padding: 0.4em;
+  border: 1px solid #ccc;
+  border-radius: 0.4em;
+  font-size: 0.9em;
+}
+
+@media (max-width: 768px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  thead tr {
+    display: none; /* Oculta cabeceras en móvil */
+  }
+
+  td {
+    position: relative;
+    padding-left: 50%;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+  }
+
+  td::before {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    font-weight: bold;
+  }
+
+  /* Etiquetas personalizadas para cada celda */
+  td:nth-of-type(1)::before { content: "Nombre"; }
+  td:nth-of-type(2)::before { content: "Tipo"; }
+  td:nth-of-type(3)::before { content: "Descripción"; }
+  td:nth-of-type(4)::before { content: "Capacidad"; }
+  td:nth-of-type(5)::before { content: "Precio"; }
+  td:nth-of-type(6)::before { content: "Acción"; }
 }

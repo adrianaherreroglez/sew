@@ -88,23 +88,45 @@ $precioPresupuesto = $precioUnitario * $numDias;
     </nav>
 </header>
 
+<main>
+
 <h2>Recursos turísticos disponibles</h2>
-<table>
-<thead>
-<tr>
-  <th>Nombre</th><th>Tipo</th><th>Descripción</th><th>Capacidad</th><th>Precio (€)</th><th>Acción</th>
-</tr>
-</thead>
-<tbody>
-<?php foreach ($recursos as $r): ?>
-<tr>
-  <td><?= htmlspecialchars($r['nombre']) ?></td>
-  <td><?= htmlspecialchars($r['tipo']) ?></td>
-  <td><?= htmlspecialchars($r['descripcion']) ?></td>
-  <td><?= $r['capacidad'] ?></td>
-  <td><?= number_format($r['precio'], 2) ?></td>
-  <td>
-    <form method="POST" style="margin:0;">
+<?php if ($errorFecha): ?>
+    <p><?= htmlspecialchars($errorFecha) ?></p>
+<?php endif; ?>
+<?php
+// Mostrar mensajes solo si NO estás presupuestando para evitar confusión
+if (isset($_GET['confirmacion']) && !$mostrarPresupuesto) {
+    if ($_GET['confirmacion'] === 'Reserva realizada') {
+        echo '<p>Reserva confirmada correctamente.</p>';
+    } elseif ($_GET['confirmacion'] === 'Reserva anulada') {
+        echo '<p>Reserva anulada correctamente.</p>';
+    }
+}
+
+if (isset($_GET['error']) && !$mostrarPresupuesto) {
+    echo '<p>Error al realizar la reserva. Intenta de nuevo.</p>';
+}
+?>
+<table id="tabla-recursos">
+  <caption>Recursos turísticos disponibles</caption>
+  <tr>
+    <th scope="col" id="nombre">Nombre</th>
+    <th scope="col" id="tipo">Tipo</th>
+    <th scope="col" id="descripcion">Descripción</th>
+    <th scope="col" id="capacidad">Capacidad</th>
+    <th scope="col" id="precio">Precio (€)</th>
+    <th scope="col" id="accion">Acción</th>
+  </tr>
+  <?php foreach ($recursos as $r): ?>
+  <tr>
+    <th scope="row" id="recurso<?= $r['id'] ?>" headers="nombre"><?= htmlspecialchars($r['nombre']) ?></th>
+    <td headers="tipo recurso<?= $r['id'] ?>"><?= htmlspecialchars($r['tipo']) ?></td>
+    <td headers="descripcion recurso<?= $r['id'] ?>"><?= htmlspecialchars($r['descripcion']) ?></td>
+    <td headers="capacidad recurso<?= $r['id'] ?>"><?= $r['capacidad'] ?></td>
+    <td headers="precio recurso<?= $r['id'] ?>"><?= number_format($r['precio'], 2) ?></td>
+    <td headers="accion recurso<?= $r['id'] ?>">
+      <form method="POST">
       <input type="hidden" name="recurso_id" value="<?= $r['id'] ?>">
       <input type="hidden" name="precio" value="<?= $r['precio'] ?>">
       <label for="fecha_inicio">Inicio:</label>
@@ -113,15 +135,11 @@ $precioPresupuesto = $precioUnitario * $numDias;
       <input type="datetime-local" name="fecha_fin" required>
       <button type="submit" name="presupuestar">Presupuestar</button>
     </form>
-  </td>
-</tr>
-<?php endforeach; ?>
-</tbody>
+    </td>
+  </tr>
+  <?php endforeach; ?>
 </table>
 
-<?php if ($errorFecha): ?>
-    <p style="color: red; font-weight: bold;"><?= htmlspecialchars($errorFecha) ?></p>
-<?php endif; ?>
 
 <?php if ($mostrarPresupuesto && $recursoPresupuesto): ?>
   <hr>
@@ -134,20 +152,12 @@ $precioPresupuesto = $precioUnitario * $numDias;
     <input type="hidden" name="recurso_id" value="<?= $recursoPresupuesto['id'] ?>">
     <input type="hidden" name="fecha_inicio" value="<?= $fechaInicioPresupuesto ?>">
     <input type="hidden" name="fecha_fin" value="<?= $fechaFinPresupuesto ?>">
-    <button type="submit" name="reservar">Confirmar reserva</button>
+    <button name="reservar">Confirmar reserva</button>
   </form>
 <?php endif; ?>
 
-<?php
-// Mostrar mensajes solo si NO estás presupuestando para evitar confusión
-if (isset($_GET['confirmacion']) && !$mostrarPresupuesto) {
-    echo '<p style="color:green;">Reserva confirmada correctamente.</p>';
-}
-if (isset($_GET['error']) && !$mostrarPresupuesto) {
-    echo '<p style="color:red;">Error al realizar la reserva. Intenta de nuevo.</p>';
-}
-?>
-
+</section>
+  <section>
 <h2>Mis reservas</h2>
 
 <?php if (empty($reservas)): ?>
@@ -175,6 +185,7 @@ if (isset($_GET['error']) && !$mostrarPresupuesto) {
 </tbody>
 </table>
 <?php endif; ?>
+</section>
 
 <form action="php/cerrar_sesion.php" method="POST" style="text-align: center; margin: 20px 0;">
     <button type="submit" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">
@@ -195,6 +206,6 @@ if (window.location.search.includes('error')) {
     window.history.replaceState({}, document.title, url.toString());
 }
 </script>
-
+</main>
 </body>
 </html>
