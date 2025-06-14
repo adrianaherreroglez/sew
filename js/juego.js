@@ -7,7 +7,6 @@ class JuegoTest {
         this.$resultado = $('main section').last();
         this.$boton = $('main > button');
 
-        // No creamos mensajeError todavía
         this.$mensajeError = null;
 
         this.mostrarPreguntas();
