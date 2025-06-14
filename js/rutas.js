@@ -162,68 +162,78 @@ class Rutas {
     }
 
     showMap(kmlText, container) {
-        const parser = new DOMParser();
-        const kmlDoc = parser.parseFromString(kmlText, "text/xml");
-        const features = [];
+  const parser = new DOMParser();
+  const kmlDoc = parser.parseFromString(kmlText, "text/xml");
+  const features = [];
 
-        const lineCoords = kmlDoc.querySelector("LineString > coordinates");
-        if (lineCoords) {
-            const coordsArray = lineCoords.textContent.trim().split(/\s+/).map(c => {
-                const [lon, lat] = c.split(",").map(Number);
-                return ol.proj.fromLonLat([lon, lat]);
-            });
+  const lineCoords = kmlDoc.querySelector("LineString > coordinates");
+  if (lineCoords) {
+    const coordsArray = lineCoords.textContent.trim().split(/\s+/).map(c => {
+      const [lon, lat] = c.split(",").map(Number);
+      return ol.proj.fromLonLat([lon, lat]);
+    });
 
-            const line = new ol.Feature(new ol.geom.LineString(coordsArray));
-            line.setStyle(new ol.style.Style({
-                stroke: new ol.style.Stroke({ color: "red", width: 3 }),
-            }));
-            features.push(line);
-        }
+    const line = new ol.Feature(new ol.geom.LineString(coordsArray));
+    line.setStyle(new ol.style.Style({
+      stroke: new ol.style.Stroke({ color: "red", width: 3 }),
+    }));
+    features.push(line);
+  }
 
-        const points = kmlDoc.querySelectorAll("Placemark > Point > coordinates");
-        for (let point of points) {
-            const [lon, lat] = point.textContent.trim().split(",").map(Number);
-            const coord = ol.proj.fromLonLat([lon, lat]);
-            const feature = new ol.Feature(new ol.geom.Point(coord));
-            feature.setStyle(new ol.style.Style({
-                image: new ol.style.Icon({
-                    src: "multimedia/imagenes/marcador.png",
-                    scale: 0.05,
-                    anchor: [0.5, 1],
-                }),
-            }));
-            features.push(feature);
-        }
+  const points = kmlDoc.querySelectorAll("Placemark > Point > coordinates");
+  for (let point of points) {
+    const [lon, lat] = point.textContent.trim().split(",").map(Number);
+    const coord = ol.proj.fromLonLat([lon, lat]);
+    const feature = new ol.Feature(new ol.geom.Point(coord));
+    feature.setStyle(new ol.style.Style({
+      image: new ol.style.Icon({
+        src: "multimedia/imagenes/marcador.png",
+        scale: 0.05,
+        anchor: [0.5, 1],
+      }),
+    }));
+    features.push(feature);
+  }
 
-        const vectorLayer = new ol.layer.Vector({
-            source: new ol.source.Vector({ features }),
-        });
+  const vectorLayer = new ol.layer.Vector({
+    source: new ol.source.Vector({ features }),
+  });
 
-        const mapDiv = $('<div></div>').css({
-            width: "100%",
-            height: "400px",
-            border: "1px solid #ccc",
-            borderRadius: "10px",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
-            margin: "20px auto"
-        }).appendTo(container).get(0);
+  // Creamos un figure para el mapa con id único
+  const figureMap = document.createElement("figure");
+  figureMap.id = "mapa-" + Date.now();
 
-        const map = new ol.Map({
-            target: mapDiv,
-            layers: [
-                new ol.layer.Tile({ source: new ol.source.OSM() }),
-                vectorLayer
-            ],
-            view: new ol.View({
-                center: features.length > 0 ? features[0].getGeometry().getCoordinates() : ol.proj.fromLonLat([-5.7, 43.2]),
-                zoom: 13,
-            }),
-            controls: [] 
-        });
+  // Aplicamos estilos al figure para que OpenLayers pueda renderizar bien
+  Object.assign(figureMap.style, {
+    width: "100%",
+    height: "400px",
+    border: "1px solid #ccc",
+    borderRadius: "10px",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+    margin: "20px auto",
+  });
 
-        const extent = vectorLayer.getSource().getExtent();
-        map.getView().fit(extent, { padding: [20, 20, 20, 20] });
-    }
+  // Añadimos el figure al contenedor padre
+  container.append(figureMap);
+
+  // Inicializamos el mapa apuntando al figure directamente (sin div interno)
+  const map = new ol.Map({
+    target: figureMap,
+    layers: [
+      new ol.layer.Tile({ source: new ol.source.OSM() }),
+      vectorLayer
+    ],
+    view: new ol.View({
+      center: features.length > 0 ? features[0].getGeometry().getCoordinates() : ol.proj.fromLonLat([-5.7, 43.2]),
+      zoom: 13,
+    }),
+    controls: []
+  });
+
+  const extent = vectorLayer.getSource().getExtent();
+  map.getView().fit(extent, { padding: [20, 20, 20, 20] });
+}
+
 
     loadAndShowSVG(svgPath, container) {
         fetch(svgPath)
