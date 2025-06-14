@@ -13,6 +13,27 @@ header {
   padding: 1rem;
 }
 
+/* Estilos generales para todos los <p> */
+p {
+  background-color: #ffffff;
+  margin: 1em 0;
+  padding: 0.6em 0.8em;
+  border-left: 0.25em solid #074480;
+  border-radius: 0.5em;
+  box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.05);
+}
+
+/* Quita los estilos al <p> justo después del <header> */
+header + p {
+  all: unset;
+  display: block;
+  margin-left: 1em; /* o el valor que prefieras */
+  margin-top: 1em;  /* para que tenga un poco de separación arriba también */
+}
+
+
+
+
 header h1 {
   margin: 0;
   font-size: 3rem;
@@ -652,3 +673,9 @@ section:nth-of-type(2) article section:hover {
   }
 
 }
+
+ ul {
+    padding-left: 1rem; /* separación del borde izquierdo usando rem */
+    list-style-position: inside; /* para que el círculo esté dentro del padding */
+  }
+  
