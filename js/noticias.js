@@ -1,7 +1,7 @@
 class Noticias {
     constructor() {
-        this.apiKey = '9ed1addf608a4ba5bd0de626859fa965';
-        this.apiUrl = 'https://newsapi.org/v2/everything?q=Mieres+Langreo&language=es&sortBy=publishedAt&apiKey=' + this.apiKey;
+        this.apiKey = 'pub_43c3e4f9b83448edac64b1557d2cd5a0';
+        this.apiUrl = 'https://newsdata.io/api/1/news?q=Mieres&language=es&apikey=' + this.apiKey;
         this.cargarNoticias();
     }
 
@@ -16,16 +16,22 @@ class Noticias {
     }
 
     mostrarNoticias(data) {
-        var noticias = data.articles;
+        var noticias = data.results || [];
         var contenedor = $("main>section:last-of-type>article");
         contenedor.empty();
 
-        for (var i = 0; i < noticias.length; i++) {
+        if (noticias.length === 0) {
+            contenedor.append('<p>No se encontraron noticias para "Mieres".</p>');
+            return;
+        }
+
+        var limite = 6;
+        for (var i = 0; i < noticias.length && i < limite; i++) {
             var noticia = noticias[i];
             var noticiaHTML = '<section>' +
-                '<h3>' + noticia.title + '</h3>' +
+                '<h3>' + (noticia.title || 'Sin título') + '</h3>' +
                 '<article><p>' + (noticia.description || '') + '</p></article>' +
-                '<footer><a href="' + noticia.url + '" target="_blank">Leer más</a></footer>' +
+                '<footer><a href="' + (noticia.link || '#') + '" target="_blank">Leer más</a></footer>' +
                 '</section>';
 
             contenedor.append(noticiaHTML);
@@ -39,5 +45,4 @@ class Noticias {
     }
 }
 
-// Simplemente instanciamos la clase:
 new Noticias();
