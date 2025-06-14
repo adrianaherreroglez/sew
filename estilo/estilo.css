@@ -366,9 +366,8 @@ h3 {
 h4 {
   font-size: 1.4rem;
   color: #0c5bab;
-  margin-top: 1.5em;
+  margin-top: 0.5em;
   margin-bottom: 0.5em;
-  text-decoration: underline;
 }
 
 /* Especificidad: 0-0-1 */
@@ -498,6 +497,7 @@ button {
 button:hover {
   background-color: #607991;
   color: white;
+  text-decoration: underline;
 }
 
 
@@ -700,4 +700,29 @@ section:nth-of-type(2) article section:hover {
     padding-left: 1rem; /* separación del borde izquierdo usando rem */
     list-style-position: inside; /* para que el círculo esté dentro del padding */
   }
-  
+/* Ajusta el contenedor figure del mapa */
+[id^="mapaRuta_"] {
+  width: 90%;           /* Ocupa la mayoría del ancho disponible */
+  max-width: 500px;     /* Máximo ancho fijo para no crecer demasiado */
+  aspect-ratio: 1;      /* Mantén proporción cuadrada (puedes cambiar si quieres) */
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Ajusta también el contenedor padre si es necesario */
+section > section {
+  margin: 0 auto;
+}
+
+/* Media query para móviles (pantallas pequeñas) */
+@media (max-width: 600px) {
+  [id^="mapaRuta_"] {
+    width: auto;          /* Ajuste para que se adapte mejor */
+    max-width: auto;      /* Sin límite máximo */
+    aspect-ratio: 16 / 21;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+}

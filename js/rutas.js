@@ -1,32 +1,44 @@
 class Rutas {
     constructor() {
         this.apiFile = !!(window.File && window.FileReader && window.FileList && window.Blob);
-        this.$mensajeError = $("<p>").css({ color: "red", fontWeight: "bold" }).hide();
-        $("main").prepend(this.$mensajeError);
+        this.$mensajeError = $("<p>");
+        this.maps = [];
+        this.mapCounter = 0; // contador para IDs únicos
         this.inicializar();
     }
 
     inicializar() {
-    
-    const inputFile = document.querySelector("input[type='file']");
-    $(inputFile).on("change", this.handleChange.bind(this));
-}
+        var inputFile = document.querySelector("input[type='file']");
+        inputFile.addEventListener("change", this.handleChange.bind(this));
+    }
 
+    mostrarError(mensaje) {
+        this.$mensajeError.text(mensaje);
+        if (!this.$mensajeError.parent().length) {
+            $("main").prepend(this.$mensajeError);
+        }
+    }
+
+    ocultarError() {
+        if (this.$mensajeError.parent().length) {
+            this.$mensajeError.remove();
+        }
+    }
 
     handleChange(e) {
         this.printInfo(e.target.files);
     }
 
     printInfo(files) {
-        this.$mensajeError.hide();
+        this.ocultarError();
 
         if (!this.apiFile) {
-            $("main").append("<h4>No se ha podido leer el archivo pues su navegador no dispone de API File</h4>");
+            this.mostrarError("No se ha podido leer el archivo pues su navegador no dispone de API File");
             return;
         }
 
         if (files.length === 0) {
-            this.$mensajeError.text('No ha seleccionado ningún archivo XML').show();
+            this.mostrarError("No ha seleccionado ningún archivo XML");
             return;
         }
 
@@ -43,17 +55,20 @@ class Rutas {
         var xmlDoc = new DOMParser().parseFromString(xmlStr, "text/xml");
 
         if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
-            this.$mensajeError.text("Error al parsear el XML").show();
+            this.mostrarError("Error al parsear el XML");
             return;
         }
 
-        var main = $("main");
-        main.find("label").hide();
-        main.children("section, h4, ul, p").remove();
+        var main = document.querySelector("main");
+        // Oculta etiquetas y limpia contenido anterior
+        var etiquetas = main.querySelectorAll("label");
+        for (var i = 0; i < etiquetas.length; i++) etiquetas[i].style.display = "none";
+        var hijos = main.querySelectorAll("section, h4, ul, p");
+        for (var i = 0; i < hijos.length; i++) hijos[i].remove();
 
         var rutas = xmlDoc.getElementsByTagName("ruta");
         if (rutas.length === 0) {
-            this.$mensajeError.text("No se encontraron rutas en el XML").show();
+            this.mostrarError("No se encontraron rutas en el XML");
             return;
         }
 
@@ -63,13 +78,21 @@ class Rutas {
     }
 
     crearSeccionRuta(ruta, index) {
-        var seccion = $("<section></section>");
-        seccion.append("<h3>" + this.getText(ruta, "nombre") + "</h3>");
+        var seccion = document.createElement("section");
+        var h3 = document.createElement("h3");
+        h3.textContent = this.getText(ruta, "nombre");
+        seccion.appendChild(h3);
 
         var campos = ["tipo","transporte","fechaInicio","horaInicio","duracion","agencia","descripcion","personasAdecuadas","lugarInicio","direccionInicio"];
         for (var j = 0; j < campos.length; j++) {
-            var etiqueta = campos[j];
-            this.appendP(seccion, etiqueta.charAt(0).toUpperCase() + etiqueta.slice(1), this.getText(ruta, etiqueta));
+            var p = document.createElement("p");
+            if (campos[j].length > 0) {
+                var label = document.createElement("label");
+                label.textContent = campos[j].charAt(0).toUpperCase() + campos[j].slice(1) + ": ";
+                p.appendChild(label);
+            }
+            p.appendChild(document.createTextNode(this.getText(ruta, campos[j])));
+            seccion.appendChild(p);
         }
 
         this.procesarCoordenadas(ruta, seccion);
@@ -78,7 +101,7 @@ class Rutas {
         this.procesarKML(ruta, seccion);
         this.procesarSVG(index, seccion);
 
-        $("main").append(seccion);
+        document.querySelector("main").appendChild(seccion);
     }
 
     procesarCoordenadas(ruta, sec) {
@@ -87,27 +110,42 @@ class Rutas {
             var lon = this.getText(coord, "longitud");
             var lat = this.getText(coord, "latitud");
             var alt = this.getText(coord, "altitud");
-            var uni = coord.getElementsByTagName("altitud")[0]?.getAttribute("unidades") || "";
-            this.appendP(sec, "Coordenadas geográficas de inicio de la ruta", "Longitud: " + lon + ", Latitud: " + lat + ", Altitud: " + alt + " " + uni);
+            var uni = coord.getElementsByTagName("altitud")[0] && coord.getElementsByTagName("altitud")[0].getAttribute("unidades") || "";
+            var p = document.createElement("p");
+            var label = document.createElement("label");
+            label.textContent = "Coordenadas geográficas de inicio de la ruta: ";
+            p.appendChild(label);
+            p.appendChild(document.createTextNode("Longitud: " + lon + ", Latitud: " + lat + ", Altitud: " + alt + " " + uni));
+            sec.appendChild(p);
         }
     }
 
     procesarReferencias(ruta, sec) {
         var refs = ruta.getElementsByTagName("referencia");
         if (refs.length > 0) {
-            var ul = $("<ul></ul>");
+            var h4 = document.createElement("h4");
+            h4.textContent = "Referencias";
+            sec.appendChild(h4);
+            var ul = document.createElement("ul");
             for (var i = 0; i < refs.length; i++) {
+                var li = document.createElement("li");
+                var a = document.createElement("a");
                 var texto = refs[i].textContent.trim();
-                ul.append("<li><a href='" + texto + "'>" + texto + "</a></li>");
+                a.href = texto;
+                a.textContent = texto;
+                li.appendChild(a);
+                ul.appendChild(li);
             }
-            sec.append("<h4>Referencias</h4>").append(ul);
+            sec.appendChild(ul);
         }
     }
 
     procesarHitos(ruta, sec) {
         var hitos = ruta.getElementsByTagName("hito");
         if (hitos.length > 0) {
-            sec.append("<h4>Hitos</h4>");
+            var h4 = document.createElement("h4");
+            h4.textContent = "Hitos";
+            sec.appendChild(h4);
             for (var i = 0; i < hitos.length; i++) {
                 this.crearHito(hitos[i], sec);
             }
@@ -115,125 +153,142 @@ class Rutas {
     }
 
     crearHito(hito, sec) {
-        var s = $("<section></section>");
-        s.append("<h5>" + this.getText(hito, "nombre") + "</h5>");
-        this.appendP(s, "Descripción", this.getText(hito, "descripcion"));
+        var s = document.createElement("section");
+        var h5 = document.createElement("h5");
+        h5.textContent = this.getText(hito, "nombre");
+        s.appendChild(h5);
+
+        var p = document.createElement("p");
+        var label = document.createElement("label");
+        label.textContent = "Descripción: ";
+        p.appendChild(label);
+        p.appendChild(document.createTextNode(this.getText(hito, "descripcion")));
+        s.appendChild(p);
 
         var gal = hito.getElementsByTagName("galeriaFotografias")[0];
         if (gal) {
             var foto = gal.getElementsByTagName("foto")[0];
             if (foto && foto.textContent.trim()) {
-                s.append("<img src='" + foto.textContent.trim() + "' alt='" + this.getText(hito,"nombre") + "'>");
+                var img = document.createElement("img");
+                img.src = foto.textContent.trim();
+                img.alt = this.getText(hito, "nombre");
+                s.appendChild(img);
             }
         }
 
         var dist = hito.getElementsByTagName("distancia")[0];
         if (dist) {
-            this.appendP(s, "Distancia", dist.textContent.trim() + " " + (dist.getAttribute("unidad") || ""));
+            var pDist = document.createElement("p");
+            var labelDist = document.createElement("label");
+            labelDist.textContent = "Distancia: ";
+            pDist.appendChild(labelDist);
+            pDist.appendChild(document.createTextNode(dist.textContent.trim() + " " + (dist.getAttribute("unidad") || "")));
+            s.appendChild(pDist);
         }
 
-        sec.append(s);
+        sec.appendChild(s);
     }
 
     procesarKML(ruta, sec) {
         var kml = this.getText(ruta, "kml");
         if (kml) {
-            var cont = $("<section></section>").append("<h4>Planimetría de la ruta</h4>");
+            var cont = document.createElement("section");
+            var h4 = document.createElement("h4");
+            h4.textContent = "Planimetría de la ruta";
+            cont.appendChild(h4);
             this.fetchKML(kml, cont);
-            sec.append(cont);
+            sec.appendChild(cont);
         }
     }
 
     fetchKML(path, cont) {
         fetch(path)
-            .then(this.handleKMLResponse.bind(this, cont))
-            .catch(this.handleKMLError.bind(this, cont));
+            .then(this.kmlResponseHandler.bind(this, cont))
+            .catch(this.kmlErrorHandler.bind(this, cont));
     }
 
-    handleKMLResponse(cont, response) {
-        if (!response.ok) { this.handleKMLError(cont); return; }
+    kmlResponseHandler(cont, response) {
+        if (!response.ok) {
+            this.handleKMLError(cont);
+            return;
+        }
         response.text().then(this.renderMap.bind(this, cont));
     }
 
+    kmlErrorHandler(cont, error) {
+        this.handleKMLError(cont);
+    }
+
     handleKMLError(cont) {
-        this.appendP(cont, "", "Error al cargar el KML.");
+        var p = document.createElement("p");
+        p.textContent = "Error al cargar el KML.";
+        cont.appendChild(p);
+    }
+
+    getZoomByWidth(width) {
+        if (width <= 480) return 16;
+        if (width <= 768) return 14;
+        return 13;
     }
 
     renderMap(cont, kmlText) {
-    const parser = new DOMParser();
-    const kmlDoc = parser.parseFromString(kmlText, "text/xml");
-    const features = [];
+        var parser = new DOMParser();
+        var kmlDoc = parser.parseFromString(kmlText, "text/xml");
 
-    // 1. Crear línea de ruta
-    const lineCoords = kmlDoc.querySelector("LineString > coordinates");
-    if (lineCoords) {
-        const coordsText = lineCoords.textContent.trim().split(/\s+/);
-        const coordsArray = coordsText.map(function (c) {
-            const parts = c.split(",").map(Number);
-            return ol.proj.fromLonLat([parts[0], parts[1]]);
+        var features = new ol.format.KML().readFeatures(kmlDoc, {
+            dataProjection: 'EPSG:4326',
+            featureProjection: 'EPSG:3857'
         });
 
-        const line = new ol.Feature(new ol.geom.LineString(coordsArray));
-        line.setStyle(new ol.style.Style({
-            stroke: new ol.style.Stroke({ color: "red", width: 3 })
-        }));
-        features.push(line);
+        var vectorSource = new ol.source.Vector({
+            features: features
+        });
+
+        var vectorLayer = new ol.layer.Vector({
+            source: vectorSource
+        });
+
+        var mapContainer = document.createElement("figure");
+        mapContainer.id = "mapaRuta_" + this.mapCounter;
+        cont.appendChild(mapContainer);
+
+        var initialZoom = this.getZoomByWidth(window.innerWidth);
+
+        var map = new ol.Map({
+            target: mapContainer,
+            layers: [
+                new ol.layer.Tile({ source: new ol.source.OSM() }),
+                vectorLayer
+            ],
+            view: new ol.View({
+                center: features.length
+                    ? features[0].getGeometry().getCoordinates()
+                    : ol.proj.fromLonLat([-5.7, 43.2]),
+                zoom: initialZoom
+            }),
+            controls: []
+        });
+
+        var extent = vectorSource.getExtent();
+        if (!ol.extent.isEmpty(extent)) {
+            map.getView().fit(extent, { padding: [20, 20, 20, 20] });
+        }
+
+        this.maps.push(map);
+        this.mapCounter++;
+
+        if (this.maps.length === 1) {
+            window.addEventListener('resize', this.onResizeHandler.bind(this));
+        }
     }
 
-    // 2. Añadir puntos (opcional, si hay <Point>)
-    const puntos = kmlDoc.querySelectorAll("Placemark > Point > coordinates");
-    for (let i = 0; i < puntos.length; i++) {
-        const parts = puntos[i].textContent.trim().split(",").map(Number);
-        const coord = ol.proj.fromLonLat([parts[0], parts[1]]);
-        const marker = new ol.Feature(new ol.geom.Point(coord));
-        marker.setStyle(new ol.style.Style({
-            image: new ol.style.Icon({
-                src: "multimedia/imagenes/marcador.png",
-                scale: 0.05,
-                anchor: [0.5, 1]
-            })
-        }));
-        features.push(marker);
+    onResizeHandler() {
+        var newZoom = this.getZoomByWidth(window.innerWidth);
+        for (var i = 0; i < this.maps.length; i++) {
+            this.maps[i].getView().setZoom(newZoom);
+            this.maps[i].updateSize();
+        }
     }
-
-    // 3. Crear contenedor del mapa
-    const mapContainer = document.createElement("figure");
-    mapContainer.style.width = "100%";
-    mapContainer.style.height = "400px";
-    mapContainer.style.margin = "20px auto";
-    mapContainer.style.border = "1px solid #ccc";
-    mapContainer.style.borderRadius = "10px";
-    mapContainer.style.boxShadow = "0 2px 8px rgba(0,0,0,0.2)";
-    cont.append(mapContainer); // añadir al section
-
-    // 4. Crear capa vectorial
-    const vectorLayer = new ol.layer.Vector({
-        source: new ol.source.Vector({ features })
-    });
-
-    // 5. Instanciar el mapa
-    const map = new ol.Map({
-        target: mapContainer,
-        layers: [
-            new ol.layer.Tile({ source: new ol.source.OSM() }),
-            vectorLayer
-        ],
-        view: new ol.View({
-            center: features.length
-                ? features[0].getGeometry().getCoordinates()
-                : ol.proj.fromLonLat([-5.7, 43.2]), // centro por defecto si no hay features
-            zoom: 13
-        }),
-        controls: []
-    });
-
-    // 6. Ajustar vista
-    const extent = vectorLayer.getSource().getExtent();
-    if (!ol.extent.isEmpty(extent)) {
-        map.getView().fit(extent, { padding: [20, 20, 20, 20] });
-    }
-}
-
 
     procesarSVG(index, sec) {
         var svgPath = "xml/altimetria" + (index + 1) + ".svg";
@@ -242,52 +297,43 @@ class Rutas {
 
     fetchSVG(path, cont) {
         fetch(path)
-            .then(this.handleSVGResponse.bind(this, cont))
-            .catch(this.handleSVGError.bind(this, cont));
+            .then(this.svgResponseHandler.bind(this, cont))
+            .catch(this.svgErrorHandler.bind(this, cont));
     }
 
-    handleSVGResponse(cont, response) {
-        if (!response.ok) { this.handleSVGError(cont); return; }
+    svgResponseHandler(cont, response) {
+        if (!response.ok) {
+            this.handleSVGError(cont);
+            return;
+        }
         response.text().then(this.renderSVG.bind(this, cont));
     }
 
+    svgErrorHandler(cont, error) {
+        this.handleSVGError(cont);
+    }
+
     handleSVGError(cont) {
-        cont.append("<p>Error al cargar el archivo SVG.</p>");
+        var p = document.createElement("p");
+        p.textContent = "Error al cargar el archivo SVG.";
+        cont.appendChild(p);
     }
 
     renderSVG(cont, svgText) {
-    const svgDoc = new DOMParser().parseFromString(svgText, "image/svg+xml").documentElement;
-    svgDoc.removeAttribute("width");
-    svgDoc.removeAttribute("height");
+        var svgDoc = new DOMParser().parseFromString(svgText, "image/svg+xml").documentElement;
+        svgDoc.removeAttribute("width");
+        svgDoc.removeAttribute("height");
 
-    const figure = $("<figure></figure>").css({
-        width: "100%",
-        margin: "20px auto",
-        border: "1px solid #ccc",
-        borderRadius: "10px",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
-        padding: "10px"
-    });
+        var section = document.createElement("section");
+        var titulo = document.createElement("h4");
+        titulo.textContent = "Altimetría de la ruta";
+        var figure = document.createElement("figure");
 
-    // Añadir título dentro del figure
-    const caption = $("<figcaption>Altimetría de la ruta</figcaption>").css({
-        fontWeight: "bold",
-        textAlign: "center",
-        marginBottom: "10px"
-    });
+        figure.appendChild(svgDoc);
+        section.appendChild(titulo);
+        section.appendChild(figure);
 
-    figure.append(caption);
-    figure.append(new XMLSerializer().serializeToString(svgDoc));
-
-    cont.append(figure);
-}
-
-
-    appendP(sec, label, text) {
-        var p = $("<p></p>");
-        if (label) { p.append($("<label></label>").text(label + ": ")); }
-        p.append(document.createTextNode(text));
-        sec.append(p);
+        cont.appendChild(section);
     }
 
     getText(el, tag) {
@@ -296,5 +342,5 @@ class Rutas {
     }
 }
 
-// Sólo se instancia dentro de la clase principal
 new Rutas();
+

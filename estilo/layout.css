@@ -144,3 +144,14 @@ ul li, ol li {
     border-bottom: none; /* Evita borde inferior en último enlace para mejor apariencia */
   }
 }
+
+
+
+.map-container {
+  width: 100%;
+  height: 400px;
+  margin: 20px auto;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
