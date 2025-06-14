@@ -211,7 +211,7 @@ class Rutas {
       feature.setStyle(
         new ol.style.Style({
           image: new ol.style.Icon({
-            src: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
+            src: "multimedia/imagenes/marcador.png",
             scale: 0.05,
             anchor: [0.5, 1],
           }),
