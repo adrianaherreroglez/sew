@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rutas SYSTEM "rutas.dtd">
+<!-- <rutas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="rutas.xsd"> -->
 <rutas>
     <ruta>
         <nombre>Ruta Cordal de Urbiés(P.R AS-34)</nombre>
