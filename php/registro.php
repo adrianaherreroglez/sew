@@ -29,21 +29,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>Mieres - Reservas</title>
-    <meta name="author" content="Adriana Herrero González" />
-    <meta name="description" content="Página sobre Mieres, Asturias" />
-    <meta name="keywords" content="Mieres, Asturias, registro" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Adriana Herrero González">
+    <meta name="description" content="Página sobre Mieres, Asturias">
+    <meta name="keywords" content="Mieres, Asturias, registro">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="stylesheet" type="text/css" href="../estilo/estilo.css" />
-    <link rel="stylesheet" type="text/css" href="../estilo/layout.css" />
-    <link rel="icon" href="../multimedia/imagenes/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../estilo/estilo.css">
+    <link rel="stylesheet" type="text/css" href="../estilo/layout.css">
+    <link rel="icon" href="../multimedia/imagenes/favicon.ico">
 
 </head>
 <body>
 <header>
     <h1><a href="index.html">Turismo de Mieres</a></h1>
+    <button>☰</button>
     <nav>
         <a href="../index.html">Inicio</a>
         <a href="../gastronomia.html">Gastronomía</a>
@@ -54,21 +55,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="../ayuda.html">Ayuda</a>
     </nav>
 </header>
+<!-- Migas del documento -->
+<p>Estás en <a href="php/registro.php" title="Reservas">Inicio</a> &gt;&gt; Reservas &gt;&gt; Registro</p>
 
 <main>
-<h2>Registro</h2>
+<section>
 <form method="POST">
-     <label>Nombre:</label>
+    <h2>Registro</h2>
+    <label>Nombre:</label>
     <input type="text" name="nombre" placeholder="Nombre completo" required>
-     <label>Correo:</label>
+    <label>Correo:</label>
     <input type="email" name="email" placeholder="Correo electrónico" required>
-     <label>Contraseña:</label>
+    <label>Contraseña:</label>
     <input type="password" name="password" placeholder="Contraseña" required>
-    <button type="submit">Registrarse</button>
+    <nav>
+        <button type="submit">Registrarse</button>
+        <a href="login.php">¿Ya tienes cuenta?</a>
+    </nav>
 </form>
-<a href="login.php">¿Ya tienes cuenta?</a>
-
-<?php if ($resultado) echo "<p>$resultado</p>"; ?>
+</section>
+<?php if ($resultado) echo "<p>" . htmlspecialchars($resultado) . "</p>"; ?>
 </main>
 </body>
 </html>

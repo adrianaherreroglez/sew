@@ -24,22 +24,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>Mieres - Reservas</title>
-    <meta name="author" content="Adriana Herrero González" />
-    <meta name="description" content="Página sobre Mieres, Asturias" />
-    <meta name="keywords" content="Mieres, Asturias, login" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Adriana Herrero González">
+    <meta name="description" content="Página sobre Mieres, Asturias">
+    <meta name="keywords" content="Mieres, Asturias, login">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="stylesheet" type="text/css" href="../estilo/estilo.css" />
-    <link rel="stylesheet" type="text/css" href="../estilo/layout.css" />
-    <link rel="icon" href="../multimedia/imagenes/favicon.ico" />
-
-
+    <link rel="stylesheet" type="text/css" href="../estilo/estilo.css">
+    <link rel="stylesheet" type="text/css" href="../estilo/layout.css">
+    <link rel="icon" href="../multimedia/imagenes/favicon.ico">
 </head>
 <body>
 <header>
-    <h1><a href="/index.html">Turismo de Mieres</a></h1>
+    <h1><a href="index.html">Turismo de Mieres</a></h1>
+    <button>☰</button>
     <nav>
         <a href="../index.html">Inicio</a>
         <a href="../gastronomia.html">Gastronomía</a>
@@ -51,17 +50,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </nav>
 </header>
 
+<!-- Migas del documento -->
+<p>Estás en <a href="php/login.php" title="Reservas">Inicio</a> >> Reservas >> Login</p>
+
 <main>
-<h2>Login</h2>
-<form method="POST">
-  <label>Correo:</label>
-  <input type="email" name="email" placeholder="Correo" required>
-  <label>Contraseña:</label>
-  <input type="password" name="password" placeholder="Contraseña" required>
-  <button type="submit">Iniciar sesión</button>
-</form>
+<section>
+    <h2>Login</h2>
+    <form method="POST">
+        <label>Correo:</label>
+        <input type="email" name="email" placeholder="Correo" required>
+        <label>Contraseña:</label>
+        <input type="password" name="password" placeholder="Contraseña" required>
+        <nav>
+            <button type="submit">Iniciar sesión</button>
+            <a href="registro.php">¿No tienes cuenta?</a>
+        </nav>
+    </form>
+</section>
+
 <?php if ($error) echo "<p>$error</p>"; ?>
-<a href="registro.php">¿No tienes cuenta?</a>
+
 </main>
 </body>
 </html>

@@ -480,7 +480,6 @@ section[data-map="true"] {
 /* ----- Botones del carrusel u otros ----- */
 /* Especificidad: (0, 0, 1) */
 button {
-  display: inline-block; /* para que el ancho sea solo el necesario */
   width: auto;           /* no force ancho */
   max-width: none;       /* quitar cualquier max-width que lo limite */
   padding: 0.5rem 1rem;  /* ajusta padding si quieres */
@@ -493,6 +492,9 @@ button {
   white-space: nowrap;   /* evitar salto de línea dentro del botón */
 }
 
+section > form > nav > a {
+  color:#074480;  /* Justificado: el enlave dentrode un formulario es de color azul para contraste con el fondo */
+}
 
 button:hover {
   background-color: #607991;
@@ -677,6 +679,11 @@ section:nth-of-type(2) article section:hover {
   transform: translateY(-0.25rem);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
+
+main >  a {
+  text-align: center;
+}
+
 
 /* Ajustes responsivos */
 @media (max-width: 768px) {
