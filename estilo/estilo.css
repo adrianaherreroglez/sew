@@ -121,11 +121,13 @@ article > section > h3 {
   font-weight: bold;
 }
 
+
 article > section header,
 article > section article,
 article > section footer {
   font-weight: normal;
 }
+
 
 
 article > section {
@@ -159,47 +161,66 @@ a[href^="#"] {
 
 /* Especificidad = (0, 1, 0) */
 /* ID #tabla-gastronomia justificado: tabla única del documento según enunciado */
+/* Estilos base para la tabla */
 #tabla-gastronomia {
-  width: 80%;
-  margin: 2rem 0;
+  width: 100%;
   border-collapse: collapse;
+  margin: 2rem 0;
   background-color: #ffffff;
-  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
-  overflow: hidden;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+#tabla-gastronomia caption {
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 0.25rem 0;         /* más compacto */
+  margin: 0.25rem 0 0.5rem 1rem; /* top más pequeño */
+  text-align: center;
+  color: #074480;
+  background-color: transparent;
 }
 
-caption {
-    font-size: large;
-    color: #ffffff;
-    font-weight: bold;
-    background-color: #074480;
-}
 
-/* Especificidad = (0, 1, 1) */
-#tabla-gastronomia th,
-#tabla-gastronomia td {
-  padding: 1rem;
-  border: solid #dddddd;
-  text-align: left;
-}
-
-/* Especificidad = (0, 1, 1) */
-#tabla-gastronomia th {
+/* Solo el encabezado de columna (Plato, Ingredientes) con fondo azul */
+#tabla-gastronomia tr:first-child th {
   background-color: #074480;
-  color: #ffffff;
+  color: white;
   font-weight: bold;
 }
 
-/* Especificidad = (0, 1, 1) */
+/* Resto de celdas normales, sin fondo ni negrita */
+#tabla-gastronomia th[scope="row"],
+#tabla-gastronomia td {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  text-align: left;
+  vertical-align: top;
+  background-color: transparent;
+  font-weight: normal;
+  color: #333;
+}
+
+/* Filas pares con fondo suave */
 #tabla-gastronomia tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-/* Especificidad = (0, 1, 1) */
+/* Hover para filas */
 #tabla-gastronomia tr:hover {
   background-color: #e6f0ff;
 }
+
+  /* Línea entre las dos columnas en escritorio */
+#tabla-gastronomia tr:first-child th:first-child,
+#tabla-gastronomia tr td:first-child {
+  border-right: 1px solid #ccc;
+   border-bottom: 1px solid #ccc;
+
+}
+
+
 
 /* ----- Multimedia y contenedores ----- */
 
@@ -505,37 +526,38 @@ input {
   font-size: 1em;
   transition: border-color 0.3s;
 }
-
-table {
+/* Aplica solo a otras tablas, no a #tabla-gastronomia */
+table:not(#tabla-gastronomia) {
   width: 100%;
   border-collapse: collapse;
   margin: 2em 0;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   border-radius: 0.5em;
-  overflow: hidden;
   background-color: #ffffff;
 }
 
-th, td {
+table:not(#tabla-gastronomia) th,
+table:not(#tabla-gastronomia) td {
   border: 1px solid #ddd;
   padding: 1em;
   text-align: left;
   vertical-align: top;
 }
 
-th {
+table:not(#tabla-gastronomia) th {
   background-color: #074480;
   color: white;
   font-weight: bold;
 }
 
-tr:nth-child(even) {
+table:not(#tabla-gastronomia) tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-tr:hover {
+table:not(#tabla-gastronomia) tr:hover {
   background-color: #f1f1f1;
 }
+
 
 form {
   display: flex;
@@ -576,13 +598,13 @@ input[type="datetime-local"] {
     font-weight: bold;
   }
 
-  /* Etiquetas personalizadas para cada celda */
+  /* Etiquetas personalizadas para cada celda 
   td:nth-of-type(1)::before { content: "Nombre"; }
   td:nth-of-type(2)::before { content: "Tipo"; }
   td:nth-of-type(3)::before { content: "Descripción"; }
   td:nth-of-type(4)::before { content: "Capacidad"; }
   td:nth-of-type(5)::before { content: "Precio"; }
-  td:nth-of-type(6)::before { content: "Acción"; }
+  td:nth-of-type(6)::before { content: "Acción"; } */
 }
 
 
