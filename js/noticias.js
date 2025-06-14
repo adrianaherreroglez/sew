@@ -1,7 +1,7 @@
 class Noticias {
     constructor() {
-        this.apiKey = 'pub_43c3e4f9b83448edac64b1557d2cd5a0';
-        this.apiUrl = 'https://newsdata.io/api/1/news?q=Mieres&language=es&apikey=' + this.apiKey;
+        this.apiKey = '7a2c4f271191fe2fa07a4179a1d62229';
+        this.apiUrl = 'https://gnews.io/api/v4/search?q=Mieres&lang=es&max=7&token=' + this.apiKey;
         this.cargarNoticias();
     }
 
@@ -16,22 +16,26 @@ class Noticias {
     }
 
     mostrarNoticias(data) {
-        var noticias = data.results || [];
+        var noticias = data.articles || [];
         var contenedor = $("main>section:last-of-type>article");
         contenedor.empty();
 
         if (noticias.length === 0) {
-            contenedor.append('<p>No se encontraron noticias para "Mieres".</p>');
+            contenedor.append('<p>No se encontraron noticias.</p>');
             return;
         }
 
-        var limite = 6;
-        for (var i = 0; i < noticias.length && i < limite; i++) {
+        for (var i = 0; i < noticias.length; i++) {
             var noticia = noticias[i];
+            var descripcion = noticia.description || '';
+            if (descripcion.length > 150) {
+                descripcion = descripcion.substring(0, 150).trim() + '...';
+            }
+
             var noticiaHTML = '<section>' +
-                '<h3>' + (noticia.title || 'Sin título') + '</h3>' +
-                '<article><p>' + (noticia.description || '') + '</p></article>' +
-                '<footer><a href="' + (noticia.link || '#') + '" target="_blank">Leer más</a></footer>' +
+                '<h3>' + noticia.title + '</h3>' +
+                '<article><p>' + descripcion + '</p></article>' +
+                '<footer><a href="' + noticia.url + '" target="_blank" rel="noopener noreferrer">Leer más</a></footer>' +
                 '</section>';
 
             contenedor.append(noticiaHTML);
