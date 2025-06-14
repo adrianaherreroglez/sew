@@ -1,7 +1,7 @@
 class Noticias {
     constructor() {
         this.apiKey = '7a2c4f271191fe2fa07a4179a1d62229';
-        this.apiUrl = 'https://gnews.io/api/v4/search?q=Mieres&lang=es&max=7&token=' + this.apiKey;
+        this.apiUrl = 'https://gnews.io/api/v4/search?q=Mieres&lang=es&max=6&token=' + this.apiKey;
         this.cargarNoticias();
     }
 

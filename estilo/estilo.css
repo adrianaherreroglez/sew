@@ -15,7 +15,7 @@ header {
 
 header h1 {
   margin: 0;
-  font-size: 2.5rem;
+  font-size: 3rem;
 }
 
 /* Especificidad = (0, 0, 3) */
@@ -64,8 +64,11 @@ h1 {
 
 /* Especificidad = (0, 0, 1) */
 h2 {
-  font-size: 1.8rem;
+  color: #074480;
+  font-size: 2.3rem;
+  text-align: center;
   margin-bottom: 0.5rem;
+  margin-top: 0;
 }
 
 /* Especificidad = (0, 0, 1) */
@@ -559,4 +562,93 @@ input[type="datetime-local"] {
   td:nth-of-type(4)::before { content: "Capacidad"; }
   td:nth-of-type(5)::before { content: "Precio"; }
   td:nth-of-type(6)::before { content: "Acción"; }
+}
+
+
+/* Contenedor del carrusel con tamaño fijo */
+main > section:nth-of-type(1) picture {
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eee;
+  margin: 0 auto; /* ¡Esto lo centra horizontalmente! */
+}
+
+
+main > section:nth-of-type(1) picture img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  margin: auto;
+  display: block;
+}
+
+main > section:nth-of-type(1) nav {
+  display: flex;
+  justify-content: center; /* centra horizontalmente */
+  gap: 1rem;               /* espacio entre botones */
+  margin-top: 1rem;        /* separación con la imagen */
+}
+
+
+main > section:nth-of-type(1) article{
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eee;
+  margin: 0 auto; /* ¡Esto lo centra horizontalmente! */
+}
+
+/* El contenedor que envuelve las noticias, para centrarlas */
+section:nth-of-type(2) article {
+  width: 100%;
+  margin: 0 auto;
+  display: flex; /* si quieres que las noticias se acomoden en filas o columnas */
+  flex-wrap: wrap; /* para que se ajusten al reducir pantalla */
+  justify-content: center; /* centra los items hijos si son más pequeños */
+  gap: 1rem; /* espacio entre noticias */
+  box-sizing: border-box;
+}
+
+
+/* Las tarjetas individuales (las noticias) */
+section:nth-of-type(2) article section {
+  flex: 1 1 30%; /* toma al menos 30% del ancho, se puede ajustar */
+  max-width: 30%;
+  background-color: #f0f0f0; 
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  aspect-ratio: 1 / 1; /* esto hace que sea cuadrado */
+  transition: transform 0.3s ease;
+}
+
+section:nth-of-type(2) article section:hover {
+  transform: translateY(-0.25rem);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  section:nth-of-type(2) article section {
+    flex: 1 1 45%;
+    max-width: 45%;
+    aspect-ratio: 1 / 1;
+  }
+}
+
+@media (max-width: 480px) {
+  section:nth-of-type(2) article section {
+    flex: 1 1 90%;
+    max-width: 90%;
+    aspect-ratio: auto; /* si prefieres que sea altura automática */
+  }
+
 }

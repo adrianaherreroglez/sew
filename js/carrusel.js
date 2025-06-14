@@ -1,8 +1,8 @@
 class Carrusel {
     constructor($section) {
         this.$section = $section;
-        this.$article = this.$section.find('article');
-        this.$botones = this.$section.find('footer').find('button');
+        this.$picture = this.$section.find('picture');
+        this.$botones = this.$section.find('nav').find('button');
 
         this.imagenes = [
             'multimedia/imagenes/mapa.png',
@@ -22,12 +22,12 @@ class Carrusel {
     }
 
     mostrarImagen() {
-        this.$article.empty();
+        this.$picture.empty();
         const $img = $('<img>', {
             src: this.imagenes[this.index],
             alt: `Imagen ${this.index + 1}`
         });
-        this.$article.append($img);
+        this.$picture.append($img);
     }
 
     asignarEventos() {
