@@ -140,9 +140,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuestar'])) {
     <p>Fecha fin: <?= date('d/m/Y H:i', strtotime($datosReserva['fecha_fin'])) ?></p>
 
     <form method="POST" action="php/controllers/ReservaController.php">
-      <nav>
         <button name="reservar">Confirmar reserva</button>
-</nav>
+
     </form>
 </section>
 <?php endif; ?>
@@ -156,15 +155,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuestar'])) {
         <label>Selecciona una reserva para anular:</label>
         <select name="reserva_id" required>
             <?php foreach ($reservas as $i => $reserva): ?>
-                <option value="<?= htmlspecialchars($reserva['id']) ?>" <?= $i === 0 ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($reserva['nombre']) ?> —
-                    <?= date('d/m/Y H:i', strtotime($reserva['fecha_inicio'])) ?> a <?= date('d/m/Y H:i', strtotime($reserva['fecha_fin'])) ?>
-                </option>
+                <option value="<?= htmlspecialchars($reserva['id']) ?>":<?= $i === 0 ? 'selected' : '' ?>>
+                    <?= str_pad(htmlspecialchars($reserva['nombre']), 20) ?><?= str_pad(date('d/m/Y H:i', strtotime($reserva['fecha_inicio'])), 13) ?>-<?= str_pad(date('d/m/Y H:i', strtotime($reserva['fecha_fin'])), 13) ?>
+               </option>
             <?php endforeach; ?>
         </select>
-        <nav>
+
         <button name="anular">Anular reserva</button>
-            </nav>
+
     </form>
     <?php endif; ?>
 </section>
@@ -177,16 +175,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuestar'])) {
     <?php endif; ?>
 
     <form method="POST" action="">
-        <label for="recurso_id">Selecciona un recurso turístico:</label>
+        <label for="recurso_id">Selecciona un recurso turístico (Nombre-Tipo-Capacidad-Euros-Plazas libres):</label>
         <select name="recurso_id" required>
             <?php foreach ($recursos as $i => $r): ?>
-                <option value="<?= htmlspecialchars($r['id']) ?>" <?= $i === 0 ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($r['nombre']) ?> — 
-                    Tipo: <?= htmlspecialchars($r['tipo']) ?> — 
-                    Capacidad: <?= intval($r['capacidad']) ?> — 
-                    Precio/día: <?= number_format($r['precio'], 2) ?> € — 
-                    Plazas disponibles: <?= intval($r['plazas_disponibles']) ?>
-                </option>
+             <option value="<?= htmlspecialchars($r['id']) ?>" <?= $i === 0 ? 'selected' : '' ?>>
+                <?= str_pad(htmlspecialchars($r['nombre']), 15) ?>- 
+                <?= str_pad(htmlspecialchars($r['tipo']), 10) ?>- 
+                <?= str_pad(intval($r['capacidad']), 7) ?>- 
+                <?= str_pad(number_format($r['precio'], 2), 8) ?>- 
+                <?= str_pad(intval($r['plazas_disponibles']), 8) ?>
+            </option>
+
+
+
             <?php endforeach; ?>
         </select>
 
@@ -196,9 +197,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuestar'])) {
         <label>Fecha fin:</label>
         <input type="datetime-local" name="fecha_fin" required>
 
-        <nav>
         <button name="presupuestar" type="submit">Presupuestar</button>
-            </nav>
     </form>
 </section>
 
