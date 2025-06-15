@@ -4,7 +4,9 @@ require_once __DIR__ . '/controllers/UsuarioController.php';
 $controller = new UsuarioController();
 
 if ($controller->estaLogueado()) {
-    $controller->redirigir('/sew/reservas.php');
+    $controller->redirigir('../reservas.php');
+
+
 }
 
 $error = null;
@@ -14,7 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
 
     if ($controller->autenticar($email, $password)) {
-        $controller->redirigir('/sew/reservas.php');
+        $controller->redirigir('../reservas.php');
+
     } else {
         $error = "Credenciales incorrectas";
     }
@@ -45,15 +48,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="../rutas.html">Rutas</a>
         <a href="../meteorologia.html">Meteorología</a>
         <a href="../juego.html">Juego</a>
-        <a href="reservas.php" class="active">Reservas</a>
+        <a href="../reservas.php" class="active">Reservas</a>
         <a href="../ayuda.html">Ayuda</a>
     </nav>
 </header>
 
 <!-- Migas del documento -->
-<p>Estás en <a href="php/login.php" title="Reservas">Inicio</a> >> Reservas >> Login</p>
+<p>Estás en <a href="../index.html" title="Reservas">Inicio</a> &gt;&gt; Reservas &gt;&gt; Login</p>
+
 
 <main>
+    <?php if ($error) echo "<p>$error</p>"; ?>
 <section>
     <h2>Login</h2>
     <form method="POST">
@@ -68,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
 </section>
 
-<?php if ($error) echo "<p>$error</p>"; ?>
+
 
 </main>
 </body>

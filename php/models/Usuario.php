@@ -8,7 +8,26 @@ class Usuario {
     $this->db = Database::getInstance();
   }
 
-  public function registrar($nombre, $email, $password) {
+  public function existeNombre($nombre) {
+    $stmt = $this->db->prepare("SELECT COUNT(*) FROM usuarios WHERE nombre = ?");
+    $stmt->execute([$nombre]);
+    return $stmt->fetchColumn() > 0;
+}
+public function existeEmail($email) {
+    $stmt = $this->db->prepare("SELECT COUNT(*) FROM usuarios WHERE email = ?");
+    $stmt->execute([$email]);
+    return $stmt->fetchColumn() > 0;
+}
+
+
+public function registrar($nombre, $email, $password) {
+    if ($this->existeEmail($email)) {
+        throw new Exception("El email ya existe en la base de datos");
+    }
+    if ($this->existeNombre($nombre)) {
+        throw new Exception("El nombre ya existe en la base de datos");
+    }
+
     $stmt = $this->db->prepare("INSERT INTO usuarios(nombre, email, password) VALUES (?, ?, ?)");
     $success = $stmt->execute([$nombre, $email, password_hash($password, PASSWORD_DEFAULT)]);
     if ($success) {
@@ -16,7 +35,6 @@ class Usuario {
     }
     return false;
 }
-
 
 
   public function autenticar($email, $password) {

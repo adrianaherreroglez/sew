@@ -735,31 +735,17 @@ section > section {
 }
 
 
-/* Aplica a todos los selects, o ajusta con [name="recurso_id"] si lo prefieres */
-select {
-  padding: 10px 40px 10px 15px;
+
+select, input[type="datetime-local"] {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
   border: 1px solid #ccc;
-  border-radius: 12px;
-  background-color: #f9f9f9;
-  color: #333;
-  font-size: 16px;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='16' height='16' fill='gray' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 16px;
-  transition: border 0.2s, box-shadow 0.2s;
+  border-radius: 4px;
 }
 
-select:focus {
+select:focus, input[type="datetime-local"]:focus {
   outline: none;
-  border-color: #00aaff;
-  box-shadow: 0 0 5px rgba(0, 170, 255, 0.3);
-  background-color: #fff;
-}
-
-option {
-  padding: 10px;
+  border-color: #004080;
+  box-shadow: 0 0 5px #004080;
 }

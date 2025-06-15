@@ -12,6 +12,7 @@ class UsuarioController {
     }
 
     public function registrar($nombre, $email, $password) {
+    try {
         $nuevoId = $this->usuario->registrar($nombre, $email, $password);
         if ($nuevoId) {
             $_SESSION['usuario'] = [
@@ -22,7 +23,11 @@ class UsuarioController {
             return true;
         }
         return false;
+    } catch (Exception $e) {
+        throw new Exception($e->getMessage());
     }
+}
+
 
     public function autenticar($email, $password) {
         $user = $this->usuario->autenticar($email, $password);

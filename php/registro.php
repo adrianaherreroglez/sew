@@ -4,7 +4,8 @@ require_once __DIR__ . '/controllers/UsuarioController.php';
 $controller = new UsuarioController();
 
 if ($controller->estaLogueado()) {
-    $controller->redirigir('/sew/reservas.php');
+    $controller->redirigir('../reservas.php');
+
 }
 
 $resultado = null;
@@ -16,7 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         if ($controller->registrar($nombre, $email, $password)) {
-            $controller->redirigir('/sew/reservas.php');
+            $controller->redirigir('../reservas.php');
+
+
         } else {
             $resultado = "Error en el registro";
         }
@@ -51,14 +54,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="../rutas.html">Rutas</a>
         <a href="../meteorologia.html">Meteorología</a>
         <a href="../juego.html">Juego</a>
-        <a href="reservas.php" class="active">Reservas</a>
+        <a href="../reservas.php" class="active">Reservas</a>
         <a href="../ayuda.html">Ayuda</a>
     </nav>
 </header>
 <!-- Migas del documento -->
-<p>Estás en <a href="php/registro.php" title="Reservas">Inicio</a> &gt;&gt; Reservas &gt;&gt; Registro</p>
+<p>Estás en <a href="../index.html" title="Reservas">Inicio</a> &gt;&gt; Reservas &gt;&gt; Registro</p>
 
 <main>
+    <?php if ($resultado) echo "<p>" . htmlspecialchars($resultado) . "</p>"; ?>
 <section>
 <form method="POST">
     <h2>Registro</h2>
@@ -74,7 +78,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </nav>
 </form>
 </section>
-<?php if ($resultado) echo "<p>" . htmlspecialchars($resultado) . "</p>"; ?>
 </main>
 </body>
 </html>
