@@ -220,6 +220,18 @@ a[href^="#"] {
 
 }
 
+ul li, ol li {
+  line-height: 1.5;
+}
+
+main > section:nth-of-type(2) article > section {
+  border-radius: 0.5rem;
+}
+
+/* Especificidad = (0, 0, 1) */
+img {
+  border-radius: 0.5rem;
+}
 
 
 /* ----- Multimedia y contenedores ----- */
@@ -589,41 +601,6 @@ input[type="datetime-local"] {
   font-size: 0.9em;
 }
 
-@media (max-width: 768px) {
-  table, thead, tbody, th, td, tr {
-    display: block;
-  }
-
-  thead tr {
-    display: none; /* Oculta cabeceras en móvil */
-  }
-
-  td {
-    position: relative;
-    padding-left: 50%;
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-  }
-
-  td::before {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    width: 45%;
-    padding-right: 10px;
-    white-space: nowrap;
-    font-weight: bold;
-  }
-
-  /* Etiquetas personalizadas para cada celda 
-  td:nth-of-type(1)::before { content: "Nombre"; }
-  td:nth-of-type(2)::before { content: "Tipo"; }
-  td:nth-of-type(3)::before { content: "Descripción"; }
-  td:nth-of-type(4)::before { content: "Capacidad"; }
-  td:nth-of-type(5)::before { content: "Precio"; }
-  td:nth-of-type(6)::before { content: "Acción"; } */
-}
-
 
 /* Contenedor del carrusel con tamaño fijo */
 main > section:nth-of-type(1) picture {
@@ -700,24 +677,6 @@ main >  a {
 }
 
 
-/* Ajustes responsivos */
-@media (max-width: 768px) {
-  section:nth-of-type(2) article section {
-    flex: 1 1 45%;
-    max-width: 45%;
-    aspect-ratio: 1 / 1;
-  }
-}
-
-@media (max-width: 480px) {
-  section:nth-of-type(2) article section {
-    flex: 1 1 90%;
-    max-width: 90%;
-    aspect-ratio: auto; /* si prefieres que sea altura automática */
-  }
-
-}
-
  ul {
     padding-left: 1rem; /* separación del borde izquierdo usando rem */
     list-style-position: inside; /* para que el círculo esté dentro del padding */
@@ -737,17 +696,6 @@ section > section {
   margin: 0 auto;
 }
 
-/* Media query para móviles (pantallas pequeñas) */
-@media (max-width: 600px) {
-  [id^="mapaRuta_"] {
-    width: auto;          /* Ajuste para que se adapte mejor */
-    max-width: auto;      /* Sin límite máximo */
-    aspect-ratio: 16 / 21;
-    margin: 0 auto;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  }
-}
 
 
 
