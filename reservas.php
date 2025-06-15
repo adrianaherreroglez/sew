@@ -114,7 +114,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuestar'])) {
     </nav>
 </header>
 
-<p>Estás en <a href="index.html" title="Reservas">Inicio</a> >> Reservas</p>
+  <!-- Migas del documento -->
+    <p>Estás en <a href="index.html" title="Inicio">Inicio</a> &gt;&gt; Reservas</p>
 
 <main>
 

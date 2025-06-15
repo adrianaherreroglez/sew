@@ -53,8 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </nav>
 </header>
 
-<!-- Migas del documento -->
-<p>Estás en <a href="../index.html" title="Reservas">Inicio</a> &gt;&gt; Reservas &gt;&gt; Login</p>
+  <!-- Migas del documento -->
+    <p>Estás en <a href="../index.html" title="Inicio">Inicio</a> &gt;&gt; Reservas &gt;&gt; Login</p>
 
 
 <main>

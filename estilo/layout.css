@@ -1,5 +1,9 @@
 /* Adriana Herrero González UO287543 */
 
+header {
+  display: flex;
+}
+
 /* Especificidad = (0, 0, 2)  -> header es tipo, button es tipo, > no cuenta */
 header > button {
   display: none;
