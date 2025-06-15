@@ -152,8 +152,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuestar'])) {
         <p>No tienes reservas activas.</p>
     <?php else: ?>
     <form method="POST" action="php/controllers/ReservaController.php">
-        <label for="reserva_id">Selecciona una reserva para anular:</label>
-        <select name="reserva_id" id="reserva_id" required>
+        <label>Selecciona una reserva para anular:</label>
+        <select name="reserva_id" required>
             <?php foreach ($reservas as $i => $reserva): ?>
                 <option value="<?= htmlspecialchars($reserva['id']) ?>" <?= $i === 0 ? 'selected' : '' ?>>
                     <?= htmlspecialchars($reserva['nombre']) ?> —
@@ -177,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuestar'])) {
 
     <form method="POST" action="">
         <label for="recurso_id">Selecciona un recurso turístico:</label>
-        <select name="recurso_id" id="recurso_id" required>
+        <select name="recurso_id" required>
             <?php foreach ($recursos as $i => $r): ?>
                 <option value="<?= htmlspecialchars($r['id']) ?>" <?= $i === 0 ? 'selected' : '' ?>>
                     <?= htmlspecialchars($r['nombre']) ?> — 
@@ -189,11 +189,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuestar'])) {
             <?php endforeach; ?>
         </select>
 
-        <label for="fecha_inicio">Fecha inicio:</label>
-        <input type="datetime-local" id="fecha_inicio" name="fecha_inicio" required>
+        <label>Fecha inicio:</label>
+        <input type="datetime-local"  name="fecha_inicio" required>
 
-        <label for="fecha_fin">Fecha fin:</label>
-        <input type="datetime-local" id="fecha_fin" name="fecha_fin" required>
+        <label>Fecha fin:</label>
+        <input type="datetime-local" name="fecha_fin" required>
 
         <nav>
         <button name="presupuestar" type="submit">Presupuestar</button>
