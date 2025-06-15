@@ -15,12 +15,12 @@ a {
   font-weight: bold;
   text-decoration: none;
   background-color: white;
-  color: #0066cc;
+  color: #031323;
 }
 
 /* Especificidad (0,0,1) */
 a:hover {
-  background-color: #5f8ebd;
+  background-color: #3e7fbf;
   color: white;
 }
 
