@@ -2,6 +2,17 @@
 
 
 /* Especificidad = (0, 0, 1) */
+/* Por defecto, menú visible en escritorio */
+/* Estilos generales de navegación y botón hamburguesa */
+
+/* Por defecto (desktop) */
+/* Por defecto (desktop) */
+/* Por defecto (desktop): hamburguesa OCULTA */
+header > button {
+  display: none;
+}
+
+/* Menú visible en desktop */
 nav {
   display: flex;
   gap: 1rem;
@@ -10,13 +21,58 @@ nav {
   justify-content: flex-end;
 }
 
-nav {
+/* Móvil (max-width: 768px): hamburguesa VISIBLE y clicable */
+@media screen and (max-width: 768px) {
+  header > button {
+    display: block;
+    font-size: 1.3rem;
+    background: none;
+    border: none;
+    cursor: pointer;      /* clicable */
+    margin-left: auto;
+    color: white;
+    pointer-events: auto; /* clicable */
+    user-select: none;    /* evita seleccionar el símbolo */
+  }
+
+  /* Menú oculto por defecto */
+  header > nav {
+    display: none;
+    flex-direction: column;
+    width: 180px;
+    background-color: #074480;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    border-radius: 0 0 5px 5px;
+    padding: 0.2rem 0;
+    z-index: 1000;
+  }
+
+  header:focus-within > nav {
   display: flex;
-  gap: 1rem;
-  padding: 0.5rem 1rem;
-  flex-wrap: wrap;
-  justify-content: flex-end;
 }
+
+
+  /* Enlaces menú */
+  header > nav a {
+    color: white;
+    padding: 0.6rem 1rem;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  header > nav a:hover {
+    color: white;
+    background:  #2874c0;
+  }
+}
+
+
+
+
+
 
 /* Especificidad = (0, 0, 1) */
 main, aside {
@@ -46,7 +102,6 @@ img {
   height: auto;
   border-radius: 0.5rem;
   margin: 1rem 0;
-  align-items: center;
 }
 
 

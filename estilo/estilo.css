@@ -65,17 +65,6 @@ nav a:hover {
 }
 
 
-
-/* Especificidad = (0, 0, 1) */
-body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  background-color: #ffffff;
-  color: #000000; /* Color heredado por texto: asegura contraste */
-  font-size: 1em;
-}
-
-
 /* Especificidad = (0, 0, 1) */
 h2 {
   color: #074480;
@@ -109,11 +98,6 @@ section:nth-of-type(2) article section footer a:visited {
 section:nth-of-type(2) article section footer a:link {
   color: #074480;
 }
-
-article > section > h3 {
-  font-weight: bold;
-}
-
 
 article > section header,
 article > section article,
@@ -200,29 +184,6 @@ a[href^="#"] {
     text-align: left;
   }
 
-  /* Responsive básica */
-  @media (max-width: 600px) {
-    #tabla-gastronomia {
-      font-size: 0.9em;
-    }
-
-    #tabla-gastronomia thead,
-    #tabla-gastronomia caption {
-      display: block;
-    }
-
-    #tabla-gastronomia tr {
-      display: block;
-      margin-bottom: 1em;
-    }
-
-    #tabla-gastronomia td,
-    #tabla-gastronomia th {
-      display: block;
-      width: 100%;
-      box-sizing: border-box;
-    }
-  }
 
 
 
@@ -362,6 +323,7 @@ h3 {
   margin-bottom: 0.5em;
   margin-top:0;
   border-bottom: 0.125em solid #ffcc00;
+  font-weight: bold;
 
 }
 
@@ -596,30 +558,6 @@ input[type="datetime-local"] {
   font-size: 0.9em;
 }
 
-@media (max-width: 768px) {
-  table, thead, tbody, th, td, tr {
-    display: block;
-  }
-
-  td {
-    position: relative;
-    padding-left: 50%;
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-  }
-
-  td::before {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    width: 45%;
-    padding-right: 10px;
-    white-space: nowrap;
-    font-weight: bold;
-  }
-
-}
-
 
 /* Contenedor del carrusel con tamaño fijo */
 main > section:nth-of-type(1) picture {
@@ -693,24 +631,6 @@ main >  a {
 }
 
 
-/* Ajustes responsivos */
-@media (max-width: 768px) {
-  section:nth-of-type(2) article section {
-    flex: 1 1 45%;
-    max-width: 45%;
-    aspect-ratio: 1 / 1;
-  }
-}
-
-@media (max-width: 480px) {
-  section:nth-of-type(2) article section {
-    flex: 1 1 90%;
-    max-width: 90%;
-    aspect-ratio: auto; /* si prefieres que sea altura automática */
-  }
-
-}
-
  ul {
     padding-left: 1rem; /* separación del borde izquierdo usando rem */
     list-style-position: inside; /* para que el círculo esté dentro del padding */
@@ -730,19 +650,6 @@ section > section {
   margin: 0 auto;
 }
 
-/* Media query para móviles (pantallas pequeñas) */
-@media (max-width: 600px) {
-  [id^="mapaRuta_"] {
-    width: auto;          /* Ajuste para que se adapte mejor */
-    max-width: auto;      /* Sin límite máximo */
-    aspect-ratio: 16 / 21;
-    margin: 0 auto;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  }
-}
-
-
 
 select, input[type="datetime-local"] {
   width: 100%;
@@ -759,27 +666,7 @@ select:focus, input[type="datetime-local"]:focus {
 }
 
 
-@media (max-width: 768px) {
-  nav {
-    display: none; /* Oculta menú */
-    flex-direction: column;
-    background-color: #074480;
-    position: absolute;
-    top: 60px; /* Ajusta según el header */
-    right: 1rem;
-    width: 200px;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    z-index: 1000;
-  }
 
-  nav.show {
-    display: flex; /* Mostrar menú al activar */
-  }
-
-
-
-}
  
 @media (min-width: 769px) {
   header > button {
