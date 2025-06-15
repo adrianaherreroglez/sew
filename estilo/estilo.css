@@ -20,7 +20,7 @@ a {
 
 /* Especificidad (0,0,1) */
 a:hover {
-  background-color: #3e7fbf;
+  background-color: #1f5f9f;
   color: white;
 }
 
@@ -39,6 +39,12 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+/* Especificidad (0,0,1) */
+header nav a:hover {
+  background-color: #003366;
+  color: white;
 }
 
 /* Especificidad (0,0,2) */
