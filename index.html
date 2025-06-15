@@ -1,62 +1,67 @@
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Turismo en Mieres – Rutas, Gastronomía y Noticias</title>
-  <meta name="author" content="Adriana Herrero González">
-  <meta name="description" content="Página sobre Mieres, Asturias">
-  <meta name="keywords" content="Mieres, Asturias, noticias, imágenes, carrusel">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Mieres</title>
+    <meta name="author" content="Adriana Herrero González">
+    <meta name="description" content="Página sobre Mieres, Asturias">
+    <meta name="keywords" content="Mieres, Asturias, noticias, imágenes, carrusel">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="estilo/estilo.css">
+    <link rel="stylesheet" type="text/css" href="estilo/layout.css">
+    <link rel="icon" href="multimedia/imagenes/favicon.ico">
 
-  <link rel="stylesheet" type="text/css" href="estilo/estilo.css">
-  <link rel="stylesheet" type="text/css" href="estilo/layout.css">
-  <link rel="icon" href="multimedia/imagenes/favicon.ico">
+    <!-- jQuery -->
+    <script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-          integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script src="js/carrusel.js"></script>
-  <script src="js/noticias.js"></script>
+    <!-- Scripts -->
+    <script src="js/carrusel.js"></script>
+    <script src="js/noticias.js"></script>
 </head>
 
-<body>
-  <a href="#contenido" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
-    Saltar al contenido
-  </a>
+<body> 
+    <!-- Menú de navegación -->
+    <header>
+        <h1><a href="index.html">Turismo de Mieres</a></h1>
+        <button>☰</button>
+        <nav>
+            <a href="index.html" class="active">Inicio</a>
+            <a href="gastronomia.html">Gastronomía</a>
+            <a href="rutas.html">Rutas</a>
+            <a href="meteorologia.html">Meteorología</a>
+            <a href="juego.html">Juego</a>
+            <a href="reservas.php">Reservas</a>
+            <a href="ayuda.html">Ayuda</a>
+        </nav>
+    </header>
 
-  <header>
-    <h1><a href="index.html">Turismo de Mieres</a></h1>
-    <button aria-label="Abrir menú">☰</button>
-    <nav aria-label="Menú principal">
-      <ul>
-        <li><a href="index.html" style="background:#ffcc00; color:#000;">Inicio</a></li>
-        <li><a href="gastronomia.html">Gastronomía</a></li>
-        <li><a href="rutas.html">Rutas</a></li>
-        <li><a href="meteorologia.html">Meteorología</a></li>
-        <li><a href="juego.html">Juego</a></li>
-        <li><a href="reservas.php">Reservas</a></li>
-        <li><a href="ayuda.html">Ayuda</a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <main id="contenido">
+    <!-- Carrusel de fotos -->
+    <main>
     <section>
-      <h2>Galería de Imágenes</h2>
-      <picture>
-        <img src="multimedia/imagenes/mapa.png"
-             alt="Mapa que muestra la situación del concejo de Mieres" />
-      </picture>
-      <button aria-label="Imagen anterior">Anterior</button>
-      <button aria-label="Imagen siguiente">Siguiente</button>
+        <h2>Galería de Imágenes</h2>
+        <picture>
+            <img src="multimedia/imagenes/mapa.png" alt="Situación del concejo">
+        </picture>
+
+            <button>Anterior</button>
+            <button>Siguiente</button>
+
     </section>
 
     <section>
-      <h2>Noticias sobre el concejo</h2>
-      <article>
-        <h3>Título de la noticia</h3>
-        <p>Contenido de la noticia:</p>
-      </article>
+        <h2>Noticias sobre el concejo</h2>
+        <article>
+            <h4>Título de la noticia</h4>
+            <p>Contenido de la noticia:</p>
+        </article>
     </section>
-  </main>
+
+    </main>
 </body>
 </html>
+
