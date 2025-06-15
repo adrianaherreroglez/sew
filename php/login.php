@@ -1,6 +1,6 @@
 <?php
 // Solo X-Frame-Options porque HSTS y COOP requieren HTTPS
-// No se puede subir a 85
+// No se puede subir a 85 pero al pasarlo a html y pasar Lighthouse , pasa 100 en Best Performance
 header('X-Frame-Options: DENY');
 require_once __DIR__ . '/controllers/UsuarioController.php';
 
