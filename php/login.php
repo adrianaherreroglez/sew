@@ -1,4 +1,7 @@
 <?php
+// Solo X-Frame-Options porque HSTS y COOP requieren HTTPS
+// No se puede subir a 85
+header('X-Frame-Options: DENY');
 require_once __DIR__ . '/controllers/UsuarioController.php';
 
 $controller = new UsuarioController();

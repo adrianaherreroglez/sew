@@ -555,3 +555,38 @@ select[name="reserva_id"] option {
     padding: 0.125rem 0.3125rem; /* 2px 5px */
 }
 
+/** 
+ * Selector: form input, form button 
+ * Especificidad: (0,1,2)
+ */
+form input, form button {
+  /* padding interno: 0.75rem ≈ 12px */
+  padding: 0.75rem;
+
+  /* tamaño de fuente accesible: 1rem ≈ 16px */
+  font-size: 1rem;
+
+  /* separación inferior entre campos: 1rem ≈ 16px */
+  margin-bottom: 1rem;
+
+  /* ancho completo del contenedor */
+  width: 100%;
+
+  /* modelo de caja inclusivo */
+  box-sizing: border-box;
+}
+
+/**
+ * Selector: form a
+ * Especificidad: (0,1,1)
+ */
+form a {
+  /* comportamiento de bloque en línea para aplicar márgenes correctamente */
+  display: inline-block;
+
+  /* separación superior: 1rem ≈ 16px */
+  margin-top: 1rem;
+
+  /* tamaño de fuente uniforme: 1rem ≈ 16px */
+  font-size: 1rem;
+}

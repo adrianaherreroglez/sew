@@ -26,8 +26,6 @@ $reservas = $reservaObj->obtenerPorUsuario($usuario_id);
 
 // Obtener recursos y añadir plazas disponibles
 $recursos = $recursoObj->obtenerTodos();
-var_dump($recursos);
-exit;
 
 foreach ($recursos as &$r) {
     $r['plazas_disponibles'] = $recursoObj->obtenerPlazasDisponibles($r['id']);
@@ -56,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuestar'])) {
         // Buscar recurso seleccionado
         $precioUnitario = 0;
         foreach ($recursos as $r) {
-            if ($r['id'] === $recursoIdPresupuesto) {
+            if ($r['id'] == $recursoIdPresupuesto) {
                 $precioUnitario = floatval($r['precio']);
                 $recursoPresupuesto = $r;
                 break;
