@@ -188,3 +188,16 @@
     margin: 0 auto;          
   }
 }
+
+/*Justificación: redefinición ya que el picture del carrusel en móviles se veía muy pequeño*/
+@media (max-width: 768px) {
+  img {
+    width: 90%;
+    max-width: 100%;
+  }
+
+  section:nth-of-type(2) article section {
+    flex: 1 1 90%;
+    max-width: 90%;
+  }
+}
