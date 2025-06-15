@@ -492,15 +492,30 @@ button {
   white-space: nowrap;   /* evitar salto de línea dentro del botón */
 }
 
-section > form > nav > a {
-  color:#074480;  /* Justificado: el enlave dentrode un formulario es de color azul para contraste con el fondo */
+section > form > nav {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  /* opcional: para alinear verticalmente si hace falta */
+  align-items: center;
 }
+
+section > form > nav > a {
+  color: #074480;
+  /* Si quieres que parezca botón */
+  padding: 8px 16px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
 
 button:hover {
   background-color: #607991;
   color: white;
   text-decoration: underline;
 }
+
 
 
 main > section:last-of-type {
