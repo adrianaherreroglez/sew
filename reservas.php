@@ -26,6 +26,9 @@ $reservas = $reservaObj->obtenerPorUsuario($usuario_id);
 
 // Obtener recursos y añadir plazas disponibles
 $recursos = $recursoObj->obtenerTodos();
+var_dump($recursos);
+exit;
+
 foreach ($recursos as &$r) {
     $r['plazas_disponibles'] = $recursoObj->obtenerPlazasDisponibles($r['id']);
 }
