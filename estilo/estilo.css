@@ -452,6 +452,8 @@ main > section {
 }
 
 
+
+
 /* Especificidad: 0-0-3 */
 /* Secciones internas anidadas (hitos dentro de rutas) */
 main > section > section {
@@ -474,19 +476,19 @@ section[data-map="true"] {
 
 /* ----- Botones del carrusel u otros ----- */
 /* Especificidad: (0, 0, 1) */
-button {
-  width: auto;           /* no force ancho */
-  max-width: none;       /* quitar cualquier max-width que lo limite */
-  padding: 0.5rem 1rem;  /* ajusta padding si quieres */
+main button, section button {
+  padding: 0.1rem 0.1rem;  /* menos padding = más pequeño */
   background-color: #074480;
   color: #fff;
-  border-radius: 0.5rem;
+  border-radius: 0.3rem;
   font-weight: bold;
   cursor: pointer;
-  margin-top:0.5em;
-  margin-bottom:0.5em;
-
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  font-size: 0.9rem; /* un poco más pequeño el texto */
 }
+
+
 
 section > form > nav {
   display: flex;
@@ -494,6 +496,15 @@ section > form > nav {
   /* opcional: para alinear verticalmente si hace falta */
   align-items: center;
 }
+
+main > section:nth-of-type(1) nav {
+  display: flex;
+  justify-content: center; /* centra horizontalmente */
+  gap: 1rem;               /* espacio entre botones */
+  margin-top: 1rem;        /* separación con la imagen */
+}
+
+
 
 section > form > nav > a {
   color: #074480;
@@ -607,13 +618,6 @@ input[type="datetime-local"] {
     font-weight: bold;
   }
 
-  /* Etiquetas personalizadas para cada celda 
-  td:nth-of-type(1)::before { content: "Nombre"; }
-  td:nth-of-type(2)::before { content: "Tipo"; }
-  td:nth-of-type(3)::before { content: "Descripción"; }
-  td:nth-of-type(4)::before { content: "Capacidad"; }
-  td:nth-of-type(5)::before { content: "Precio"; }
-  td:nth-of-type(6)::before { content: "Acción"; } */
 }
 
 
@@ -639,9 +643,10 @@ main > section:nth-of-type(1) picture img {
 
 main > section:nth-of-type(1) nav {
   display: flex;
-  justify-content: center; /* centra horizontalmente */
-  gap: 1rem;               /* espacio entre botones */
-  margin-top: 1rem;        /* separación con la imagen */
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap; /* Permite que los botones bajen si falta espacio */
 }
 
 
@@ -876,4 +881,31 @@ header nav a:last-child {
     width: 80%;              /* para que no ocupen toda la pantalla */
     margin: 0 auto;          /* centrar el contenedor */
   }
+}
+
+
+/* Ajuste para los botones del carrusel */
+/* Aseguramos que la sección tenga un ancho máximo y margen automático para centrar */
+section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+main > section:first-of-type {
+  text-align: center; /* centra solo el primer section */
+}
+
+main > section:first-of-type > button {
+  display: inline-block;
+  margin: 0 0.5em; /* espacio entre botones */
+}
+
+
+main section:first-of-type form fieldset p,
+main section:first-of-type form fieldset label {
+  text-align: left !important;
+  display: block;
+  margin: 0.25em 0;
 }

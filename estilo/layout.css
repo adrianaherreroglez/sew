@@ -10,6 +10,14 @@ nav {
   justify-content: flex-end;
 }
 
+nav {
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
 /* Especificidad = (0, 0, 1) */
 main, aside {
   padding-left: 1rem;
@@ -38,6 +46,7 @@ img {
   height: auto;
   border-radius: 0.5rem;
   margin: 1rem 0;
+  align-items: center;
 }
 
 

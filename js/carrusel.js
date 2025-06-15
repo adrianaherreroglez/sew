@@ -2,7 +2,7 @@ class Carrusel {
     constructor($section) {
         this.$section = $section;
         this.$picture = this.$section.find('picture');
-        this.$botones = this.$section.find('nav').find('button');
+        this.$botones = this.$section.find('button');
 
         this.imagenes = [
             'multimedia/imagenes/mapa.png',
