@@ -2,8 +2,47 @@
 
 /* ----- Estilo general ----- */
 
-/* Especificidad = (0, 0, 2) */
+/* Especificidad = (0, 0, 1) */
+/* Estilos base para navegación en pantallas grandes, flex horizontal */
+nav {
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
 
+/* Especificidad = (0, 0, 1) */
+/* Estilos base para main y aside, padding para separación interior */
+main, aside {
+  padding-left: 1rem;
+}
+
+/* Especificidad = (0, 0, 1) */
+/* Estilos base para artículos, margen vertical y ancho del 50% para columnas */
+article {
+  margin: 1rem 0;
+  width: 50%;
+}
+
+/* Especificidad = (0, 0, 1) */
+/* Estilos base para videos, ancho máximo y ajuste automático de altura */
+video {
+  margin: 1rem 0;
+  max-width: 50%;
+  height: auto;
+}
+
+/* Especificidad = (0, 0, 1) */
+/* Estilos base para imágenes, tamaño relativo y borde redondeado */
+img {
+  display: block;
+  width: 50%;
+  max-width: 30%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
 /* Especificidad = (0, 0, 1) */
 header {
   display: flex;
@@ -24,15 +63,13 @@ p {
 }
 
 
-/* Quita los estilos al <p> justo después del <header> */
+/* JUstificación: Quita los estilos al <p> justo después del <header>,lasmigas son p pero tienen otro estilo */
 header + p {
   all: unset;
   display: block;
   margin-left: 1em; 
   margin-top: 1em;  
 }
-
-
 
 
 header h1 {
@@ -171,8 +208,8 @@ a[href^="#"] {
 #tabla-gastronomia caption {
   font-size: 1.25em;
   font-weight: bold;
-  padding: 0.25rem 0;         
-  margin: 0.25rem 0 0.5rem 1rem; 
+  padding: 0.25rem 0;         /* más compacto */
+  margin: 0.25rem 0 0.5rem 1rem; /* top más pequeño */
   text-align: center;
   color: #074480;
   background-color: transparent;
@@ -203,30 +240,8 @@ a[href^="#"] {
     text-align: left;
   }
 
-  /* Responsive básica */
-  @media (max-width: 600px) {
-    #tabla-gastronomia {
-      font-size: 0.9em;
-    }
-
-    #tabla-gastronomia thead,
-    #tabla-gastronomia caption {
-      display: block;
-    }
-
-    #tabla-gastronomia tr {
-      display: block;
-      margin-bottom: 1em;
-    }
-
-    #tabla-gastronomia td,
-    #tabla-gastronomia th {
-      display: block;
-      width: 100%;
-      box-sizing: border-box;
-    }
-  }
-
+  
+  
 
 
 /* ----- Multimedia y contenedores ----- */
@@ -334,7 +349,7 @@ figure svg {
 
 
 figure img {
-    width: 4rem; 
+    width: 4rem; /* tamaño relativo, aprox 64px si la raíz es 16px */
     height: auto;
     display: block;
     margin: 0 auto 0.3rem auto;
@@ -398,16 +413,6 @@ label {
   margin-bottom: 0.2em;
 }
 
-/* Especificidad: 0-0-1 */
-/* Imágenes dentro del contenido */
-img {
-  display: block;
-  max-width: 90%;
-  height: auto;
-  border-radius: 0.5em;
-  margin: 1em auto;
-  box-shadow: 0 0 0.625em rgba(0, 0, 0, 0.1);
-}
 
 /* Especificidad: 0-0-1 */
 /* Estilo de enlaces */
@@ -442,17 +447,25 @@ li::marker {
   color: #074480;
 }
 
-/* Especificidad: 0-0-2 */
-/* Secciones principales (ej. rutas) */
-main > section {
-  background-color: #ffffff;
-  margin: 1.5em auto;
-  padding: 1.5em;
+main {
   max-width: 90%;
   width: 100%;
+  margin: 0 auto;
+  padding: 1em;
+  box-sizing: border-box;
+}
+
+main > section {
+  background-color: #ffffff;
+  margin: 1.5em 0;
+  padding: 1.5em;
   border-radius: 1em;
   box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
+
+
+
 
 
 /* Especificidad: 0-0-3 */
@@ -478,9 +491,9 @@ section[data-map="true"] {
 /* ----- Botones del carrusel u otros ----- */
 /* Especificidad: (0, 0, 1) */
 button {
-  width: auto;           /* no force ancho */
-  max-width: none;       /* quitar cualquier max-width que lo limite */
-  padding: 0.5rem 1rem;  /* ajusta padding si quieres */
+  width: auto;          
+  max-width: none;      
+  padding: 0.5rem 1rem;  
   background-color: #074480;
   color: #fff;
   border-radius: 0.5rem;
@@ -491,30 +504,12 @@ button {
 
 }
 
-section > form > nav {
-  display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  /* opcional: para alinear verticalmente si hace falta */
-  align-items: center;
-}
-
-section > form > nav > a {
-  color: #074480;
-  /* Si quieres que parezca botón */
-  padding: 8px 16px;
-  background-color: #e0e0e0;
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
 
 button:hover {
   background-color: #607991;
   color: white;
   text-decoration: underline;
 }
-
 
 
 main > section:last-of-type {
@@ -524,14 +519,6 @@ main > section:last-of-type {
   background-color: #f9f9f9;
   border-radius: 0.5rem;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
-}
-
-/* Párrafos dentro del formulario de registro (errores) */
-form + p {
-  color: red;
-  font-weight: bold;
-  margin-top: 1em;
-  text-align: center;
 }
 
 
@@ -588,71 +575,22 @@ input[type="datetime-local"] {
   font-size: 0.9em;
 }
 
-@media (max-width: 768px) {
-  table, thead, tbody, th, td, tr {
-    display: block;
-  }
 
-  td {
-    position: relative;
-    padding-left: 50%;
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-  }
-
-  td::before {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    width: 45%;
-    padding-right: 10px;
-    white-space: nowrap;
-    font-weight: bold;
-  }
-
-  /* Etiquetas personalizadas para cada celda 
-  td:nth-of-type(1)::before { content: "Nombre"; }
-  td:nth-of-type(2)::before { content: "Tipo"; }
-  td:nth-of-type(3)::before { content: "Descripción"; }
-  td:nth-of-type(4)::before { content: "Capacidad"; }
-  td:nth-of-type(5)::before { content: "Precio"; }
-  td:nth-of-type(6)::before { content: "Acción"; } */
-}
-
-
+/* Justificación: Tamaño concreto para guardar el carrusel de manera distinta al resto de imagenes*/
 main > section:nth-of-type(1) {
-  max-width: 1200px; /* Más ancho que el original (antes era 90% o menos) */
-  padding: 2rem;     /* Más espacio interno */
-  margin: 2rem auto; /* Separación vertical y centrado */
+  max-width: 75vw; 
+  padding: 2rem;    
+  margin: 2rem; 
 }
 
 
 
-main > section:nth-of-type(1) picture {
-  width: 20%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #eee;
-  margin: 0; /* o margin-left: 1rem; */
-}
-
-
-
-main > section:nth-of-type(1) picture img {
-  max-width: 70%;
-  max-height: 70%;
-  width: auto;
-  height: auto;
-  margin: auto;
-  display: block;
-}
 
 main > section:nth-of-type(1) nav {
   display: flex;
-  justify-content: center; /* centra horizontalmente */
-  gap: 1rem;               /* espacio entre botones */
-  margin-top: 1rem;        /* separación con la imagen */
+  justify-content: center; 
+  gap: 1rem;              
+  margin-top: 1rem;       
 }
 
 
@@ -699,53 +637,23 @@ main >  a {
 }
 
 
-/* Ajustes responsivos */
-@media (max-width: 768px) {
-  section:nth-of-type(2) article section {
-    flex: 1 1 45%;
-    max-width: 45%;
-    aspect-ratio: 1 / 1;
-  }
-}
-
-@media (max-width: 480px) {
-  section:nth-of-type(2) article section {
-    flex: 1 1 90%;
-    max-width: 90%;
-    aspect-ratio: auto; /* si prefieres que sea altura automática */
-  }
-
-}
-
  ul {
-    padding-left: 1rem; /* separación del borde izquierdo usando rem */
-    list-style-position: inside; /* para que el círculo esté dentro del padding */
+    padding-left: 1rem; 
+    list-style-position: inside; 
   }
+
 /* Ajusta el contenedor figure del mapa */
 [id^="mapaRuta_"] {
   width: 90%;           /* Ocupa la mayoría del ancho disponible */
   max-width: 500px;     /* Máximo ancho fijo para no crecer demasiado */
-  aspect-ratio: 1;      /* Mantén proporción cuadrada (puedes cambiar si quieres) */
+  aspect-ratio: 1;      /* Proporción cuadrada*/
   margin: 0 auto;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
-/* Ajusta también el contenedor padre si es necesario */
 section > section {
   margin: 0 auto;
-}
-
-/* Media query para móviles (pantallas pequeñas) */
-@media (max-width: 600px) {
-  [id^="mapaRuta_"] {
-    width: auto;          /* Ajuste para que se adapte mejor */
-    max-width: auto;      /* Sin límite máximo */
-    aspect-ratio: 16 / 21;
-    margin: 0 auto;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  }
 }
 
 
@@ -762,35 +670,6 @@ select:focus, input[type="datetime-local"]:focus {
   outline: none;
   border-color: #004080;
   box-shadow: 0 0 5px #004080;
-}
-
-
-@media (max-width: 768px) {
-  nav {
-    display: none; /* Oculta menú */
-    flex-direction: column;
-    background-color: #074480;
-    position: absolute;
-    top: 60px; /* Ajusta según el header */
-    right: 1rem;
-    width: 200px;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    z-index: 1000;
-  }
-
-  nav.show {
-    display: flex; /* Mostrar menú al activar */
-  }
-
-
-
-}
- 
-@media (min-width: 769px) {
-  header > button {
-    display: none;
-  }
 }
 
 
@@ -826,7 +705,7 @@ header nav {
   display: none;
   flex-direction: column;
   position: absolute;
-  top: 60px; /* ajusta según altura del header */
+  top: 60px;
   right: 1rem;
   background: #074480;
   border-radius: 0 0 0 0.5rem;
@@ -851,41 +730,3 @@ header nav a {
 header nav a:last-child {
   border-bottom: none;
 }
-
-/* Desktop: siempre mostrar menú, ocultar botón */
-@media (min-width: 769px) {
-  header {
-    position: relative;
-  }
-
-  header > button {
-    display: none;
-  }
-
-  header nav {
-    display: flex !important;
-    position: static;
-    flex-direction: row;
-    width: auto;
-    background: none;
-    box-shadow: none;
-    border-radius: 0;
-    padding: 0;
-  }
-
-  header nav a {
-    border: none;
-    padding: 0 1rem;
-  }
-}
-
-
-@media (max-width: 500px) {
-  main > section:nth-of-type(1) nav {
-    flex-direction: column;  /* que los botones se apilen en vez de estar lado a lado */
-    gap: 0.5rem;
-    width: 80%;              /* para que no ocupen toda la pantalla */
-    margin: 0 auto;          /* centrar el contenedor */
-  }
-}
-

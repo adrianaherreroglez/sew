@@ -1,139 +1,190 @@
-/* Adriana Herrero González UO287543 */
+/* ----- Responsive para tablets y móviles ----- */
 
-
-/* Especificidad = (0, 0, 1) */
-/* Por defecto, menú visible en escritorio */
-/* Estilos generales de navegación y botón hamburguesa */
-
-/* Por defecto (desktop) */
-/* Por defecto (desktop) */
-/* Por defecto (desktop): hamburguesa OCULTA */
-header > button {
-  display: none;
-}
-
-/* Menú visible en desktop */
-nav {
-  display: flex;
-  gap: 1rem;
-  padding: 0.5rem 1rem;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-section > picture {
-  align-items: center;
-}
-
-/* Móvil (max-width: 768px): hamburguesa VISIBLE y clicable */
-@media screen and (max-width: 768px) {
-  header > button {
-    display: block;
-    font-size: 1.3rem;
-    background: none;
-    border: none;
-    cursor: pointer;      /* clicable */
-    margin-left: auto;
-    color: white;
-    pointer-events: auto; /* clicable */
-    user-select: none;    /* evita seleccionar el símbolo */
-  }
-
-  /* Menú oculto por defecto */
-  header > nav {
-    display: none;
-    flex-direction: column;
-    width: 180px;
+/* 
+  Redefinición justificada: en pantallas <= 768px, 
+  cambio en nav para apilar enlaces verticalmente, mejorar usabilidad en móvil.
+  Especificidad = (0, 0, 1) 
+*/
+@media screen and (max-width: 48rem) { /* 768px / 16 = 48rem */
+  nav {
+    flex-direction: column; /* Apilar verticalmente */
+    align-items: stretch;
+    display: none; /* Oculta menú por defecto */
     background-color: #074480;
+    color: #fff; /* Contraste con background */
     position: absolute;
-    top: 50px;
-    right: 0;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    border-radius: 0 0 5px 5px;
-    padding: 0.2rem 0;
+    top: 3.75rem; /* 60px = 3.75rem */
+    right: 0.625rem; /* 10px = 0.625rem */
+    width: 12.5rem; /* 200px = 12.5rem */
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.3);
     z-index: 1000;
   }
 
-  header:focus-within > nav {
-  display: flex;
-}
-
-
-  /* Enlaces menú */
-  header > nav a {
-    color: white;
-    padding: 0.6rem 1rem;
-    text-align: center;
-    text-decoration: none;
+  /* Mostrar menú cuando tenga clase .show */
+  nav.show {
+    display: flex; /* Mostrar menú al activar */
   }
 
-  header > nav a:hover {
-    color: white;
-    background:  #2874c0;
-  }
-}
-
-
-
-
-
-
-/* Especificidad = (0, 0, 1) */
-main, aside {
-  padding-left: 1rem;
-}
-
-
-/* Especificidad = (0, 0, 1) */
-article {
-  margin: 1rem 0;
-  width: 50%;
-}
-
-video {
-  margin: 1rem 0;
-  max-width: 50%;
-  height: auto;
-}
-
-
-
-
-/* Especificidad = (0, 1, 4) */
-main > section:nth-of-type(2) article > section {
-  padding: 1rem;
-  margin: 1rem 0;
-  border-radius: 0.5rem;
-}
-
-/* Especificidad = (0, 0, 2) */
-ul li, ol li {
-  margin-bottom: 0.5rem;
-  line-height: 1.5;
-  position: relative;
-}
-
-
-/* ----- Responsive para tablets y móviles ----- */
-
-/* Redefinición justificada: cambio de flex-direction para mejorar usabilidad y adaptabilidad en pantallas pequeñas */
-@media screen and (max-width: 768px) {
-  /* Especificidad = (0, 0, 1) */
-  nav {
-    flex-direction: column; /* Esto cambia la dirección del flex para apilar enlaces verticalmente */
-    align-items: stretch;
-  }
-
-  /* Especificidad = (0, 0, 2) */
-    /* Redefinición justificada: se ajusta el padding para mejorar la legibilidad y el tamaño del área táctil en dispositivos móviles */
+  /* Redefinición para nav a: mayor área táctil y mejor legibilidad en móvil, agregando borde inferior para separar enlaces */
   nav a {
     text-align: center;
     padding: 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 0.0625rem solid rgba(255, 255, 255, 0.2); /* 1px = 0.0625rem */
+    background-color: #074480;
+    color: #fff; /* Añadido color para legibilidad sobre fondo oscuro */
   }
 
-  /* Especificidad = (0, 0, 3) */
+  /* Redefinición para último enlace del nav: quita borde inferior para estética */
   nav a:last-child {
-    border-bottom: none; /* Evita borde inferior en último enlace para mejor apariencia */
+    border-bottom: none;
+  }
+
+  /* 
+    Redefinición justificada: en pantallas <= 768px,
+    tabla en modo bloque para legibilidad móvil, con etiquetas posicionadas.
+  */
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  td {
+    position: relative;
+    padding-left: 50%;
+    border: 0.0625rem solid #ddd; /* 1px = 0.0625rem */
+    margin-bottom: 0.625rem; /* 10px = 0.625rem */
+  }
+
+  td::before {
+    position: absolute;
+    top: 0.5rem; /* 8px = 0.5rem */
+    left: 0.5rem; /* 8px = 0.5rem */
+    width: 45%;
+    padding-right: 0.625rem; /* 10px = 0.625rem */
+    white-space: nowrap;
+    font-weight: bold;
+  }
+
+  
+}
+
+/* 
+  Redefinición justificada: en pantallas <= 600px, 
+  tabla se adapta para mejor lectura en móviles (modo bloque).
+*/
+@media (max-width: 37.5rem) { /* 600px / 16 = 37.5rem */
+  #tabla-gastronomia {
+    font-size: 0.9em;
+  }
+
+  #tabla-gastronomia thead,
+  #tabla-gastronomia caption {
+    display: block;
+  }
+
+  #tabla-gastronomia tr {
+    display: block;
+    margin-bottom: 1em;
+  }
+
+  #tabla-gastronomia td,
+  #tabla-gastronomia th {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* 
+    Redefinición justificada: en pantallas <= 600px,
+    imágenes con id que comienzan con "mapaRuta_" se ajustan para ser responsive,
+    conservando ratio y centrado con sombra y borde redondeado.
+  */
+  [id^="mapaRuta_"] {
+    width: auto;            
+    aspect-ratio: 16 / 21;
+    margin: 0 auto;
+    border-radius: 0.625rem; /* 10px = 0.625rem */
+    box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.2); /* 2px 8px */
+  }
+}
+
+/* 
+  Redefinición justificada: en pantallas <= 480px,
+  se ajusta layout para ocupar casi todo el ancho disponible,
+  mejora visual y usabilidad en móviles muy pequeños.
+*/
+@media (max-width: 30rem) { /* 480px / 16 = 30rem */
+  section:nth-of-type(2) article section {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 90%;
+    max-width: 90%;
+    aspect-ratio: auto;
+  }
+}
+
+/* 
+  Redefinición justificada: en pantallas >= 768px,
+  botones aumentan de tamaño para mejor usabilidad en escritorio.
+*/
+@media screen and (min-width: 48rem) {
+  button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1.1rem;
+  }
+}
+
+/* 
+  Redefinición justificada: en pantallas >= 769px,
+  se oculta botón menú hamburguesa para escritorio.
+*/
+@media (min-width: 48.0625rem) { /* 769px */
+  header > button {
+    display: none;
+  }
+}
+
+/* 
+  Redefinición justificada: en pantallas >= 769px,
+  header y nav recuperan su estilo para escritorio con flex horizontal,
+  eliminando sombras y bordes, mejorando el diseño para pantallas grandes.
+*/
+@media (min-width: 48.0625rem) {
+  header {
+    position: relative;
+  }
+
+  header nav {
+    display: flex !important;
+    position: static;
+    flex-direction: row;
+    width: auto;
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+    background-color: #074480;
+    color: white;
+  }
+
+  header nav a {
+    border: none;
+    padding: 0 1rem;
+    background-color: #074480;
+    color: white;
+  }
+}
+
+/* 
+  Redefinición justificada: en pantallas <= 500px,
+  navegación dentro del primer section se ajusta para ser vertical y centrada,
+  mejora el layout en móviles pequeños.
+*/
+@media (max-width: 31.25rem) { /* 500px = 31.25rem */
+  main > section:nth-of-type(1) nav {
+    flex-direction: column;  
+    gap: 0.5rem;
+    width: 80%;              
+    margin: 0 auto;          
   }
 }
