@@ -14,7 +14,6 @@ class Reserva {
     $this->pagoModel = new Pago();
   }
 
-  // Este método solo crea la reserva en la base y devuelve el ID o false
   public function crearReserva($usuario_id, $recurso_id, $fecha_inicio, $fecha_fin)
   {
     $stmt = $this->db->prepare("INSERT INTO reservas (usuario_id, recurso_id, fecha_inicio, fecha_fin) VALUES (?, ?, ?, ?)");

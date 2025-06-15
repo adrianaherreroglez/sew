@@ -733,3 +733,33 @@ section > section {
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   }
 }
+
+
+/* Aplica a todos los selects, o ajusta con [name="recurso_id"] si lo prefieres */
+select {
+  padding: 10px 40px 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  color: #333;
+  font-size: 16px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='16' height='16' fill='gray' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+select:focus {
+  outline: none;
+  border-color: #00aaff;
+  box-shadow: 0 0 5px rgba(0, 170, 255, 0.3);
+  background-color: #fff;
+}
+
+option {
+  padding: 10px;
+}
