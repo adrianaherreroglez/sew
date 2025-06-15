@@ -1,15 +1,18 @@
 /* Adriana Herrero González UO287543 */
 
-header {
-  display: flex;
-}
 
-/* Especificidad = (0, 0, 2)  -> header es tipo, button es tipo, > no cuenta */
+/* Especificidad = (0, 0, 1) */
+/* Por defecto, menú visible en escritorio */
+/* Estilos generales de navegación y botón hamburguesa */
+
+/* Por defecto (desktop) */
+/* Por defecto (desktop) */
+/* Por defecto (desktop): hamburguesa OCULTA */
 header > button {
   display: none;
 }
 
-/* Especificidad = (0, 0, 1) */
+/* Menú visible en desktop */
 nav {
   display: flex;
   gap: 1rem;
@@ -18,98 +21,21 @@ nav {
   justify-content: flex-end;
 }
 
-/* Especificidad = (0, 0, 2) -> main y aside, cada uno es tipo */
-main, aside {
-  padding-left: 1rem;
-}
-
-/* Especificidad = (0, 0, 1) */
-article {
-  margin: 1rem 0;
-  width: 50%;
-}
-
-/* Especificidad = (0, 0, 1) */
-video {
-  margin: 1rem 0;
-  max-width: 50%;
-  height: auto;
-}
-
-/* Especificidad = (0, 0, 1) */
-img {
-  display: block;
-  width: 50%;
-  max-width: 100%;
-  height: auto;
-  margin: 1rem 0;
-}
-
-/* Especificidad = (0, 1, 4) */
-/* main (tipo) = 0, section:nth-of-type(2) (pseudo-clase =1), article (tipo) =1, section (tipo)=1 */
-/* Total: IDs=0, clases/pseudo-clases=1, elementos=4 */
-main > section:nth-of-type(2) article > section {
-  padding: 1rem;
-  margin: 1rem 0;
-}
-
-/* Especificidad = (0, 0, 2) */
-/* ul li -> 2 elementos tipo */
-/* ol li -> 2 elementos tipo */
-/* Se combinan con coma, no suma, cada uno con (0,0,2) */
-ul li, ol li {
-  margin-bottom: 0.5rem;
-  position: relative;
-}
-
-/* Especificidad = (0, 0, 1) */
-/*permitido por el enunciado*/
-.map-container {
-  width: 100%;
-  height: 25vw;
-  max-height: 400px;
-  margin: 1.25rem auto; 
-  border: 0.0625rem solid #ccc;
-  border-radius: 0.625rem;
-  box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.2); 
-}
-
-/* ----- Responsive para tablets y móviles: justificada la redefinición para 
-asegurar adaptabilidad en pantallas más pequeñas ----- */
-/* Para pantallas con ancho máximo de 768px */
+/* Móvil (max-width: 768px): hamburguesa VISIBLE y clicable */
 @media screen and (max-width: 768px) {
-  /* Especificidad = (0, 0, 1) */
-  nav {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  /* Especificidad = (0, 0, 2) -> nav a */
-  nav a {
-    text-align: center;
-    padding: 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  /* Especificidad = (0, 0, 2) -> nav a:last-child (pseudo-clase) */
-  nav a:last-child {
-    border-bottom: none; 
-  }
-
-  /* Especificidad = (0, 0, 2) -> header > button */
   header > button {
     display: block;
     font-size: 1.3rem;
     background: none;
     border: none;
-    cursor: pointer;
+    cursor: pointer;      /* clicable */
     margin-left: auto;
     color: white;
-    pointer-events: auto;
-    user-select: none;
+    pointer-events: auto; /* clicable */
+    user-select: none;    /* evita seleccionar el símbolo */
   }
 
-  /* Especificidad = (0, 0, 2) -> header > nav */
+  /* Menú oculto por defecto */
   header > nav {
     display: none;
     flex-direction: column;
@@ -124,13 +50,12 @@ asegurar adaptabilidad en pantallas más pequeñas ----- */
     z-index: 1000;
   }
 
-  /* Especificidad = (0, 1, 2) -> header:focus-within > nav */
-/* :focus-within es pseudo-clase =1, header y nav tipo=2 */
   header:focus-within > nav {
-    display: flex;
-  }
+  display: flex;
+}
 
-  /* Especificidad = (0, 0, 3) -> header > nav a */
+
+  /* Enlaces menú */
   header > nav a {
     color: white;
     padding: 0.6rem 1rem;
@@ -138,130 +63,84 @@ asegurar adaptabilidad en pantallas más pequeñas ----- */
     text-decoration: none;
   }
 
-  /* Especificidad = (0, 0, 3) -> header > nav a:hover */
   header > nav a:hover {
     color: white;
-    background: #2874c0;
+    background:  #2874c0;
   }
+}
 
-  /* Especificidad = (0, 0, 6) -> table, thead, tbody, th, td, tr cada uno elemento tipo, 6 en total */
-  table, thead, tbody, th, td, tr {
-    display: block;
-  }
 
-  /* Especificidad = (0, 0, 2) -> thead tr */
-  thead tr {
-    display: none; 
-  }
 
+
+
+
+/* Especificidad = (0, 0, 1) */
+main, aside {
+  padding-left: 1rem;
+}
+
+
+/* Especificidad = (0, 0, 1) */
+article {
+  margin: 1rem 0;
+  width: 50%;
+}
+
+video {
+  margin: 1rem 0;
+  max-width: 50%;
+  height: auto;
+}
+
+
+
+/* Especificidad = (0, 0, 1) */
+img {
+  display: block;
+  width: 50%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
+
+
+
+/* Especificidad = (0, 1, 4) */
+main > section:nth-of-type(2) article > section {
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+}
+
+/* Especificidad = (0, 0, 2) */
+ul li, ol li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+  position: relative;
+}
+
+
+/* ----- Responsive para tablets y móviles ----- */
+
+/* Redefinición justificada: cambio de flex-direction para mejorar usabilidad y adaptabilidad en pantallas pequeñas */
+@media screen and (max-width: 768px) {
   /* Especificidad = (0, 0, 1) */
-  td {
-    position: relative;
-    padding-left: 50%;
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
+  nav {
+    flex-direction: column; /* Esto cambia la dirección del flex para apilar enlaces verticalmente */
+    align-items: stretch;
   }
 
-  /* Especificidad = (0, 0, 2) -> td::before */
-  td::before {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    width: 45%;
-    padding-right: 10px;
-    white-space: nowrap;
-    font-weight: bold;
-  }
-
-  /* Especificidad = (0, 0, 3) -> section:nth-of-type(2) article section */
-/* section pseudo-clase =1, article y section tipo=2 */
-  section:nth-of-type(2) article section {
-    flex: 1 1 45%;
-    max-width: 45%;
-    aspect-ratio: 1 / 1;
-  }
-}
-
-/* Para pantallas con ancho máximo de 600px */
-/* Especificidad = (0, 1, 0) -> atributo [id^="mapaRuta_"] cuenta como clase (atributo) */
-@media (max-width: 600px) {
-  [id^="mapaRuta_"] {
-    width: auto;
-    aspect-ratio: 16 / 21;
-    margin: 0 auto;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  }
-}
-
-/* Para pantallas con ancho máximo de 480px */
-/* Especificidad = (0, 0, 3) -> section:nth-of-type(2) article section */
-@media (max-width: 480px) {
-  section:nth-of-type(2) article section {
-    flex: 1 1 90%;
-    max-width: 90%;
-    aspect-ratio: auto; 
-  }
-}
-
-/* Movil (max-width 767px) - EM para adaptabilidad */
-/* Especificidad = (0,0,0) */
-@media screen and (max-width: 47em) {
-  header {
-    flex-direction: column;
-    text-align: center;
-    padding: 1rem 0.5rem;
-  }
-  header h1 {
-    font-size: 2.25rem;
-  }
-  main > section {
-    padding: 1em 1em 0.5em 1em;
-    margin: 1em auto;
-    max-width: 100%;
-  }
-  #tabla-gastronomia {
-    font-size: 0.85rem;
-  }
+  /* Especificidad = (0, 0, 2) */
+    /* Redefinición justificada: se ajusta el padding para mejorar la legibilidad y el tamaño del área táctil en dispositivos móviles */
   nav a {
-    font-size: 0.95rem;
+    text-align: center;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   }
-  img {
-    max-width: 100%;
-  }
-}
 
-/* Tableta y desktop pequeños (min-width 768px) */
-/* Especificidad = (0,0,0) */
-@media screen and (min-width: 48em) and (max-width: 63em) {
-  header h1 {
-    font-size: 2.5rem;
-  }
-  main > section {
-    max-width: 95%;
-    padding: 1.25em;
-  }
-}
-
-/* Desktop medianos en adelante (min-width 64em) */
-/* Especificidad = (0,0,0) */
-@media screen and (min-width: 64em) {
-  main > section {
-    max-width: 75rem; /* ancho fijo pero relativo a fuente */
-    margin: 2rem auto;
-  }
-  header h1 {
-    font-size: 3rem;
-  }
-}
-
-/* Large desktop (min-width 90em) */
-/* Especificidad = (0,0,0) */
-@media screen and (min-width: 90em) {
-  header h1 {
-    font-size: 3.5rem;
-  }
-  main > section {
-    max-width: 90rem;
+  /* Especificidad = (0, 0, 3) */
+  nav a:last-child {
+    border-bottom: none; /* Evita borde inferior en último enlace para mejor apariencia */
   }
 }
