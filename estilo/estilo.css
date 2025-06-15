@@ -545,9 +545,6 @@ select[name="reserva_id"] {
     box-sizing: border-box;
     background-color: white;
     color: black;
-    /* Evitamos appearance:none para mantener accesibilidad */
-    /* background: url('...') eliminado para evitar problemas de contraste */
-    /* Si quieres, podemos meter un SVG accesible aparte si es estrictamente necesario */
 }
 
 /* Especificidad: (0,1,2) */
