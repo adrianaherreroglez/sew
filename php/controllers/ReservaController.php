@@ -3,6 +3,7 @@ require_once '../models/Reserva.php';
 require_once '../models/Pago.php';
 require_once '../models/Recurso.php';
 
+
 class ReservaController 
 {
     private $reservaModel;
@@ -41,56 +42,57 @@ class ReservaController
         }
     }
 
-    private function crearReserva($usuario_id)
-    {
-        $recurso_id = intval($_POST['recurso_id'] ?? 0);
-        $fecha_inicio = $_POST['fecha_inicio'] ?? null;
-        $fecha_fin = $_POST['fecha_fin'] ?? null;
+    public function crearReserva($usuario_id)
+{
+    $recurso_id = intval($_POST['recurso_id'] ?? 0);
+    $fecha_inicio = $_POST['fecha_inicio'] ?? null;
+    $fecha_fin = $_POST['fecha_fin'] ?? null;
 
-        if (!$recurso_id || !$fecha_inicio || !$fecha_fin) {
-            $this->redirigir('../reservas.php?error=Datos incompletos');
-        }
-
-        $recurso = $this->recursoModel->obtenerPorId($recurso_id);
-        if (!$recurso) {
-            $this->redirigir('../reservas.php?error=Recurso no encontrado');
-        }
-
-        $reserva_id = $this->reservaModel->crear($usuario_id, $recurso_id, $fecha_inicio, $fecha_fin);
-        if (!$reserva_id) {
-            $this->redirigir('../../reservas.php?error=No se pudo crear la reserva');
-        }
-
-        try {
-            $inicio = new DateTime($fecha_inicio);
-            $fin = new DateTime($fecha_fin);
-            $interval = $inicio->diff($fin);
-            $numDias = max(1, (int)$interval->format('%a'));
-        } catch (Exception $e) {
-            $this->reservaModel->anular($reserva_id, $usuario_id);
-            $this->redirigir('../reservas.php?error=Fecha inválida');
-        }
-
-        $monto = $numDias * $recurso['precio'];
-
-        $exitoPago = $this->pagoModel->registrarPago($reserva_id, $monto);
-        if (!$exitoPago) {
-            $this->reservaModel->anular($reserva_id, $usuario_id);
-            $this->redirigir('../reservas.php?error=Error en el pago');
-        }
-
-        $this->redirigir('../../reservas.php?confirmacion=Reserva realizada');
-
+    if (!$recurso_id || !$fecha_inicio || !$fecha_fin) {
+        $this->redirigir('../../reservas.php?error=Datos incompletos');
     }
 
-    private function anularReserva($usuario_id)
+    $recurso = $this->recursoModel->obtenerPorId($recurso_id);
+    if (!$recurso) {
+        $this->redirigir('../../reservas.php?error=Recurso no encontrado');
+    }
+
+    $reserva_id = $this->reservaModel->crearReserva($usuario_id, $recurso_id, $fecha_inicio, $fecha_fin);
+    if (!$reserva_id) {
+        $this->redirigir('../../reservas.php?error=No se pudo crear la reserva');
+    }
+
+    try {
+        $inicio = new DateTime($fecha_inicio);
+        $fin = new DateTime($fecha_fin);
+        $interval = $inicio->diff($fin);
+        $numDias = max(1, (int)$interval->format('%a'));
+    } catch (Exception $e) {
+        $this->reservaModel->anularReserva($reserva_id, $usuario_id);
+        $this->redirigir('../../reservas.php?error=Fecha inválida');
+    }
+
+    $monto = $numDias * $recurso['precio'];
+    $pago = $this->pagoModel->registrarPago($reserva_id, $monto);
+
+    if (!$pago) {
+        $this->reservaModel->anularReserva($reserva_id, $usuario_id);
+        $this->redirigir('../../reservas.php?error=Error en el pago');
+    }
+
+    $this->redirigir('../../reservas.php?success=Reserva realizada con éxito');
+}
+
+
+
+    public function anularReserva($usuario_id)
     {
         $reserva_id = intval($_POST['reserva_id'] ?? 0);
         if (!$reserva_id) {
             $this->redirigir('../reservas.php?error=ID de reserva inválido');
         }
 
-        $ok = $this->reservaModel->anular($reserva_id, $usuario_id);
+        $ok = $this->reservaModel->anularReserva($reserva_id, $usuario_id);
         if ($ok) {
             $this->redirigir('../../reservas.php?confirmacion=Reserva anulada');
 
@@ -108,4 +110,3 @@ class ReservaController
 
 $controller = new ReservaController();
 $controller->procesarSolicitud();
-

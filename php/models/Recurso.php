@@ -24,6 +24,38 @@ class Recurso {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+public function obtenerPlazasDisponibles($recurso_id, $fecha_inicio = null, $fecha_fin = null) {
+    // Obtener capacidad total del recurso
+    $stmt = $this->db->prepare("SELECT capacidad FROM recursos WHERE id = ?");
+    $stmt->execute([$recurso_id]);
+    $capacidad = $stmt->fetchColumn();
+
+    if ($capacidad === false) {
+        return 0;
+    }
+
+    // Si no se pasan fechas, contar todas las reservas activas (podrías cambiar esta lógica)
+    if (!$fecha_inicio || !$fecha_fin) {
+        $stmt2 = $this->db->prepare("SELECT COUNT(*) FROM reservas WHERE recurso_id = ?");
+        $stmt2->execute([$recurso_id]);
+        $ocupadas = $stmt2->fetchColumn();
+    } else {
+        // Contar reservas activas que se solapan con el periodo dado
+        $stmt2 = $this->db->prepare("
+            SELECT COUNT(*) FROM reservas 
+            WHERE recurso_id = ? 
+              AND fecha_inicio < ? 
+              AND fecha_fin > ?
+        ");
+        $stmt2->execute([$recurso_id, $fecha_fin, $fecha_inicio]);
+        $ocupadas = $stmt2->fetchColumn();
+    }
+
+    $disponibles = $capacidad - $ocupadas;
+    return max(0, $disponibles);
+}
+
+
 
 }
 ?>
