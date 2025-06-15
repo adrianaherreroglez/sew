@@ -77,14 +77,6 @@ body {
 
 
 /* Especificidad = (0, 0, 1) */
-h1 {
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-  font-size: 4rem;
-  font-weight: bold;
-}
-
-/* Especificidad = (0, 0, 1) */
 h2 {
   color: #074480;
   font-size: 2.3rem;
@@ -758,4 +750,127 @@ select:focus, input[type="datetime-local"]:focus {
   outline: none;
   border-color: #004080;
   box-shadow: 0 0 5px #004080;
+}
+
+
+@media (max-width: 768px) {
+  nav {
+    display: none; /* Oculta menú */
+    flex-direction: column;
+    background-color: #074480;
+    position: absolute;
+    top: 60px; /* Ajusta según el header */
+    right: 1rem;
+    width: 200px;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    z-index: 1000;
+  }
+
+  nav.show {
+    display: flex; /* Mostrar menú al activar */
+  }
+
+  button {
+    display: block;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+
+
+}
+ 
+@media (min-width: 769px) {
+  button {
+    display: none;
+  }
+}
+
+
+/* Estilos básicos del header */
+header {
+  background: #074480;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header h1 a {
+  color: white;
+  text-decoration: none;
+
+}
+
+/* Botón hamburguesa visible solo en móvil */
+header > button {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  display: block;
+}
+
+/* Navegación - ocultar en móvil por defecto */
+header nav {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 60px; /* ajusta según altura del header */
+  right: 1rem;
+  background: #074480;
+  border-radius: 0 0 0 0.5rem;
+  padding: 0.5rem 0;
+  width: 200px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* Mostrar menú cuando el botón o el nav tengan foco */
+header:focus-within nav {
+  display: flex;
+}
+
+/* Estilos de los links */
+header nav a {
+  color: white;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+header nav a:last-child {
+  border-bottom: none;
+}
+
+/* Desktop: siempre mostrar menú, ocultar botón */
+@media (min-width: 769px) {
+  header {
+    position: relative;
+  }
+
+  header > button {
+    display: none;
+  }
+
+  header nav {
+    display: flex !important;
+    position: static;
+    flex-direction: row;
+    width: auto;
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+  }
+
+  header nav a {
+    border: none;
+    padding: 0 1rem;
+  }
 }
