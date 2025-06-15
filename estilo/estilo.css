@@ -1,278 +1,287 @@
-/* Adriana Herrero González UO287543 */
-
-/* ----- Estilo general ----- */
-
-/* Especificidad = (0, 0, 1) */
-/* Estilos base para navegación en pantallas grandes, flex horizontal */
-nav {
-  display: flex;
-  gap: 1rem;
-  padding: 0.5rem 1rem;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-/* Especificidad = (0, 0, 1) */
-/* Estilos base para main y aside, padding para separación interior */
-main, aside {
-  padding-left: 1rem;
-}
-
-/* Especificidad = (0, 0, 1) */
-/* Estilos base para artículos, margen vertical y ancho del 50% para columnas */
-article {
-  margin: 1rem 0;
-  width: 50%;
-}
-
-/* Especificidad = (0, 0, 1) */
-/* Estilos base para videos, ancho máximo y ajuste automático de altura */
-video {
-  margin: 1rem 0;
-  max-width: 50%;
-  height: auto;
-}
-
-/* Especificidad = (0, 0, 1) */
-/* Estilos base para imágenes, tamaño relativo y borde redondeado */
-img {
-  display: block;
-  width: 50%;
-  max-width: 30%;
-  height: auto;
-  border-radius: 0.5rem;
-  margin: 1rem 0;
-}
-/* Especificidad = (0, 0, 1) */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #074480;
-  padding: 1rem;
-}
-
-/* Estilo de párrafos descriptivos */
-p {
-  background-color: #ffffff;
-  margin: 0.3em 0;
-  padding: 0.6em 0.8em;
-  border-left: 0.25em solid #074480;
-  border-radius: 0.5em;
-  box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.05);
-}
-
-
-/* JUstificación: Quita los estilos al <p> justo después del <header>,lasmigas son p pero tienen otro estilo */
-header + p {
-  all: unset;
-  display: block;
-  margin-left: 1em; 
-  margin-top: 1em;  
-}
-
-
-header h1 {
-  margin: 0;
-  font-size: 3rem;
-}
-
-/* Especificidad = (0, 0, 3) */
-header h1 a {
-  color: white;
-  text-decoration: none;
-  align-items: center;
-  font-weight: bold;
-}
-
-
-/* Especificidad = (0, 0, 2) */
-nav a {
-  color: white;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-  font-size: 1em;
-}
-
-/* Especificidad = (0, 0, 3) */
-nav a:hover {
-  background-color: #0c5bab; 
-  color: white; /* Justificación: Al pasar elratón por encima en el caso de la página actual
-                    la letra debe ponerse en blanco , no quedarse en negro ya que no habría contraste*/
-}
-
-section {
-  text-align: left;
-}
-
-
-/* Especificidad = (0, 0, 1) */
+/* Especificidad (0,0,1) */
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color:#e9f0f7;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #1e1e1e;
+  background-color: white;
+  line-height: 1.6;
   margin: 0;
-  background-color: #ffffff;
-  color: #000000; /* Color heredado por texto: asegura contraste */
-  font-size: 1em;
+  padding: 0;
+  font-size: 100%;
 }
 
-
-/* Especificidad = (0, 0, 1) */
-h2 {
-  color: #074480;
-  font-size: 2.3rem;
-  text-align: left;
-  margin-bottom: 0.5rem;
-  margin-top: 0;
-}
-
-/* Especificidad = (0, 0, 1) */
-p, ul, ol {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  color: #000000;
-}
-
-/* ----- Enlaces generales ----- */
-
-/* Especificidad = (0, 0, 1) */
+/* Especificidad (0,0,1) */
 a {
   font-weight: bold;
-  text-decoration: underline;
+  text-decoration: none;
+  background-color: white;
+  color: #0066cc;
 }
 
-/* Especificidad = (0, 0, 3) */
-section:nth-of-type(2) article section footer a:visited {
-  color: #5a007a; /* Enlace visitado - contraste suficiente */
+/* Especificidad (0,0,1) */
+a:hover {
+  background-color: #5f8ebd;
+  color: white;
 }
 
-/* Especificidad = (0, 0, 3) */
-section:nth-of-type(2) article section footer a:link {
-  color: #074480;
-}
-
-article > section > h3 {
-  font-weight: bold;
-}
-
-
-article > section header,
-article > section article,
-article > section footer {
-  font-weight: normal;
-}
-
-
-
-article > section {
-  font-weight: bold;
-}
-
-article > section > * {
-  font-weight: normal;
-}
-
-
-/* Especificidad = (0, 0, 2) */
-a[href^="#"]:hover {
-  background-color: #ffcc00;
-  padding: 0.1rem 0.3rem;
-}
-
-/* Especificidad = (0, 0, 1) */
-a[href^="#"] {
-  text-decoration: underline dotted;
-}
-
-/* Especificidad = (0, 1, 0) */
-/* Clase .active justificada, el enunciado lo permite : estado dinámico reutilizable (por ejemplo, para navegación o elementos seleccionados) */
+/* Especificidad (0,1,0) */
+/*Justificación: el enunciado permite este selector para indicar en que página nos encontramos */
 .active {
   background-color: #ffcc00;
   color: #000000;
 }
 
-/* ----- Tablas ----- */
-
-/* Especificidad = (0, 1, 0) */
-/* Especificidad = (0, 1, 0) */
-/* ID #tabla-gastronomia justificado: tabla única del documento según enunciado */
-#tabla-gastronomia {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 2rem 0;
-  background-color: #ffffff;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
-  table-layout: fixed;
-  word-wrap: break-word;
+/* Especificidad (0,0,1) */
+header {
+  background-color: #074480;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-#tabla-gastronomia caption {
-  font-size: 1.25em;
-  font-weight: bold;
-  padding: 0.25rem 0;         /* más compacto */
-  margin: 0.25rem 0 0.5rem 1rem; /* top más pequeño */
-  text-align: center;
-  color: #074480;
-  background-color: transparent;
+
+/* Especificidad (0,0,2) */
+header h1 {
+  margin: 0;
+  font-size: 3rem;
 }
-  /* Solo los th del encabezado deben ser azules */
-  #tabla-gastronomia thead th {
-    background-color: #0055aa;
-    color: white;
-    padding: 0.5em;
-    text-align: left;
-    border: 1px solid #ccc;
-  }
 
-  /* th dentro del tbody (nombres de platos) con fondo blanco y letra negra */
-  #tabla-gastronomia tbody th {
-    background-color: white;
-    color: black;
-    padding: 0.5em;
-    text-align: left;
-    border: 1px solid #ccc;
-  }
+/* Especificidad (0,0,3) */
+header h1 a {
+  background-color: #074480;
+  color: white;
+  text-decoration: none;
+}
 
-  #tabla-gastronomia td {
-    background-color: white;
-    color: black;
-    padding: 0.5em;
-    border: 1px solid #ccc;
-    text-align: left;
-  }
-
-  
-  
-
-
-/* ----- Multimedia y contenedores ----- */
-
-
-
-/* Especificidad = (0, 0, 1) */
-audio {
+/* Especificidad (0,0,2) */
+header > button {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  background-color: #074480;
+  color: white;
+  cursor: pointer;
+  user-select: none;
   display: block;
-  margin: 1rem 0;
+}
+
+/* Especificidad (0,0,2) */
+header nav {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 60px;
+  right: 1rem;
+  background-color: #074480;
+  color: #ffffff;
+  border-radius: 0 0 0 0.5rem;
+  padding: 0.5rem 0;
+  width: 200px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* Especificidad (0,0,3) */
+header:focus-within nav,
+header nav.show {
+  display: flex;
+}
+
+/* Especificidad (0,0,2) */
+header nav a {
+  background-color: #074480;
+  color: white;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Especificidad (0,0,3) */
+header nav a:last-child {
+  border-bottom: none;
+}
+
+/* Especificidad (0,0,2) */
+main, aside {
+  padding-left: 1rem;
+}
+
+/* Especificidad (0,0,1) */
+main {
   max-width: 90%;
-  filter: grayscale(1%);
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
-/* Especificidad = (0, 0, 1) */
-sup, sub {
-  font-size: 0.8em;
+/* Especificidad (0,0,2) */
+main > section {
+  background-color: #ffffff;
+  color: #000000;
+  margin: 1.5em 0;
+  padding: 1.5em;
+  border-radius: 1em;
+  box-shadow: 0 0.5em 1em rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+
+/* Especificidad (0,0,3) */
+main > section > section {
+  background-color: #f4f7fb;
+  color: #000000;
+  border-left: 0.25em solid #0c5bab;
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 0.75em;
+}
+
+/* Especificidad (0,0,2) */
+main > section:nth-of-type(1) {
+  max-width: 75vw;
+  padding: 2rem;
+  margin: 2rem auto;
+}
+
+/* Especificidad (0,0,3) */
+main > section:nth-of-type(1) nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Especificidad (0,0,3) */
+main > section:nth-of-type(1) article {
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eee;
+  color: #000000;
+  margin: 0 auto;
+}
+
+/* Especificidad (0,0,2) */
+section:nth-of-type(2) article {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  box-sizing: border-box;
+}
+
+/* Especificidad (0,0,3) */
+section:nth-of-type(2) article section {
+  flex: 1 1 30%;
+  max-width: 30%;
+  background-color: #f0f0f0;
+  color: #000000;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  aspect-ratio: 1/1;
+  transition: transform 0.3s ease;
+}
+
+/* Especificidad (0,0,4) */
+section:nth-of-type(2) article section:hover {
+  transform: translateY(-0.25rem);
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+}
+
+/* Especificidad (0,0,4) */
+section:nth-of-type(2) article section footer a {
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #ffffff;
+  color: #0066cc;
+  text-decoration: none;
+}
+
+/* Especificidad (0,0,5) */
+section:nth-of-type(2) article section footer a:hover {
+  color: #003366;
+  background-color: #ffffff;
+}
+
+/* Especificidad (0,0,1) */
+h2 {
   color: #074480;
+  background-color:#fbfcfd;
+  font-size: 2.3rem;
+  text-align: left;
+  margin: 0 0 0.5rem;
 }
 
-/* ----- Listas ----- */
+/* Especificidad (0,0,1) */
+h3 {
+  font-size: 1.5rem;
+  color: #074480;
+  background-color: #ffffff;
+  margin: 0 0 0.5rem;
+  border-bottom: 0.125em solid #ffcc00;
+}
 
-/* Especificidad = (0, 0, 2) */
+/* Especificidad (0,0,1) */
+h4 {
+  font-size: 1.4rem;
+  color: #0c5bab;
+  background-color: #ffffff;
+  margin: 0.5em 0;
+}
+
+
+/* Especificidad (0,0,1) */
+h5 {
+  font-size: 0.9rem;
+  background-color: #ffffff;
+  color: #333333;
+  margin: 0 0 0.5em;
+}
+
+/* Especificidad (0,0,1) */
+p {
+  background-color: #ffffff;
+  color: #000000;
+  margin: 0.3em 0;
+  padding: 0.6em 0.8em;
+  border-left: 0.25em solid #074480;
+  border-radius: 0.5em;
+  box-shadow: 0 0 0.25em rgba(0,0,0,0.05);
+}
+
+/* Especificidad (0,0,2) */
+header + p {
+  all: unset;
+  display: block;
+  margin-left: 1em;
+  margin-top: 1em;
+}
+
+/* Especificidad (0,0,1) */
+ul {
+  padding-left: 1rem;
+  list-style-position: inside;
+  margin: 0.5em 0 1.5em;
+  background-color: #f7faff;
+  color: #000000;
+  border-left: 0.25em solid #074480;
+  border-radius: 0.5em;
+}
+
+/* Especificidad (0,0,1) */
 li::marker {
+  background-color: #ffffff;
   color: #074480;
-  font-weight: bold;
 }
 
-/* ----- Listas de definición ----- */
-
-/* Especificidad = (0, 0, 1) */
+/* Especificidad (0,0,1) */
 dt {
   color: #074480;
   background-color: #ffcc00;
@@ -281,452 +290,217 @@ dt {
   display: inline-block;
 }
 
-/* ----- Enlaces en aside ----- */
-
-/* Especificidad = (0, 0, 1) */
-aside a {
-  color: #074480;
-  font-weight: bold;
-  text-decoration: underline;
+/* Especificidad (0,0,2) */
+audio, video {
+  display: block;
+  margin: 1rem 0;
+  max-width: 90%;
 }
 
-/* Especificidad = (0, 0, 2) */
-aside a:hover,
-aside a:active {
-  color: white;
-  background-color: #074480;
-  padding: 0.2rem 0.3rem;
-  text-decoration: none;
+/* Especificidad (0,0,1) */
+video {
+  height: auto;
 }
 
-/* Contenedor de cada noticia (tarjeta) */
-section:nth-of-type(2) article section {
-    background-color: #f0f0f0; 
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    margin: 2% 0;
+/* Especificidad (0,0,1) */
+img {
+  display: block;
+  width: 50%;
+  max-width: 30%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
 }
 
-/* Efecto hover */
-section:nth-of-type(2) article section:hover {
-    transform: translateY(-0.25rem);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-}
-
-
-/* Descripción de la noticia */
-section:nth-of-type(2) article section article p {
-    font-size: 1rem;
-    color: #555;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-}
-
-/* Enlace "Leer más" */
-section:nth-of-type(2) article section footer a {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #0066cc;
-    text-decoration: none;
-}
-
-section:nth-of-type(2) article section footer a:hover {
-    color: #003366;
-    text-decoration: underline;
-}
-
+/* Especificidad (0,0,1) */
 figure {
   width: 90%;
-  max-width: 50em;  /* 50em son aprox. 800px si el font-size raíz es 16px */
+  max-width: 50em;
   margin: 0 auto;
 }
 
-figure svg {
+/* Especificidad (0,0,2) */
+figure svg,
+figure img {
   width: 100%;
   height: auto;
   display: block;
 }
 
-
-figure img {
-    width: 4rem; /* tamaño relativo, aprox 64px si la raíz es 16px */
-    height: auto;
-    display: block;
-    margin: 0 auto 0.3rem auto;
-}
-
-label {
-  font-weight:bold;
-}
-
-
-/* Especificidad: 0-0-1 (selector de etiqueta) */
-/* Estilo global del body */
-body {
-  background: linear-gradient(to bottom right, #e9f0f7, #ffffff);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #1e1e1e;
-  line-height: 1.6;
-  margin: 0;
-  padding: 0;
-  font-size: 100%; /* base para rem */
-}
-
-/* Especificidad: 0-0-1 */
-/* Titulares principales */
-h3 {
-  font-size: 1.5rem;
-  color: #074480;
-  margin-bottom: 0.5em;
-  margin-top:0;
-  border-bottom: 0.125em solid #ffcc00;
-
-}
-
-/* Especificidad: 0-0-1 */
-/* Titulares secundarios */
-h4 {
-  font-size: 1.4rem;
-  color: #0c5bab;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-}
-
-/* Especificidad: 0-0-1 */
-/* Subtítulos o encabezados menores */
-h5 {
-  font-size: 1.2rem;
-  color: #333333;
-  margin-top: 0;      /* quita margen arriba */
-  margin-bottom: 0.5em; /* mantiene margen abajo */
-}
-
-
-/* Especificidad: 0-0-1 */
-
-/* Especificidad: 0-0-1 */
-/* Etiquetas informativas */
-label {
-  font-weight: bold;
-  color: #0c5bab;
-  display: inline-block;
-  margin-bottom: 0.2em;
-}
-
-
-/* Especificidad: 0-0-1 */
-/* Estilo de enlaces */
-a {
-  color: #0066cc;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-/* Especificidad: 0-0-1 + pseudo-clase = 0-1-1 */
-a:hover {
-  text-decoration: underline;
-  background-color: #5f8ebd;
-  color:white;
-  text-decoration: none;
-}
-
-/* Especificidad: 0-0-1 */
-/* Listas sin clases */
-ul {
-  padding-left: 1.5em;
-  margin: 0.5em 0 1.5em 0;
-  background-color: #f7faff;
-  border-left: 0.25em solid #074480;
-  padding: 1em;
-  border-radius: 0.5em;
-}
-
-/* Especificidad: 0-0-2 (pseudo-elemento de etiqueta) */
-/* Marcadores de lista */
-li::marker {
-  color: #074480;
-}
-
-main {
-  max-width: 90%;
-  width: 100%;
+/* Especificidad (0,0,1) */
+[id^="mapaRuta_"] {
+  width: 90%;
+  max-width: 31.25em;
+  aspect-ratio: 1;
   margin: 0 auto;
-  padding: 1em;
-  box-sizing: border-box;
+  border-radius: 0.625em;
+  box-shadow: 0 0.125em 0.5em rgba(0,0,0,0.2);
 }
 
-main > section {
-  background-color: #ffffff;
-  margin: 1.5em 0;
-  padding: 1.5em;
-  border-radius: 1em;
-  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-}
-
-
-
-
-
-/* Especificidad: 0-0-3 */
-/* Secciones internas anidadas (hitos dentro de rutas) */
-main > section > section {
-  background-color: #f4f7fb;
-  border-left: 0.25em solid #0c5bab;
-  padding: 1em;
-  margin: 1em 0;
-  border-radius: 0.75em;
-}
-
-/* Especificidad: 0-0-1 + atributo = 0-1-1 */
-/* Estilo específico para secciones de mapa */
-section[data-map="true"] {
-  height: 60vh;
+/* Justificación: se permite usar id para la adaptabilidad de las tablas */
+/* Especificidad (0,1,1) */
+#tabla-gastronomia {
   width: 100%;
-  margin-top: 2em;
-  border-radius: 1em;
-  box-shadow: 0 0 0.75em rgba(0, 0, 0, 0.15);
+  border-collapse: collapse;
+  margin: 2rem 0;
+  background-color: #ffffff;
+  color: #000000;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.1);
+  table-layout: fixed;
+  word-wrap: break-word;
 }
 
-/* ----- Botones del carrusel u otros ----- */
-/* Especificidad: (0, 0, 1) */
-button {
-  width: auto;          
-  max-width: none;      
-  padding: 0.5rem 1rem;  
-  background-color: #074480;
-  color: #fff;
-  border-radius: 0.5rem;
+/* Especificidad (0,1,1) */
+#tabla-gastronomia caption {
+  font-size: 1.25em;
   font-weight: bold;
-  cursor: pointer;
-  margin-top:0.5em;
-  margin-bottom:0.5em;
-
+  padding: 0.25rem 0;
+  margin: 0.25rem 0 0.5rem 1rem;
+  text-align: center;
+  background-color: #ffffff;
+  color: #074480;
 }
 
-
-button:hover {
-  background-color: #607991;
+/* Especificidad (0,1,2) */
+#tabla-gastronomia thead th {
+  background-color: #0055aa;
   color: white;
-  text-decoration: underline;
+  padding: 0.5em;
+  text-align: left;
+  border: 0.0625em solid #ccc;
 }
 
-
-main > section:last-of-type {
-  min-height: 6.25rem;
-  margin-top: 1rem;
-  padding: 1rem;
-  background-color: #f9f9f9;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+/* Especificidad (0,1,2) */
+#tabla-gastronomia tbody th,
+#tabla-gastronomia td {
+  background-color: white;
+  color: black;
+  padding: 0.5em;
+  border: 0.0625em solid #ccc;
+  text-align: left;
 }
 
-
-input {
-  padding: 0.8em 1em;
-  border: 1px solid #ccc;
-  border-radius: 0.5em;
-  font-size: 1em;
-  transition: border-color 0.3s;
-}
-/* Aplica solo a otras tablas, no a #tabla-gastronomia */
+/* Especificidad (0,1,1) */
 table:not(#tabla-gastronomia) {
   width: 100%;
   border-collapse: collapse;
   margin: 2em 0;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 0.625em rgba(0,0,0,0.1);
   border-radius: 0.5em;
   background-color: #ffffff;
+  color: #000000;
 }
 
+/* Especificidad (0,1,2) */
 table:not(#tabla-gastronomia) th,
 table:not(#tabla-gastronomia) td {
-  border: 1px solid #ddd;
+  border: 0.0625em solid #ddd;
   padding: 1em;
   text-align: left;
   vertical-align: top;
 }
 
+/* Especificidad (0,1,2) */
 table:not(#tabla-gastronomia) th {
   background-color: #074480;
   color: white;
-  font-weight: bold;
 }
 
+/* Especificidad (0,1,2) */
 table:not(#tabla-gastronomia) tr:nth-child(even) {
   background-color: #f9f9f9;
+  color: #074480;
 }
 
+/* Especificidad (0,1,2) */
 table:not(#tabla-gastronomia) tr:hover {
   background-color: #f1f1f1;
+  color: #074480;
 }
 
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5em;
+/* Especificidad (0,0,1) */
+button {
+  width: auto;
+  max-width: none;
+  padding: 0.5rem 1rem;
+  background-color: #074480;
+  color: #fff;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 0.5em 0;
+  transition: background-color 0.3s ease;
 }
 
+/* Especificidad (0,0,1) */
+button:hover {
+  background-color: #607991;
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Especificidad (0,0,2) */
+input, select {
+  width: 100%;
+  padding: 0.8em;
+  border: 0.0625em solid #ccc;
+  border-radius: 0.5em;
+  font-size: 1em;
+  transition: border-color 0.3s;
+}
+
+/* Especificidad (0,0,2) */
 input[type="datetime-local"] {
   padding: 0.4em;
-  border: 1px solid #ccc;
-  border-radius: 0.4em;
   font-size: 0.9em;
 }
 
-
-/* Justificación: Tamaño concreto para guardar el carrusel de manera distinta al resto de imagenes*/
-main > section:nth-of-type(1) {
-  max-width: 75vw; 
-  padding: 2rem;    
-  margin: 2rem; 
-}
-
-
-
-
-main > section:nth-of-type(1) nav {
-  display: flex;
-  justify-content: center; 
-  gap: 1rem;              
-  margin-top: 1rem;       
-}
-
-
-main > section:nth-of-type(1) article{
-  width: 30%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #eee;
-  margin: 0 auto; /* ¡Esto lo centra horizontalmente! */
-}
-
-/* El contenedor que envuelve las noticias, para centrarlas */
-section:nth-of-type(2) article {
-  width: 100%;
-  margin: 0 auto;
-  display: flex; /* si quieres que las noticias se acomoden en filas o columnas */
-  flex-wrap: wrap; /* para que se ajusten al reducir pantalla */
-  justify-content: center; /* centra los items hijos si son más pequeños */
-  gap: 1rem; /* espacio entre noticias */
-  box-sizing: border-box;
-}
-
-
-/* Las tarjetas individuales (las noticias) */
-section:nth-of-type(2) article section {
-  flex: 1 1 30%; /* toma al menos 30% del ancho, se puede ajustar */
-  max-width: 30%;
-  background-color: #f0f0f0; 
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-  margin: 1rem 0;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  aspect-ratio: 1 / 1; /* esto hace que sea cuadrado */
-  transition: transform 0.3s ease;
-}
-
-
-main >  a {
-  text-align: center;
-}
-
-
- ul {
-    padding-left: 1rem; 
-    list-style-position: inside; 
-  }
-
-/* Ajusta el contenedor figure del mapa */
-[id^="mapaRuta_"] {
-  width: 90%;           /* Ocupa la mayoría del ancho disponible */
-  max-width: 500px;     /* Máximo ancho fijo para no crecer demasiado */
-  aspect-ratio: 1;      /* Proporción cuadrada*/
-  margin: 0 auto;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-
-section > section {
-  margin: 0 auto;
-}
-
-
-
-select, input[type="datetime-local"] {
-  width: 100%;
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-select:focus, input[type="datetime-local"]:focus {
+/* Especificidad (0,0,2) */
+input:focus, select:focus {
   outline: none;
   border-color: #004080;
-  box-shadow: 0 0 5px #004080;
+  box-shadow: 0 0 0.3125em #004080;
 }
 
 
-/* Estilos básicos del header */
-header {
-  background: #074480;
-  color: white;
+/* Especificidad = (0, 1, 0) -> selector por tipo + clase (fieldset) */
+form fieldset {
+  margin-bottom: 2rem;
+  border: 1px solid #ccc;
   padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+/* Especificidad = (0, 1, 0) -> selector por tipo + clase (fieldset > legend) */
+form fieldset > legend {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #074480;
+  padding: 0 0.5rem;
+}
+
+/* Especificidad = (0, 1, 0) -> selector por tipo + clase (fieldset p) */
+form fieldset p {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
 }
 
-header h1 a {
-  color: white;
-  text-decoration: none;
-
-}
-
-/* Botón hamburguesa visible solo en móvil */
-header > button {
-  font-size: 2rem;
-  background: none;
-  border: none;
-  color: white;
+/* Especificidad = (0, 2, 0) -> selector compuesto: form fieldset p label */
+form fieldset p label {
   cursor: pointer;
   user-select: none;
-  display: block;
-}
-
-/* Navegación - ocultar en móvil por defecto */
-header nav {
-  display: none;
-  flex-direction: column;
-  position: absolute;
-  top: 60px;
-  right: 1rem;
-  background: #074480;
-  border-radius: 0 0 0 0.5rem;
-  padding: 0.5rem 0;
-  width: 200px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-}
-
-/* Mostrar menú cuando el botón o el nav tengan foco */
-header:focus-within nav {
+  flex-grow: 1;
   display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-/* Estilos de los links */
-header nav a {
-  color: white;
-  padding: 0.75rem 1rem;
-  text-decoration: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-header nav a:last-child {
-  border-bottom: none;
+/* Especificidad = (0, 3, 1) -> selector compuesto con atributo */
+form fieldset p label input[type="radio"] {
+  margin: 0;
+  width: 1.1em;
+  height: 1.1em;
 }
