@@ -1,67 +1,67 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Mieres</title>
+    <title>Turismo de Mieres - Asturias</title>
     <meta name="author" content="Adriana Herrero González">
-    <meta name="description" content="Página sobre Mieres, Asturias">
-    <meta name="keywords" content="Mieres, Asturias, noticias, imágenes, carrusel">
+    <meta name="description" content="Información turística de Mieres, Asturias: rutas, gastronomía, meteorología, noticias y más.">
+    <meta name="keywords" content="Mieres, Asturias, turismo, rutas, gastronomía, meteorología, noticias, imágenes, carrusel">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" type="text/css" href="estilo/estilo.css">
-    <link rel="stylesheet" type="text/css" href="estilo/layout.css">
+
+    <link rel="stylesheet" href="estilo/estilo.css">
+    <link rel="stylesheet" href="estilo/layout.css">
     <link rel="icon" href="multimedia/imagenes/favicon.ico">
 
-    <!-- jQuery -->
-    <script
-  src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  crossorigin="anonymous"></script>
-
-    <!-- Scripts -->
-    <script src="js/carrusel.js"></script>
-    <script src="js/noticias.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous" defer></script>
+    <script src="js/carrusel.js" defer></script>
+    <script src="js/noticias.js" defer></script>
 </head>
 
-<body> 
-    <!-- Menú de navegación -->
+<body>
+
     <header>
         <h1><a href="index.html">Turismo de Mieres</a></h1>
-        <button>☰</button>
-        <nav>
-            <a href="index.html" class="active">Inicio</a>
-            <a href="gastronomia.html">Gastronomía</a>
-            <a href="rutas.html">Rutas</a>
-            <a href="meteorologia.html">Meteorología</a>
-            <a href="juego.html">Juego</a>
-            <a href="reservas.php">Reservas</a>
-            <a href="ayuda.html">Ayuda</a>
+        <button aria-label="Abrir menú de navegación">☰</button>
+        <nav aria-label="Menú principal">
+            <ul>
+                <li><a href="index.html" class="active">Inicio</a></li>
+                <li><a href="gastronomia.html">Gastronomía</a></li>
+                <li><a href="rutas.html">Rutas</a></li>
+                <li><a href="meteorologia.html">Meteorología</a></li>
+                <li><a href="juego.html">Juego</a></li>
+                <li><a href="reservas.php">Reservas</a></li>
+                <li><a href="ayuda.html">Ayuda</a></li>
+            </ul>
         </nav>
     </header>
 
-
-    <!-- Carrusel de fotos -->
     <main>
-    <section>
-        <h2>Galería de Imágenes</h2>
-        <picture>
-            <img src="multimedia/imagenes/mapa.png" alt="Situación del concejo">
-        </picture>
+        <section>
+            <h2>Galería de imágenes</h2>
+            <figure>
+                <img src="multimedia/imagenes/mapa.png" alt="Mapa de la ubicación de Mieres en Asturias">
+                <figcaption>Situación geográfica de Mieres</figcaption>
+            </figure>
+            <nav aria-label="Controles del carrusel">
+                <ul>
+                    <li><button type="button">Anterior</button></li>
+                    <li><button type="button">Siguiente</button></li>
+                </ul>
+            </nav>
+        </section>
 
-            <button>Anterior</button>
-            <button>Siguiente</button>
-
-    </section>
-
-    <section>
-        <h2>Noticias sobre el concejo</h2>
-        <article>
-            <h4>Título de la noticia</h4>
-            <p>Contenido de la noticia:</p>
-        </article>
-    </section>
-
+        <section>
+            <h2>Noticias sobre el concejo</h2>
+            <article>
+                <h3>Título de la noticia</h3>
+                <p>Contenido de la noticia.</p>
+            </article>
+        </section>
     </main>
+
+    <footer>
+        <p>&copy; 2025 Turismo de Mieres. Todos los derechos reservados.</p>
+    </footer>
+
 </body>
 </html>
-
