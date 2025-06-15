@@ -305,8 +305,8 @@ video {
 /* Especificidad (0,0,1) */
 img {
   display: block;
-  width: 90%;
-    max-width: 100%;
+  width: 50%;
+  max-width: 30%;
   height: auto;
   border-radius: 0.5rem;
   margin: 1rem 0;
