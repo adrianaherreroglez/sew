@@ -12,7 +12,6 @@
   <link rel="stylesheet" type="text/css" href="estilo/layout.css">
   <link rel="icon" href="multimedia/imagenes/favicon.ico">
 
-  <!-- jQuery y scripts -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
           integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="js/carrusel.js"></script>
@@ -20,14 +19,16 @@
 </head>
 
 <body>
-  <a href="#contenido" class="skip-link">Saltar al contenido</a>
+  <a href="#contenido" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+    Saltar al contenido
+  </a>
 
   <header>
     <h1><a href="index.html">Turismo de Mieres</a></h1>
     <button aria-label="Abrir menú">☰</button>
     <nav aria-label="Menú principal">
       <ul>
-        <li><a href="index.html" class="active">Inicio</a></li>
+        <li><a href="index.html" style="background:#ffcc00; color:#000;">Inicio</a></li>
         <li><a href="gastronomia.html">Gastronomía</a></li>
         <li><a href="rutas.html">Rutas</a></li>
         <li><a href="meteorologia.html">Meteorología</a></li>
@@ -43,12 +44,10 @@
       <h2>Galería de Imágenes</h2>
       <picture>
         <img src="multimedia/imagenes/mapa.png"
-             alt="Mapa que muestra la situación del concejo de Mieres">
+             alt="Mapa que muestra la situación del concejo de Mieres" />
       </picture>
-      <div class="carrusel-controles">
-        <button aria-label="Imagen anterior">Anterior</button>
-        <button aria-label="Imagen siguiente">Siguiente</button>
-      </div>
+      <button aria-label="Imagen anterior">Anterior</button>
+      <button aria-label="Imagen siguiente">Siguiente</button>
     </section>
 
     <section>
