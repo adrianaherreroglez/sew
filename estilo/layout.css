@@ -21,6 +21,10 @@ nav {
   justify-content: flex-end;
 }
 
+section > picture {
+  align-items: center;
+}
+
 /* Móvil (max-width: 768px): hamburguesa VISIBLE y clicable */
 @media screen and (max-width: 768px) {
   header > button {
@@ -92,17 +96,6 @@ video {
   height: auto;
 }
 
-
-
-/* Especificidad = (0, 0, 1) */
-img {
-  display: block;
-  width: 50%;
-  max-width: 100%;
-  height: auto;
-  border-radius: 0.5rem;
-  margin: 1rem 0;
-}
 
 
 
