@@ -203,9 +203,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuestar'])) {
 </section>
 
 <form action="php/cerrar_sesion.php" method="POST">
-  <nav>
+
     <button type="submit">Cerrar Sesión</button>
-            </nav>
+
 </form>
 
 </main>

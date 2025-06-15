@@ -171,8 +171,8 @@ a[href^="#"] {
 #tabla-gastronomia caption {
   font-size: 1.25em;
   font-weight: bold;
-  padding: 0.25rem 0;         /* más compacto */
-  margin: 0.25rem 0 0.5rem 1rem; /* top más pequeño */
+  padding: 0.25rem 0;         
+  margin: 0.25rem 0 0.5rem 1rem; 
   text-align: center;
   color: #074480;
   background-color: transparent;
@@ -334,7 +334,7 @@ figure svg {
 
 
 figure img {
-    width: 4rem; /* tamaño relativo, aprox 64px si la raíz es 16px */
+    width: 4rem; 
     height: auto;
     display: block;
     margin: 0 auto 0.3rem auto;
@@ -640,8 +640,8 @@ main > section:nth-of-type(1) picture {
 
 
 main > section:nth-of-type(1) picture img {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 70%;
+  max-height: 70%;
   width: auto;
   height: auto;
   margin: auto;

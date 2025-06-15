@@ -66,10 +66,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="email" name="email" placeholder="Correo" required>
         <label>Contraseña:</label>
         <input type="password" name="password" placeholder="Contraseña" required>
-        <nav>
+
             <button>Iniciar sesión</button>
             <a href="registro.php">¿No tienes cuenta?</a>
-        </nav>
+
     </form>
 </section>
 
