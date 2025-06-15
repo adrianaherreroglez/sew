@@ -5,7 +5,7 @@ class JuegoTest {
 
         this.$form = $('main section').first().find('form');
         this.$resultado = $('main section').last();
-        this.$boton = $('main > button');
+        this.$boton = $('main > section > button');
 
         this.$mensajeError = null;
 
@@ -43,7 +43,7 @@ class JuegoTest {
 
     mostrarError(mensaje) {
         if (!this.$mensajeError) {
-            this.$mensajeError = $('<p>').css({ color: 'red', fontWeight: 'bold' });
+            this.$mensajeError = $('<p>');
         }
         this.$mensajeError.text(mensaje);
         if (!this.$mensajeError.parent().is(this.$boton.parent())) {

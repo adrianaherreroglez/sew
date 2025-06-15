@@ -28,8 +28,8 @@ p {
 header + p {
   all: unset;
   display: block;
-  margin-left: 1em; /* o el valor que prefieras */
-  margin-top: 1em;  /* para que tenga un poco de separación arriba también */
+  margin-left: 1em; 
+  margin-top: 1em;  
 }
 
 
@@ -483,8 +483,9 @@ button {
   border-radius: 0.5rem;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease;
-  white-space: nowrap;   /* evitar salto de línea dentro del botón */
+  margin-top:0.5em;
+  margin-bottom:0.5em;
+
 }
 
 section > form > nav {
@@ -771,20 +772,12 @@ select:focus, input[type="datetime-local"]:focus {
     display: flex; /* Mostrar menú al activar */
   }
 
-  button {
-    display: block;
-    font-size: 2rem;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-  }
 
 
 }
  
 @media (min-width: 769px) {
-  button {
+  header > button {
     display: none;
   }
 }
@@ -872,5 +865,15 @@ header nav a:last-child {
   header nav a {
     border: none;
     padding: 0 1rem;
+  }
+}
+
+
+@media (max-width: 500px) {
+  main > section:nth-of-type(1) nav {
+    flex-direction: column;  /* que los botones se apilen en vez de estar lado a lado */
+    gap: 0.5rem;
+    width: 80%;              /* para que no ocupen toda la pantalla */
+    margin: 0 auto;          /* centrar el contenedor */
   }
 }
