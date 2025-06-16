@@ -141,13 +141,6 @@ main > section > section {
   border-radius: 0.75em;
 }
 
-/* Especificidad (0,0,2) */
-main > section:nth-of-type(1) {
-  max-width: 75vw;
-  padding: 2rem;
-  margin: 2rem auto;
-}
-
 /* Especificidad (0,0,3) */
 main > section:nth-of-type(1) nav {
   display: flex;
@@ -297,16 +290,21 @@ dt {
 }
 
 /* Especificidad (0,0,2) */
-audio, video {
+audio{
   display: block;
   margin: 1rem 0;
   max-width: 90%;
 }
 
-/* Especificidad (0,0,1) */
+/* Especificidad (0,0,2) */
 video {
-  height: auto;
+    max-width: 80vw;  
+    width: 60%;
+    height: auto;
+    display: block;
+    margin-left:0;
 }
+
 
 /* Especificidad (0,0,1) */
 img {
